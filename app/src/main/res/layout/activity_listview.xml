@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyGroupsActivity">
+    tools:context=".Listview">
 
-    <ListView
-        android:id="@+id/simpleListView"
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/users-group" />
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/material_blue_grey_800"
-        android:dividerHeight="1dp"
-        android:footerDividersEnabled="false" />
+        android:layout_gravity="center"
+        android:padding="@dimen/activity_horizontal_margin" />
+
 </android.support.constraint.ConstraintLayout>

@@ -8,22 +8,18 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class MyGroupsActivity extends AppCompatActivity {
-    ListView groups_listView;
-
-    ArrayList<String> myGroups;
+    ListView simpleList;
+    String countryList[] = {"India", "China", "australia", "Portugle", "America", "NewZealand"};
+    int flags[] = {R.drawable.users_group, R.drawable.users_group, R.drawable.users_group, R.drawable.users_group, R.drawable.users_group, R.drawable.users_group};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
 
-        myGroups = new ArrayList<>();
-        myGroups.add("Famille");
-        myGroups.add("Amis");
-        myGroups.add("Sorties");
 
-        groups_listView = (ListView)findViewById(R.id.groups_listView);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_my_groups, R.id.groups_listView, myGroups);
-        groups_listView.setAdapter(arrayAdapter);
+        simpleList = (ListView) findViewById(R.id.simpleListView);
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), countryList, flags);
+        simpleList.setAdapter(customAdapter);
     }
 }
