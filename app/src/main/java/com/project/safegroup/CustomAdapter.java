@@ -1,4 +1,4 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.content.Context;
 import android.media.Image;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.louis.safegroup.R;
 
 import java.util.zip.Inflater;
 
@@ -41,7 +43,7 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflter.inflate(R.layout.activity_my_groups, null);
+        view = inflter.inflate(R.layout.activity_listview, null);
         TextView country = (TextView) view.findViewById(R.id.textView);
         ImageView icon = (ImageView) view.findViewById(R.id.icon);
         country.setText(countryList[i]);

@@ -1,16 +1,18 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.louis.safegroup.R;
+
 import java.util.ArrayList;
 
 public class MyGroupsActivity extends AppCompatActivity {
     ListView simpleList;
-    String countryList[] = {"India", "China", "australia", "Portugle", "America", "NewZealand"};
-    int flags[] = {R.drawable.users_group, R.drawable.users_group, R.drawable.users_group, R.drawable.users_group, R.drawable.users_group, R.drawable.users_group};
+    String countryList[] = {"Favoris", "Soirées", "Famille", "Amis", "Travail", "Autres"};
+    int flags[] = {R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,12 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MyGroupsActivity">
-
-    <ListView
-        android:id="@+id/simpleListView"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/material_blue_grey_800"
-        android:dividerHeight="1dp"
-        android:footerDividersEnabled="false" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="35dp"
+            android:text="Mes groupes :"/>
+
+        <ListView
+            android:id="@+id/simpleListView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/material_blue_grey_800"
+            android:dividerHeight="1dp"
+            android:footerDividersEnabled="false" />
+
+    </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>
