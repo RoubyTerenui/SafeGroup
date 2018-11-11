@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class MyGroupsActivity extends AppCompatActivity {
     ListView simpleList;
     String countryList[] = {"Favoris", "Soirées", "Famille", "Amis", "Travail", "Autres"};
-    int flags[] = {R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp, R.drawable.ic_notifications_black_24dp};
+    int flags[] = {R.drawable.favorite_icon, R.drawable.party_icon, R.drawable.family_icon, R.drawable.friends_icon, R.drawable.work_icon, R.drawable.other_icon};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
