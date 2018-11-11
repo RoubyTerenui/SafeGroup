@@ -27,7 +27,11 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Listview"></activity>
+        <activity android:name=".Listview" />
+        <activity
+            android:name=".GestionGroupActivity"
+            android:label="@string/title_activity_gestion_group"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

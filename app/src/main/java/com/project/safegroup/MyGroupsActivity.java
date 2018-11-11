@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.louis.safegroup.R;
+import com.project.safegroup.R;
 
 import java.util.ArrayList;
 

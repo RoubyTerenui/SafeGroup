@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.louis.safegroup.R;
+import com.project.safegroup.R;
 
 public class MainActivity extends AppCompatActivity {
 
