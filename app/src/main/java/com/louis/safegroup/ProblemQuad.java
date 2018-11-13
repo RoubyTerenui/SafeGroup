@@ -32,7 +32,7 @@ public class ProblemQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(4);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 
@@ -41,7 +41,7 @@ public class ProblemQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(5);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 
@@ -50,7 +50,7 @@ public class ProblemQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(6);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
         NeedOutButton.setOnClickListener(new View.OnClickListener(){
@@ -58,7 +58,7 @@ public class ProblemQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(7);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 

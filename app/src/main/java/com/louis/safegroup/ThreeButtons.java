@@ -34,7 +34,7 @@ public class ThreeButtons extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setState(0);
-                ((MainActivity)getActivity()).setViewPager(1);
+                ((MainActivity)getActivity()).setFragment(1);
             }
         });
 
@@ -43,7 +43,7 @@ public class ThreeButtons extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setState(1);
-                ((MainActivity)getActivity()).setViewPager(2);
+                ((MainActivity)getActivity()).setFragment(2);
             }
         });
 
@@ -52,7 +52,7 @@ public class ThreeButtons extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setState(2);
-                ((MainActivity)getActivity()).setViewPager(3);
+                ((MainActivity)getActivity()).setFragment(3);
             }
         });
 

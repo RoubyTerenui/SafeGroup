@@ -32,8 +32,7 @@ public class GroupQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setGroup(0);
-                ((MainActivity)getActivity()).setViewPager(5);
-                ((MainActivity)getActivity()).setNotificationDetail();
+                ((MainActivity)getActivity()).setFragment(5);
             }
         });
 
@@ -42,8 +41,7 @@ public class GroupQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setGroup(1);
-                ((MainActivity)getActivity()).setViewPager(5);
-                ((MainActivity)getActivity()).setNotificationDetail();
+                ((MainActivity)getActivity()).setFragment(5);
             }
         });
 
@@ -51,8 +49,7 @@ public class GroupQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setGroup(2);
-                ((MainActivity)getActivity()).setViewPager(5);
-                ((MainActivity)getActivity()).setNotificationDetail();
+                ((MainActivity)getActivity()).setFragment(5);
             }
         });
 
@@ -60,8 +57,7 @@ public class GroupQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setGroup(3);
-                ((MainActivity)getActivity()).setViewPager(5);
-                ((MainActivity)getActivity()).setNotificationDetail();
+                ((MainActivity)getActivity()).setFragment(5);
             }
         });
         return view;

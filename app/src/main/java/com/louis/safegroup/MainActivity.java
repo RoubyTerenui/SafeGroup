@@ -1,11 +1,14 @@
 package com.louis.safegroup;
 
+import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -13,8 +16,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private ViewPager mViewPager;
-    private SectionStatePageAdapter mSectionStatePageAdapter;
+    private ThreeButtons mainFragment;
+    private ProblemQuad problemQuad;
+    private DangerQuad dangerQuad;
+    private SafeQuad safeQuad;
+    private GroupQuad groupQuad;
+    private NotificationRecap notificationRecap;
+    //private SectionStatePageAdapter mSectionStatePageAdapter;
     private int localState;
     private int localStatePrecision;
     private int localGroup;
@@ -26,14 +34,11 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    //mTextMessage.setText(R.string.title_home);
-                    setViewPager(0);
+                    setFragment(0);
                     return true;
                 case R.id.navigation_dashboard:
-                    //mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    //mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -46,20 +51,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        mSectionStatePageAdapter = new SectionStatePageAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.fragmentContainer);
-        setupViewPager(mViewPager);
+        this.configureAndShowMainFragment();
     }
 
-    private void setupViewPager(ViewPager viewPager){
-    SectionStatePageAdapter adapter = new SectionStatePageAdapter(getSupportFragmentManager());
-    adapter.addFragment(new ThreeButtons(),"com.louis.safegroup.ThreeButtons");
-    adapter.addFragment(new DangerQuad(),"com.louis.safegroup.DangerQuad");
-    adapter.addFragment(new ProblemQuad(),"com.louis.safegroup.ProblemQuad");
-    adapter.addFragment(new SafeQuad(),"com.louis.safegroup.SafeQuad");
-    adapter.addFragment(new GroupQuad(),"com.louis.safegroup.GroupQuad");
-    adapter.addFragment(new NotificationRecap(),"com.louis.safegroup.NotificationRecap");
-    viewPager.setAdapter(adapter);
+    private void configureAndShowMainFragment(){
+
+        mainFragment = (ThreeButtons) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
+        problemQuad= new ProblemQuad();
+        dangerQuad = new DangerQuad();
+        safeQuad = new SafeQuad();
+        groupQuad = new GroupQuad();
+        notificationRecap = new NotificationRecap();
+        if (mainFragment == null) {
+            mainFragment = new ThreeButtons();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.frame_layout_main, mainFragment)
+                    .commit();
+        }
     }
 
     public void setState(int state){ localState = state; }
@@ -76,10 +84,28 @@ public class MainActivity extends AppCompatActivity {
         rl.setBackgroundColor(stateColor[localState]);
     }
 
-
-    public void setViewPager(int fragId){
-        mViewPager.setCurrentItem((fragId));
+    public void setFragment(int fragId){
+        switch (fragId) {
+            case 0:
+                    getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                break;
+            case 1:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,dangerQuad).addToBackStack("begin").commit();
+                break;
+            case 2:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,problemQuad).addToBackStack("begin").commit();
+                break;
+            case 3:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,safeQuad).addToBackStack("begin").commit();
+                break;
+            case 4:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,groupQuad).addToBackStack(null).commit();
+                break;
+            case 5:
+                getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,notificationRecap).addToBackStack("begin").commit();
+                break;
+            default:
+                break;
+        }
     }
+
 
     public void setNotificationDetail(){
         Resources res = getResources();

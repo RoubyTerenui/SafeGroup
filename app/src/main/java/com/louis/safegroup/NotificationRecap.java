@@ -29,9 +29,15 @@ public class NotificationRecap extends Fragment {
 
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setViewPager(0);
+                ((MainActivity)getActivity()).setFragment(0);
             }
         });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setNotificationDetail();
     }
 }
