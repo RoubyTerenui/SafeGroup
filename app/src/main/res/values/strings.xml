@@ -3,4 +3,67 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="danger">Danger</string>
+    <string name="problem">Besoin</string>
+    <string name="safe">Sécurité</string>
+    <string name="title_activity_three_button">ThreeButton</string>
+
+    <string name="hurt">Blessé</string>
+    <string name="freeze">Gelé</string>
+    <string name="aggressed">Aggressé</string>
+    <string name="lost">Perdu</string>
+
+    <string name="sad">Triste</string>
+    <string name="needOut">Besoin de sortir</string>
+    <string name="angry">En colère</string>
+    <string name="needLove">Besoin d\'amour</string>
+
+    <string name="friendHome">Chez un ami</string>
+    <string name="myHome">A la maison</string>
+    <string name="underWatch">Sous surveillance</string>
+    <string name="ready"> Pret</string>
+
+    <string name="all">Tous</string>
+    <string name="favorite">Favoris</string>
+    <string name="party">Fête</string>
+    <string name="selectPrecisely">Personnalisés</string>
+
+    <string name="selection_messages">Apporte des précisions à ton état</string>
+    <string name="group_messages">Sélectionne les groupes à notifier</string>
+    <string name="notification_message">Notification envoyée !</string>
+    <string name="notification_detail_message">Vous avez notifié un état de %1$s ( %2$s ) aux groupes " %3$s ".</string>
+
+    <array name="state">
+        <item>@string/danger</item>
+        <item>@string/problem</item>
+        <item>@string/safe</item>
+    </array>
+
+    <array name="group">
+        <item>@string/all</item>
+        <item>@string/favorite</item>
+        <item>@string/party</item>
+        <item>@string/selectPrecisely</item>
+    </array>
+
+
+    <array name="precise_state">
+        <item>@string/hurt</item>
+        <item>@string/aggressed</item>
+        <item>@string/freeze</item>
+        <item>@string/lost</item>
+        <item>@string/sad</item>
+        <item>@string/needLove</item>
+        <item>@string/angry</item>
+        <item>@string/needOut</item>
+
+        <item>@string/myHome</item>
+        <item>@string/friendHome</item>
+        <item>@string/underWatch</item>
+        <item>@string/ready</item>
+    </array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
