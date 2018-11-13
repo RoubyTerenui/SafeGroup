@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <Button
+        android:id="@+id/sad_button"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorOrangeButton"
+        android:text="@string/sad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/angry_button"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/colorOrangeButton"
+        android:text="@string/angry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sad_button" />
+
+    <Button
+        android:id="@+id/needOut_button"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/colorOrangeButton"
+        android:text="@string/needOut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/needLove_button" />
+
+    <Button
+        android:id="@+id/needLove_button"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorOrangeButton"
+        android:text="@string/needLove"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.799"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/selection_messages"
+        android:textColor="@color/colorOutsideButton"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

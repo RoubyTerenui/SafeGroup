@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <Button
+        android:id="@+id/all_button"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorBlueButton"
+        android:text="@string/all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/party_button"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/colorBlueButton"
+        android:text="@string/party"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/all_button" />
+
+    <Button
+        android:id="@+id/selectPrecisely_button"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/colorBlueButton"
+        android:text="@string/selectPrecisely"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favorite_button" />
+
+    <Button
+        android:id="@+id/favorite_button"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorBlueButton"
+        android:text="@string/favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.799"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/group_messages"
+        android:textColor="@color/colorOutsideButton"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

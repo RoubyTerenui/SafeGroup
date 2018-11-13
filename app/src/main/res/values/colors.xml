@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorRedButton">#DD4444</color>
+    <color name="colorOrangeButton">#DD9944</color>
+    <color name="colorGreenButton">#44DD44</color>
+    <color name="colorBlueButton">#4444DD</color>
+    <color name="colorOutsideButton">#222233</color>
+
+    <array name="state_color">
+        <item>@color/colorRedButton</item>
+        <item>@color/colorOrangeButton</item>
+        <item>@color/colorGreenButton</item>
+        <item>@color/colorOutsideButton</item>
+    </array>
 </resources>
