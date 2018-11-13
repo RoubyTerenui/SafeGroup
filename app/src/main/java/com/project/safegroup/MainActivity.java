@@ -1,4 +1,4 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -11,6 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.louis.safegroup.NotificationRecap;
+import com.louis.safegroup.ProblemQuad;
+import com.louis.safegroup.R;
+import com.louis.safegroup.SafeQuad;
+import com.louis.safegroup.SectionStatePageAdapter;
+import com.louis.safegroup.ThreeButtons;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;

@@ -1,4 +1,4 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.nfc.Tag;
 import android.os.Bundle;

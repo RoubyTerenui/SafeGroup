@@ -1,4 +1,4 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.louis.safegroup.R;
 
 import org.w3c.dom.Text;
 

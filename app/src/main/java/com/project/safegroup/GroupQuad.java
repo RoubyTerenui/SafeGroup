@@ -1,4 +1,4 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.louis.safegroup.MainActivity;
+import com.louis.safegroup.R;
 
 public class GroupQuad extends Fragment {
     private static final String TAG = "com.louis.safegroup.SafeQuad";

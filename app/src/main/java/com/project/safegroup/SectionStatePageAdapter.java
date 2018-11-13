@@ -1,4 +1,4 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

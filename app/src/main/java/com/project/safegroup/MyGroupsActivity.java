@@ -1,9 +1,11 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.louis.safegroup.R;
 
 import java.util.ArrayList;
 
