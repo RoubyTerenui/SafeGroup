@@ -13,29 +13,38 @@ import android.widget.Toast;
 
 import com.project.safegroup.R;
 
-import java.util.zip.Inflater;
+import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
     Context context;
-    String countryList[];
-    int flags[];
+    //String countryList[];
+    //int flags[];
+    ArrayList<String> countryList;
+    ArrayList<Integer> flags;
     LayoutInflater inflter;
 
-    public CustomAdapter(Context applicationContext, String[] countryList, int[] flags) {
+    public CustomAdapter(Context applicationContext, ArrayList<String> countryList, ArrayList<Integer> flags) {
         this.context = context;
         this.countryList = countryList;
         this.flags = flags;
         inflter = (LayoutInflater.from(applicationContext));
     }
+/*
+    public CustomAdapter(Context applicationContext, String[] countryList, int[] flags) {
+        this.context = context;
+        this.countryList = countryList;
+        this.flags = flags;
+        inflter = (LayoutInflater.from(applicationContext));
+    }*/
 
     @Override
     public int getCount() {
-        return countryList.length;
+        return countryList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return countryList.get(i);
     }
 
     @Override
@@ -45,13 +54,13 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        final String element = countryList[i];
-        final int icon = flags[i];
+        final String element = countryList.get(i);
+        final int icon = flags.get(i);
 
         view = inflter.inflate(R.layout.activity_listview, null);
         final TextView textView = (TextView) view.findViewById(R.id.textView);
         //textView.setClickable(true);
-        textView.setText(countryList[i]);
+        textView.setText(countryList.get(i));
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +69,7 @@ public class CustomAdapter extends BaseAdapter {
         });
 
         ImageView imageView = (ImageView) view.findViewById(R.id.icon);
-        imageView.setImageResource(flags[i]);
+        imageView.setImageResource(flags.get(i));
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,5 +83,8 @@ public class CustomAdapter extends BaseAdapter {
         //System.out.println("VIEW = " + view.getContext().getApplicationContext().toString());
         //this.context.startActivity(new Intent(view.getContext().getApplicationContext() , GestionGroupActivity.class));
         Toast.makeText(view.getContext(), "Click sur \"" + element + "\"", Toast.LENGTH_SHORT).show();
+        countryList.add(1, "test");
+        flags.add(1, R.drawable.favorite_icon);
+        this.notifyDataSetChanged();
     }
 }
