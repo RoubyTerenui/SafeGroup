@@ -33,7 +33,6 @@ public class ThreeButtons extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Going to Danger State Selector",Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).setState(0);
                 ((MainActivity)getActivity()).setViewPager(1);
             }
@@ -43,7 +42,6 @@ public class ThreeButtons extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Going to Problem State Selector",Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).setState(1);
                 ((MainActivity)getActivity()).setViewPager(2);
             }
@@ -53,7 +51,6 @@ public class ThreeButtons extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Going to Safe State Selector",Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).setState(2);
                 ((MainActivity)getActivity()).setViewPager(3);
             }
