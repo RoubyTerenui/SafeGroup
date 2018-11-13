@@ -12,12 +12,12 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.louis.safegroup.NotificationRecap;
-import com.louis.safegroup.ProblemQuad;
-import com.louis.safegroup.R;
-import com.louis.safegroup.SafeQuad;
-import com.louis.safegroup.SectionStatePageAdapter;
-import com.louis.safegroup.ThreeButtons;
+import com.project.safegroup.NotificationRecap;
+import com.project.safegroup.ProblemQuad;
+import com.project.safegroup.R;
+import com.project.safegroup.SafeQuad;
+import com.project.safegroup.SectionStatePageAdapter;
+import com.project.safegroup.ThreeButtons;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;

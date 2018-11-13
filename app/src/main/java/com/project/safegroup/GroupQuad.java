@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.louis.safegroup.MainActivity;
-import com.louis.safegroup.R;
+import com.project.safegroup.MainActivity;
+import com.project.safegroup.R;
 
 public class GroupQuad extends Fragment {
     private static final String TAG = "com.louis.safegroup.SafeQuad";

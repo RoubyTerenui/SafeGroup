@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.louis.safegroup.R;
+import com.project.safegroup.R;
 
 import org.w3c.dom.Text;
 

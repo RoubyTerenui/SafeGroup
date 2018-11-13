@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.louis.safegroup.R;
+import com.project.safegroup.R;
 
 public class ThreeButtons extends Fragment {
     private static final String TAG = "com.louis.safegroup.ThreeButtons";

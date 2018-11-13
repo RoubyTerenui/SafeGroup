@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.louis.safegroup.R;
+import com.project.safegroup.R;
 
 public class ProblemQuad extends Fragment {
     private static final String TAG = "com.louis.safegroup.ProblemQuad";
