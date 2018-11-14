@@ -1,5 +1,7 @@
 package dataBase.model;
 
+import android.support.annotation.Nullable;
+
 public class User {
 
     // --- FIELDS ---
@@ -8,8 +10,8 @@ public class User {
     private String lastname;
     private String nickname;
     private String uid;
-    //@Nullable(pour une photo de profil)
-    //private String urlPicture;
+    @Nullable
+    private String urlPicture;
 //TO DO ajouter une classe USER Differente qui pourra differer selon les groupes
     // --- CONSTRUCTORS ---
 
