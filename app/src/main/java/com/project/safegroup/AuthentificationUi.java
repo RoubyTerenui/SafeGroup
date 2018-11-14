@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.project.safegroup.GroupDetails.GroupListActivity;
 
 import java.util.Arrays;
 
@@ -55,6 +56,15 @@ public class AuthentificationUi extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        Button mButtonTestGroups = (Button) findViewById(R.id.TestGroups);
+        mButtonTestGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getBaseContext(), GroupListActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
     public void attemptLogin() {

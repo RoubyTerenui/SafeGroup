@@ -62,6 +62,15 @@
                 android:text="@string/destroy_account"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/TestGroups"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Test activity groups"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

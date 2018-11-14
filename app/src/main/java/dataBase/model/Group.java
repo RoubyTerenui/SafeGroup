@@ -22,6 +22,11 @@ public class Group {
         this.typeOfGroup = typeOfGroup;
     }
 
+    public Group(String gid, String name){
+        this.gid = gid;
+        this.name = name;
+    }
+
     // --- GETTERS ---
     public String getName() {        return name;    }
     public int getTypeOfGroup() {        return typeOfGroup;    }
