@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private SafeQuad safeQuad;
     private GroupQuad groupQuad;
     private NotificationRecap notificationRecap;
+    private GroupSelection groupSelection;
     //private SectionStatePageAdapter mSectionStatePageAdapter;
     private int localState;
     private int localStatePrecision;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         safeQuad = new SafeQuad();
         groupQuad = new GroupQuad();
         notificationRecap = new NotificationRecap();
+        groupSelection = new GroupSelection();
         if (mainFragment == null) {
             mainFragment = new ThreeButtons();
             getSupportFragmentManager().beginTransaction()
@@ -98,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
             case 4:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,groupQuad).addToBackStack(null).commit();
                 break;
             case 5:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,groupSelection).addToBackStack(null).commit();
+                break;
+            case 6:
                 getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,notificationRecap).addToBackStack("begin").commit();
                 break;
