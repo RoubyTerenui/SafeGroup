@@ -1,4 +1,4 @@
-package com.louis.safegroup;
+package com.project.safegroup;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,7 +21,7 @@ public class GroupSelection extends Fragment {
 
         View view = inflater.inflate(R.layout.group_selection,container,false);
         sendButton = (Button) view.findViewById(R.id.sendButton);
-        groupList = (ListView) view.findViewById(R.id.groups_listView);
+        groupList = (ListView) view.findViewById(R.id.groupSelectionList);
 
 
         sendButton.setOnClickListener(new View.OnClickListener(){
