@@ -1,16 +1,14 @@
 <resources>
-    <string name="app_name">SafeGroup</string>
-    <string name="title_home">Accueil</string>
-    <string name="title_dashboard">Mes groupes</string>
-    <string name="title_notifications">Paramètres</string>
+    <string name="app_name" translatable="false">SafeGroup</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">My groups</string>
+    <string name="title_notifications">Settings</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="disconnect_message">Disconnect</string>
@@ -21,34 +19,35 @@
     </string>
 
     <string name="danger">Danger</string>
-    <string name="problem">Besoin</string>
-    <string name="safe">Sécurité</string>
-    <string name="title_activity_three_button">ThreeButton</string>
+    <string name="problem">Problem</string>
+    <string name="safe">Safe</string>
+    <string name="title_activity_three_button" translatable="false">ThreeButton</string>
 
-    <string name="hurt">Blessé</string>
-    <string name="freeze">Gelé</string>
-    <string name="aggressed">Aggressé</string>
-    <string name="lost">Perdu</string>
+    <string name="hurt">Hurt</string>
+    <string name="freeze">Frozen</string>
+    <string name="aggressed">Assaulted</string>
+    <string name="lost">Lost</string>
 
-    <string name="sad">Triste</string>
-    <string name="needOut">Besoin de sortir</string>
-    <string name="angry">En colère</string>
-    <string name="needLove">Besoin d\'amour</string>
+    <string name="sad">Sad</string>
+    <string name="needOut">Need to party</string>
+    <string name="angry">Angry</string>
+    <string name="needLove">Need love</string>
 
-    <string name="friendHome">Chez un ami</string>
-    <string name="myHome">A la maison</string>
-    <string name="underWatch">Sous surveillance</string>
-    <string name="ready"> Pret</string>
+    <string name="friendHome">At a friend\'s home</string>
+    <string name="myHome">At home</string>
+    <string name="underWatch">Under watch</string>
+    <string name="ready">Ready</string>
 
-    <string name="all">Tous</string>
-    <string name="favorite">Favoris</string>
-    <string name="party">Fête</string>
-    <string name="selectPrecisely">Personnalisés</string>
+    <string name="all">All</string>
+    <string name="favorite">Favorite</string>
+    <string name="party">Party</string>
+    <string name="selectPrecisely">Select others</string>
 
-    <string name="selection_messages">Apporte des précisions à ton état</string>
-    <string name="group_messages">Sélectionne les groupes à notifier</string>
-    <string name="notification_message">Notification envoyée !</string>
-    <string name="notification_detail_message">Vous avez notifié un état de %1$s ( %2$s ) aux groupes " %3$s ".</string>
+    <string name="selection_messages">Precise your state</string>
+    <string name="group_messages">Select groups to notify</string>
+    <string name="group_confirmer">Send</string>
+    <string name="notification_message">Notification send !</string>
+    <string name="notification_detail_message">You just notified : %1$s ( %2$s ) to groups " %3$s ".</string>
 
     <array name="state">
         <item>@string/danger</item>
@@ -81,6 +80,8 @@
     </array>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_gestion_group">GestionGroupActivity</string>
 </resources>

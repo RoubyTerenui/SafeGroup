@@ -36,7 +36,7 @@ public class DangerQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(0);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 
@@ -45,7 +45,7 @@ public class DangerQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(1);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 
@@ -54,7 +54,7 @@ public class DangerQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(2);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
         lostButton.setOnClickListener(new View.OnClickListener(){
@@ -62,7 +62,7 @@ public class DangerQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(3);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 

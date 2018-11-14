@@ -34,7 +34,7 @@ public class SafeQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(8);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 
@@ -43,7 +43,7 @@ public class SafeQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(9);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 
@@ -52,7 +52,7 @@ public class SafeQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(10);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
         readyButton.setOnClickListener(new View.OnClickListener(){
@@ -60,7 +60,7 @@ public class SafeQuad extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setStatePrecision(11);
-                ((MainActivity)getActivity()).setViewPager(4);
+                ((MainActivity)getActivity()).setFragment(4);
             }
         });
 

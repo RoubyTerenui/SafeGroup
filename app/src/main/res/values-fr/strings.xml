@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_home">Accueil</string>
+    <string name="title_dashboard">Mes groupes</string>
+    <string name="title_notifications">Paramètres</string>
+    <string name="title_activity_login">Se connecter</string>
+    <string name="prompt_password">Mot de passe (optionnel)</string>
+    <string name="action_sign_in">Se connecter ou s\'enregistrer</string>
+    <string name="action_sign_in_short">Se connecter</string>
+    <string name="error_invalid_email">Cette adresse email est invalide</string>
+    <string name="error_invalid_password">Ce mot de passe est trop court</string>
+    <string name="error_incorrect_password">Ce mot de passe est incorrect</string>
+    <string name="error_field_required">Ce champ est obligatoire</string>
+    <string name="danger">Danger</string>
+    <string name="problem">Besoin</string>
+    <string name="safe">Sécurité</string>
+    <string name="hurt">Blessé</string>
+    <string name="freeze">Gelé</string>
+    <string name="aggressed">Aggressé</string>
+    <string name="lost">Perdu</string>
+    <string name="sad">Triste</string>
+    <string name="needOut">Besoin de sortir</string>
+    <string name="angry">En colère</string>
+    <string name="needLove">Besoin d\'amour</string>
+    <string name="myHome">A la maison</string>
+    <string name="friendHome">Chez un ami</string>
+    <string name="underWatch">Sous surveillance</string>
+    <string name="ready">" Pret"</string>
+    <string name="all">Tous</string>
+    <string name="favorite">Favoris</string>
+    <string name="party">Fête</string>
+    <string name="selectPrecisely">Personnalisés</string>
+    <string name="selection_messages">Apporter des précisions à ton état</string>
+    <string name="group_messages">Selectionner les groupes à notifier</string>
+    <string name="group_confirmer">Envoyer</string>
+    <string name="notification_message">Notification envoyée !</string>
+    <string name="notification_detail_message">Vous avez notifié un état de %1$s ( %2$s ) aux groupes  %3$s .</string>
+    <string name="hello_blank_fragment">Bonjour fragment blanc</string>
+    <string name="permission_rationale">Permission d\'accès aux contacts nécesssaire pour l\'email</string>
+</resources>
