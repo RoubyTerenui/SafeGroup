@@ -1,4 +1,4 @@
-/*package dataBase.collections;
+package dataBase.collections;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -24,8 +24,8 @@ public class UserHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> createUser(String nickname, String uid) {
-        User userToCreate = new User(nickname,uid);
+    public static Task<Void> createUser(String firstname, String lastname, String nickname, String uid) {
+        User userToCreate = new User(firstname,lastname,nickname,uid);
         return UserHelper.getUsersCollection().document(uid).set(userToCreate);
     }
 
@@ -70,4 +70,3 @@ public class UserHelper {
 
     }
 }
-*/
