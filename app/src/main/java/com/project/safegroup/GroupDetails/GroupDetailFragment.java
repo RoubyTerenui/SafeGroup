@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.project.safegroup.R;
 import com.project.safegroup.GroupDetails.dummy.DummyContent;
 
+import dataBase.model.Group;
+
 /**
  * A fragment representing a single Group detail screen.
  * This fragment is either contained in a {@link GroupListActivity}
@@ -28,7 +30,7 @@ public class GroupDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.Group mItem;
+    private Group mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -50,7 +52,7 @@ public class GroupDetailFragment extends Fragment {
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle(mItem.getName());
             }
         }
     }
@@ -62,7 +64,8 @@ public class GroupDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.group_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator().getNickname());
+            ((TextView) rootView.findViewById(R.id.group_detail_typegroup)).setText("Type of Group : " + mItem.getTypeOfGroup());
         }
 
         return rootView;

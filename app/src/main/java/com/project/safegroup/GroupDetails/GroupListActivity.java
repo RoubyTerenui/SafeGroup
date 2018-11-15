@@ -20,6 +20,8 @@ import com.project.safegroup.GroupDetails.dummy.DummyContent;
 
 import java.util.List;
 
+import dataBase.model.Group;
+
 /**
  * An activity representing a list of Groups. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -75,15 +77,15 @@ public class GroupListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final GroupListActivity mParentActivity;
-        private final List<DummyContent.Group> mValues;
+        private final List<Group> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.Group item = (DummyContent.Group) view.getTag();
+                Group item = (Group) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(GroupDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putString(GroupDetailFragment.ARG_ITEM_ID, item.getGid());
                     GroupDetailFragment fragment = new GroupDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -92,7 +94,7 @@ public class GroupListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, GroupDetailActivity.class);
-                    intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, item.id);
+                    intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, item.getGid());
 
                     context.startActivity(intent);
                 }
@@ -100,7 +102,7 @@ public class GroupListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(GroupListActivity parent,
-                                      List<DummyContent.Group> items,
+                                      List<Group> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
@@ -116,8 +118,8 @@ public class GroupListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(mValues.get(position).getGid());
+            holder.mContentView.setText(mValues.get(position).getName());
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
