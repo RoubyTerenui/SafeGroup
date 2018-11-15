@@ -1,9 +1,6 @@
-package dataBase.collections;
+/*package dataBase.collections;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import dataBase.model.Group;
 import dataBase.model.User;
@@ -18,7 +15,7 @@ public class GroupHelper {
 
     public static CollectionReference getGroupsCollection(){
 
-        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
+        return Firebase.getInstance().collection(COLLECTION_NAME);
 
     }
 
@@ -69,3 +66,4 @@ public class GroupHelper {
     }
 
 }
+*/

@@ -32,6 +32,7 @@ import com.project.safegroup.ThreeButtons;
 
 import java.util.Arrays;
 
+
 public class MainActivity extends AppCompatActivity {
     private ThreeButtons mainFragment;
     private ProblemQuad problemQuad;
