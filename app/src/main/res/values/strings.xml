@@ -84,4 +84,6 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_gestion_group">GestionGroupActivity</string>
+    <string name="title_group_list">Groups</string>
+    <string name="title_group_detail">Group Detail</string>
 </resources>

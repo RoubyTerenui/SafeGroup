@@ -22,6 +22,8 @@ public class Group {
         this.typeOfGroup = typeOfGroup;
     }
 
+
+
     // --- GETTERS ---
     public String getName() {        return name;    }
     public int getTypeOfGroup() {        return typeOfGroup;    }

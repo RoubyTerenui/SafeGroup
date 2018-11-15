@@ -27,7 +27,20 @@
         <activity
             android:name=".GestionGroupActivity"
             android:label="@string/title_activity_gestion_group"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GroupDetails.GroupListActivity"
+            android:label="@string/title_group_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".GroupDetails.GroupDetailActivity"
+            android:label="@string/title_group_detail"
+            android:parentActivityName=".GroupDetails.GroupListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.project.safegroup.GroupDetails.GroupListActivity" />
+        </activity>
     </application>
 
 </manifest>
