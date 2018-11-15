@@ -23,6 +23,8 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.project.safegroup.GroupDetails.GroupDetailActivity;
+import com.project.safegroup.GroupDetails.GroupListActivity;
 import com.project.safegroup.NotificationRecap;
 import com.project.safegroup.ProblemQuad;
 import com.project.safegroup.R;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     setFragment(0);
                     return true;
                 case R.id.navigation_dashboard:
+                    Intent intent = new Intent(getBaseContext(), GestionGroupActivity.class);
+                    startActivity(intent);
                     return true;
                 case R.id.navigation_notifications:
                     return true;
