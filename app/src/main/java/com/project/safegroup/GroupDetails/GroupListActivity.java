@@ -20,8 +20,6 @@ import com.project.safegroup.GroupDetails.dummy.DummyContent;
 
 import java.util.List;
 
-import dataBase.model.Group;
-
 /**
  * An activity representing a list of Groups. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -77,12 +75,12 @@ public class GroupListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final GroupListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<DummyContent.Group> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                DummyContent.Group item = (DummyContent.Group) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(GroupDetailFragment.ARG_ITEM_ID, item.id);
@@ -102,7 +100,7 @@ public class GroupListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(GroupListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+                                      List<DummyContent.Group> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
