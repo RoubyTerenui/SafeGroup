@@ -1,41 +1,63 @@
 package dataBase.model;
 
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Group {
 
     // --- FIELDS ---
 
+    private String gr_id;
     private String name;
-    private String gid;
-    private User administrator ;
-    //@Nullable(pour une photo de profil)
-    //private String urlPicture;
-    private int typeOfGroup ;
-    //Rajouter une Liste de User(non identifié par leurs ID)
+    private String administrator ;
+    private List<Integer> typeOfGroup ;
+    private List<String> members;
+    private DatabaseReference mDatabase;
+
     // --- CONSTRUCTORS ---
 
-    public Group() {    }
+    public Group(Group group,DatabaseReference mDatabase) {
+        this.gr_id = group.getGr_id();
+        this.name = group.getName();
+        this.administrator = group.getAdministrator();
+        this.typeOfGroup = group.getTypeOfGroup();
+        this.members=group.getMembers();
+        this.mDatabase = mDatabase ;
+    }
 
-    public Group(String name, String gid, User administrator, int typeOfGroup) {
+    public Group(String gr_id, String name, String administrator, List<Integer> typeOfGroup ,DatabaseReference mDatabase) {
+        this.gr_id = gr_id;
         this.name = name;
-        this.gid = gid;
         this.administrator = administrator;
         this.typeOfGroup = typeOfGroup;
+        this.members=new ArrayList<String>();
+        this.members.add(administrator);
+        this.mDatabase = mDatabase ;
     }
 
 
 
     // --- GETTERS ---
     public String getName() {        return name;    }
-    public int getTypeOfGroup() {        return typeOfGroup;    }
-    public User getAdministrator() {        return administrator;    }
-    public String getGid(){     return gid;    }
+    public List<Integer> getTypeOfGroup() {        return typeOfGroup;    }
+    public String getAdministrator() {        return administrator;    }
+    public String getGr_id(){     return gr_id;    }
+    public List<String> getMembers() {        return members;    }
 
     // --- SETTERS ---
-    public void setAdministrator(User administrator) {        this.administrator = administrator;    }
+    public void setAdministrator(String administrator) {        this.administrator = administrator;    }
     public void setName(String name) {        this.name = name;    }
-    public void setTypeOfGroup(int typeOfGroup) {        this.typeOfGroup = typeOfGroup;    }
-    public void SetGid(String gid){     this.gid=gid;    }
+    public void setTypeOfGroup(List<Integer> typeOfGroup) {        this.typeOfGroup = typeOfGroup;    }
+    public void setGr_id(String gr_id){     this.gr_id =gr_id;    }
+    public void setMembers(List<String> members) {        this.members = members;    }
 
+// ---TO PUSH DATA in the DATABASE---
 
-
+    public void pushGroup_toDataBase(){
+        mDatabase.child("groups").child(this.gr_id).setValue(this);
+    }
 }
+
+

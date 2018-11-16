@@ -21,10 +21,15 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.safegroup.GroupDetails.GroupDetailActivity;
 import com.project.safegroup.GroupDetails.GroupListActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.project.safegroup.NotificationRecap;
 import com.project.safegroup.ProblemQuad;
 import com.project.safegroup.R;
@@ -33,6 +38,8 @@ import com.project.safegroup.SectionStatePageAdapter;
 import com.project.safegroup.ThreeButtons;
 
 import java.util.Arrays;
+
+import dataBase.model.User;
 
 public class MainActivity extends AppCompatActivity {
     private ThreeButtons mainFragment;
@@ -46,8 +53,13 @@ public class MainActivity extends AppCompatActivity {
     private int localState;
     private int localStatePrecision;
     private int localGroup;
-    // 1 - Identifier for Sign-In Activity
+    // ---User connected to the app---
+    private User logged_User;
+    // ---Reference to access to the DataBase---
+    private DatabaseReference mDatabaseReference;
 
+
+    //  ---Identifier for Sign-In/Sign-Out and DeleteUser---
     private static final int RC_SIGN_IN = 123;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -73,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mDatabaseReference= FirebaseDatabase.getInstance().getReference();
         checkLogin();
 
     }
@@ -80,13 +93,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkLogin(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         if (user != null) {
             // User is signed in
             setContentView(R.layout.activity_main);
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
             this.configureAndShowMainFragment();
+            if (logged_User==null) {
+                logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null, mDatabaseReference);
+                logged_User.pushUser_toDataBase();
+            }
         } else {
             // No user is signed in.
             startSignInActivity();
@@ -164,9 +180,16 @@ public class MainActivity extends AppCompatActivity {
         //TODO -- Choisir les groupes à partir de la base de donnée
     }
 
+    // --- http Request for sign-out ---
+
+    private void signOutUserFromFirebase(){
+
+        AuthUI.getInstance().signOut(this);
+
+    }
 
 
-    // 2 - Launch Sign-In Activity
+    // --- Launch Sign-In Activity ---
 
     private void startSignInActivity(){
 
@@ -197,32 +220,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // 4 - Handle SignIn Activity response on activity result
         checkLogin();
+        // --- Handle SignIn Activity response on activity result ---
         this.handleResponseAfterSignIn(requestCode, resultCode, data);
     }
 
-    //  - Show Snack Bar with a message
+    //  - --Show Snack Bar with a message---
     private void showToast( String message){
         Toast.makeText(this, message, Snackbar.LENGTH_LONG).show();
 
     }
-
     // --------------------
-
     // UTILS
-
     // --------------------
-
-
-    // 3 - Method that handles response after SignIn Activity close
+    // --- Method that handles response after SignIn Activity close---
 
     private void handleResponseAfterSignIn(int requestCode, int resultCode, Intent data){
-
-
-
-
-
         if (requestCode == RC_SIGN_IN) {
 
             IdpResponse response = IdpResponse.fromResultIntent(data);
