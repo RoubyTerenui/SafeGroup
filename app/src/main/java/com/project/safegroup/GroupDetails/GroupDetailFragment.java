@@ -64,8 +64,8 @@ public class GroupDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator().getNickname());
-            ((TextView) rootView.findViewById(R.id.group_detail_typegroup)).setText("Type of Group : " + mItem.getTypeOfGroup());
+            //((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator().getNickname()); TO DO l'administrateur est une ID_User now
+            //((TextView) rootView.findViewById(R.id.group_detail_typegroup)).setText("Type of Group : " + mItem.getTypeOfGroup());TO DO typeOfGroup est une liste d'entier now
         }
 
         return rootView;

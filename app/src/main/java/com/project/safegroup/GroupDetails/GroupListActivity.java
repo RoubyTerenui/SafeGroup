@@ -85,7 +85,7 @@ public class GroupListActivity extends AppCompatActivity {
                 Group item = (Group) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(GroupDetailFragment.ARG_ITEM_ID, item.getGid());
+                    arguments.putString(GroupDetailFragment.ARG_ITEM_ID, item.getGr_id());
                     GroupDetailFragment fragment = new GroupDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -94,7 +94,7 @@ public class GroupListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, GroupDetailActivity.class);
-                    intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, item.getGid());
+                    intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, item.getGr_id());
 
                     context.startActivity(intent);
                 }
@@ -118,7 +118,7 @@ public class GroupListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).getGid());
+            holder.mIdView.setText(mValues.get(position).getGr_id());
             holder.mContentView.setText(mValues.get(position).getName());
 
             holder.itemView.setTag(mValues.get(position));

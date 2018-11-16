@@ -1,5 +1,8 @@
 package com.project.safegroup.GroupDetails.dummy;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,18 +32,24 @@ public class DummyContent {
     private static final int COUNT = 25;
 
     static {
-        User user1 = new User("Louis", "Blasselle", "louisbla", "1");
-        User user2 = new User("Terenui", "Rouby", "tere", "2");
-        User user3 = new User("Jacques", "Cply", "jacouille", "3");
-
-        addItem(new Group("groupe de merde", "1", user1, 3));
-        addItem(new Group("groupe pas mal", "2", user2, 1));
-        addItem(new Group("groupe cool", "3", user3, 8));
+        DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
+        User user1 = new User( "louisbla", "1", "louisbla@gmail.com",null,mDatabaseReference);
+        User user2 = new User( "tere", "2", "terenuirouby@gmail.com",null,mDatabaseReference);
+        User user3 = new User( "Cply", "3", "jacqueCply@gmail.com",null,mDatabaseReference);
+        List<Integer> list1= new ArrayList<Integer>();
+        list1.add(3);
+        List<Integer> list2= new ArrayList<Integer>();
+        list2.add(1);
+        List<Integer> list3=new ArrayList<Integer>();
+        list3.add(8);
+        addItem(new Group("groupe de merde", "g1", user1.getNickname(),list1,mDatabaseReference));
+        addItem(new Group("groupe pas mal", "g2", user2.getNickname(), list2,mDatabaseReference));
+        addItem(new Group("groupe cool", "g3", user3.getNickname(), list3,mDatabaseReference));
     }
 
     private static void addItem(Group item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.getGid(), item);
+        ITEM_MAP.put(item.getGr_id(), item);
     }
 
 
