@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.project.safegroup.GroupDetails.dummy.DBManager;
 import com.project.safegroup.R;
 
 import com.project.safegroup.GroupDetails.dummy.DummyContent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dataBase.model.Group;

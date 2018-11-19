@@ -1,6 +1,7 @@
 package com.project.safegroup.GroupDetails;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.project.safegroup.R;
 import com.project.safegroup.GroupDetails.dummy.DummyContent;
 
 import dataBase.model.Group;
+import dataBase.model.User;
 
 /**
  * A fragment representing a single Group detail screen.
@@ -64,8 +72,27 @@ public class GroupDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            //((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator().getNickname()); TO DO l'administrateur est une ID_User now
-            //((TextView) rootView.findViewById(R.id.group_detail_typegroup)).setText("Type of Group : " + mItem.getTypeOfGroup());TO DO typeOfGroup est une liste d'entier now
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = (String) dataSnapshot.getValue();
+
+                    System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUU");
+                    System.out.println(value);
+                    // do your stuff here with value
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+
+            });
+
+            ((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator()/*.getNickname()*/);// TO DO l'administrateur est une ID_User now
         }
 
         return rootView;

@@ -29,6 +29,13 @@
             android:padding="16dp"
             android:textIsSelectable="true"
             tools:context="com.project.safegroup.GroupDetails.GroupDetailFragment" />
+
+        <ListView
+            android:id="@+id/listUsers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

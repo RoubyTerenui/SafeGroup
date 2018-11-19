@@ -1,7 +1,13 @@
 package com.project.safegroup.GroupDetails.dummy;
 
+import android.support.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +38,15 @@ public class DummyContent {
     private static final int COUNT = 25;
 
     static {
-        DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
+
+        System.out.println("ID de l'user : " + DBManager.getCurrentUserId());
+
+
+        Group group = DBManager.getGroupById("group1");
+
+
+
         User user1 = new User( "louisbla", "1", "louisbla@gmail.com",null,mDatabaseReference);
         User user2 = new User( "tere", "2", "terenuirouby@gmail.com",null,mDatabaseReference);
         User user3 = new User( "Cply", "3", "jacqueCply@gmail.com",null,mDatabaseReference);
@@ -42,9 +56,11 @@ public class DummyContent {
         list2.add(1);
         List<Integer> list3=new ArrayList<Integer>();
         list3.add(8);
-        addItem(new Group("groupe de merde", "g1", user1.getNickname(),list1,mDatabaseReference));
-        addItem(new Group("groupe pas mal", "g2", user2.getNickname(), list2,mDatabaseReference));
-        addItem(new Group("groupe cool", "g3", user3.getNickname(), list3,mDatabaseReference));
+        addItem(new Group("Les vrais", "g1", user1.getNickname(),list1,mDatabaseReference));
+        addItem(new Group("Les colocs", "g2", user2.getNickname(), list2,mDatabaseReference));
+        addItem(new Group("Polytech", "g3", user3.getNickname(), list3,mDatabaseReference));
+
+
     }
 
     private static void addItem(Group item) {
