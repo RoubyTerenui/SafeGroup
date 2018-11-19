@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private GroupQuad groupQuad;
     private NotificationRecap notificationRecap;
     private GroupSelection groupSelection;
+    private OptionFragment optionFragment;
     //private SectionStatePageAdapter mSectionStatePageAdapter;
     private int localState;
     private int localStatePrecision;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 case R.id.navigation_notifications:
+                    setFragment(7);
                     return true;
             }
             return false;
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         groupQuad = new GroupQuad();
         notificationRecap = new NotificationRecap();
         groupSelection = new GroupSelection();
+        optionFragment = new OptionFragment();
         if (mainFragment == null) {
             mainFragment = new ThreeButtons();
             getSupportFragmentManager().beginTransaction()
@@ -159,6 +162,9 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,notificationRecap).addToBackStack("begin").commit();
                 break;
+            case 7 :
+                getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,optionFragment).addToBackStack("begin").commit();
             default:
                 break;
         }
