@@ -7,54 +7,53 @@
     android:id="@+id/container2"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <Button
-        android:id="@+id/hurt_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        android:background="@color/colorRedButton"
-        android:text="@string/hurt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.20"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <Button
-        android:id="@+id/freeze_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="6dp"
-        android:background="@color/colorRedButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hurt_button"
-        android:text="@string/freeze"/>
+        <Button
+            android:id="@+id/hurt_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorRedButton"
+            android:text="@string/hurt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/freeze_button" />
 
-    <Button
-        android:id="@+id/lost_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="6dp"
-        android:background="@color/colorRedButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/agressed_button"
-        android:text="@string/lost"/>
+        <Button
+            android:id="@+id/freeze_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorRedButton"
+            android:text="@string/freeze"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/agressed_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorRedButton"
-        android:text="@string/aggressed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.80"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <Button
+            android:id="@+id/lost_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorRedButton"
+            android:text="@string/lost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/agressed_button" />
+
+        <Button
+            android:id="@+id/agressed_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorRedButton"
+            android:text="@string/aggressed"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/textView"
