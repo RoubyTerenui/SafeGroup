@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkLogin(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user != null) {
             // User is signed in
             setContentView(R.layout.activity_main);
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             this.configureAndShowMainFragment();
             if (logged_User==null) {
                 logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null, mDatabaseReference);
-                logged_User.pushUser_toDataBase();
+                logged_User.pushUser_toDataBase( user.getUid());
             }
         } else {
             // No user is signed in.
