@@ -78,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.mDatabaseReference= FirebaseDatabase.getInstance().getReference();
         checkLogin();
-
+        setContentView(R.layout.activity_main);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        this.configureAndShowMainFragment();
     }
 
 
@@ -87,17 +90,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (user != null) {
             // User is signed in
-            setContentView(R.layout.activity_main);
-            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-            this.configureAndShowMainFragment();
             if (logged_User==null) {
                 logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null, mDatabaseReference);
-                logged_User.pushUser_toDataBase( user.getUid());
+                logged_User.pushUser_toDataBase();
             }
         } else {
             // No user is signed in.
             startSignInActivity();
+
         }
     }
     private void configureAndShowMainFragment(){
@@ -179,15 +179,6 @@ public class MainActivity extends AppCompatActivity {
         // groupDatas
         setFragment(6);
     }
-
-    // --- http Request for sign-out ---
-
-    private void signOutUserFromFirebase(){
-
-        AuthUI.getInstance().signOut(this);
-
-    }
-
 
     // --- Launch Sign-In Activity ---
 

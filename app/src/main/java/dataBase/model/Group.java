@@ -29,7 +29,6 @@ public class Group {
         this.mDatabase = mDatabase ;
     }
 
-    public Group(){};
 
     public Group(String gr_id, String name, String administrator, List<Integer> typeOfGroup ,DatabaseReference mDatabase) {
         this.gr_id = gr_id;
