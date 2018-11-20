@@ -17,7 +17,9 @@ public class Group {
     private DatabaseReference mDatabase;
 
     // --- CONSTRUCTORS ---
+    public Group(){
 
+    }
     public Group(Group group,DatabaseReference mDatabase) {
         this.gr_id = group.getGr_id();
         this.name = group.getName();
