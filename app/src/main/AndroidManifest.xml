@@ -31,7 +31,7 @@
         <activity
             android:name=".GroupDetails.GroupListActivity"
             android:label="@string/title_group_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GroupDetails.GroupDetailActivity"
             android:label="@string/title_group_detail"
@@ -41,6 +41,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.project.safegroup.GroupDetails.GroupListActivity" />
         </activity>
+        <activity android:name=".NewGroupActivity"></activity>
     </application>
 
 </manifest>

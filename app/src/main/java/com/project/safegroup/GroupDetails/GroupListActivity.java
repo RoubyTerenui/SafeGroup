@@ -14,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.project.safegroup.GroupDetails.dummy.DBManager;
+import com.project.safegroup.NewGroupActivity;
 import com.project.safegroup.R;
 
 import com.project.safegroup.GroupDetails.dummy.DummyContent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dataBase.model.Group;
@@ -51,7 +54,9 @@ public class GroupListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Intent intent = new Intent(getBaseContext(), NewGroupActivity.class);
+                startActivity(intent);
+                Snackbar.make(view, "Ajouter un nouveau groupe", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

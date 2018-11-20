@@ -14,9 +14,8 @@ public class Member {
 
     // --- FIELDS ---
 
-    //private String member_Id;
-    //private String user_Id;
-    @Nullable
+    private String user_id;
+    private String group_id;
     private Date last_Update;
     private int state;
     private int state_Precision;
@@ -28,9 +27,11 @@ public class Member {
 
     // --- CONSTRUCTORS ---
 
+    public Member(){}
+
     public Member(Member member,DatabaseReference mDatabase){
-        //this.user_Id = member.getUser_Id();
-        //this.member_Id = member.getMember_Id();
+        this.user_id = member.getUser_Id();
+        this.group_id = member.getGroup_Id();
         this.last_Update = member.getLast_Update();
         this.state = member.getState();
         this.state_Precision = member.getState_Precision();
@@ -38,9 +39,9 @@ public class Member {
         this.longitude = member.getLongitude();
         this.mDatabase = mDatabase;
     }
-    public Member(String user_Id, String member_Id, @Nullable Date last_Update, int state, int state_Precision, double latitude, double longitude, DatabaseReference mDatabase) {
-        //this.user_Id = user_Id;
-        //this.member_Id = member_Id;
+    public Member(String user_Id, String group_id, Date last_Update, int state, int state_Precision, double latitude, double longitude, DatabaseReference mDatabase) {
+        this.user_id = user_Id;
+        this.group_id = group_id;
         this.last_Update = last_Update;
         this.state = state;
         this.state_Precision = state_Precision;
@@ -52,8 +53,8 @@ public class Member {
 
     // --- GETTERS ---
 
-    //public String getUser_Id() {        return user_Id;    }
-    //public String getMember_Id() {        return member_Id;    }
+    public String getUser_Id() {        return user_id;    }
+    public String getGroup_Id() {        return group_id;    }
     public Date getLast_Update() {        return last_Update;    }
     public int getState() {        return state;    }
     public int getState_Precision() {        return state_Precision;    }
@@ -63,8 +64,8 @@ public class Member {
 
     // --- SETTERS ---
 
-    //public void setUser_Id(String user_Id) {        this.user_Id = user_Id;    }
-    //public void setMember_Id(String member_Id) {        this.member_Id = member_Id;    }
+    public void setUser_Id(String user_Id) {        this.user_id = user_Id;    }
+    public void setGroup_Id(String group_id) {        this.group_id = group_id;    }
     public void setLast_Update(Date last_Update) {        this.last_Update = last_Update;    }
     public void setState(int state) {        this.state = state;    }
     public void setState_Precision(int state_Precision) {        this.state_Precision = state_Precision;    }
@@ -77,8 +78,8 @@ public class Member {
 
     // ---TO PUSH DATA in the DATABASE---
 
-    public void pushMember_toDataBase(String memberId){
-        mDatabase.child("members").child(memberId).setValue(this);
+    public void pushMember_toDataBase(){
+        mDatabase.child("members").child(this.group_id).setValue(this);
     }
 
 

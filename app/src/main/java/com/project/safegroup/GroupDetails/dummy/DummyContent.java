@@ -1,7 +1,13 @@
 package com.project.safegroup.GroupDetails.dummy;
 
+import android.support.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,22 +35,29 @@ public class DummyContent {
      */
     public static final Map<String, Group> ITEM_MAP = new HashMap<String, Group>();
 
-    private static final int COUNT = 25;
-
     static {
-        DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
-        User user1 = new User( "louisbla", "1", "louisbla@gmail.com",null,mDatabaseReference);
-        User user2 = new User( "tere", "2", "terenuirouby@gmail.com",null,mDatabaseReference);
-        User user3 = new User( "Cply", "3", "jacqueCply@gmail.com",null,mDatabaseReference);
-        List<Integer> list1= new ArrayList<Integer>();
-        list1.add(3);
-        List<Integer> list2= new ArrayList<Integer>();
-        list2.add(1);
-        List<Integer> list3=new ArrayList<Integer>();
-        list3.add(8);
-        addItem(new Group("groupe de merde", "g1", user1.getNickname(),list1,mDatabaseReference));
-        addItem(new Group("groupe pas mal", "g2", user2.getNickname(), list2,mDatabaseReference));
-        addItem(new Group("groupe cool", "g3", user3.getNickname(), list3,mDatabaseReference));
+        final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
+
+        System.out.println("ID de l'user : " + DBManager.getCurrentUserId());
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("group");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot children:dataSnapshot.getChildren()) {
+                    Group group=children.getValue(Group.class);
+                    addItem(group);
+                }
+
+                // do your stuff here with value
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("PROBLEME DE CONNEXION");
+            }
+        });
+
+
     }
 
     private static void addItem(Group item) {
