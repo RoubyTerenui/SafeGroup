@@ -77,10 +77,10 @@ public class GroupDetailFragment extends Fragment {
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String value = (String) dataSnapshot.getValue();
+                    //String value = (String) dataSnapshot.getValue();
 
                     System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUU");
-                    System.out.println(value);
+                    //System.out.println(value);
                     // do your stuff here with value
 
                 }
