@@ -35,14 +35,10 @@ public class DummyContent {
      */
     public static final Map<String, Group> ITEM_MAP = new HashMap<String, Group>();
 
-    private static final int COUNT = 25;
-
     static {
         final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
 
         System.out.println("ID de l'user : " + DBManager.getCurrentUserId());
-
-
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("group");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {

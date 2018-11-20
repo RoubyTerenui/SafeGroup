@@ -73,19 +73,18 @@ public class GroupDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.group_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator()/*.getNickname()*/);// TO DO l'administrateur est une ID_User now
+            ((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator());
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users");
 
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(DataSnapshot dataSnapshot){
                     List<User> allUsersList = new ArrayList<>();
 
                     for (DataSnapshot children:dataSnapshot.getChildren()) {
@@ -96,11 +95,11 @@ public class GroupDetailFragment extends Fragment {
                     }
 
                     StringBuilder builder = new StringBuilder();
-                    builder.append("Membres : \n");
+                    builder.append("\n Membres : \n");
                     for (User user : users) {
                         builder.append(user.getNickname() + "\n");
                     }
-                    ((TextView) rootView.findViewById(R.id.group_detail_typegroup)).setText(builder.toString());// TO DO l'administrateur est une ID_User now
+                    ((TextView) rootView.findViewById(R.id.group_detail_typegroup)).setText(builder.toString());
 
 
                 }
