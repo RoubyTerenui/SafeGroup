@@ -3,6 +3,7 @@ package dataBase.model;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -10,7 +11,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User  {
 
@@ -29,9 +32,11 @@ public class User  {
     // --- CONSTRUCTORS ---
 
     public User(){
-        this.nickname = "null";
-        this.uid = "null";
-        this.e_mail = "null";
+        this.nickname = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        this.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.e_mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        this.urlPicture = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString();
+        this.listGroupId = new ArrayList<String>();
     }
 
 
@@ -41,8 +46,6 @@ public class User  {
         this.e_mail = e_mail;
         this.urlPicture = urlPicture;
         this.listGroupId = new ArrayList<String>();
-        listGroupId.add("bob");
-        listGroupId.add("bob2");
         this.mDatabase = mDatabase ;
     }
 
@@ -68,8 +71,33 @@ public class User  {
 
     // ---TO PUSH DATA in the DATABASE---
 
-    public void pushUser_toDataBase(String uid) {
-        mDatabase.child("users").child(uid).setValue(this);
+    // --- METHOD THAT PUSH A USER TO THE DATABASE ---
+    // --- BY THE LAST USER PUSHED ----
+    public void pushUser_toDataBase() {
+        Map<String,Object > ITEM_MAP = new HashMap<String, Object>();
+        ITEM_MAP.put("nickname",this.nickname);
+        ITEM_MAP.put("e_mail",this.e_mail);
+        ITEM_MAP.put("listGroupId",this.listGroupId);
+        if(this.urlPicture!=null) {
+            ITEM_MAP.put("urlPicture", this.urlPicture);
+        }
+        mDatabase.child("users").child(this.uid).setValue(ITEM_MAP);
+    // --- IF A USER ALREADY EXIST HE WILL BE REPLACED ---
+    }
+
+
+    // --- METHOD THAT ADD A GROUP TO AN ALREADY EXISTING USER ---
+    // --- DOESN'T OVERWRITE EXISTING GROUPS ---
+    public void pushnewGroupUser(String newGroup){
+        /**
+         * A map of the Item you want to add
+         */
+        Map<String,Object > ITEM_MAP = new HashMap<String, Object>();
+        // --- GET A KEY FOR A NEW GROUP ---
+        String newPostKey = mDatabase.child(this.uid).child("listGroupId").push().getKey();
+
+        ITEM_MAP.put(newPostKey,newGroup);
+        mDatabase.child("users").child(this.uid).child("listGroupId").updateChildren(ITEM_MAP);
 
     }
 

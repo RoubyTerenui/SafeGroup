@@ -7,54 +7,52 @@
     android:id="@+id/container2"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <Button
-        android:id="@+id/myHome_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        android:background="@color/colorGreenButton"
-        android:text="@string/myHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <Button
-        android:id="@+id/underWatch_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="6dp"
-        android:background="@color/colorGreenButton"
-        android:text="@string/underWatch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myHome_button" />
+        <Button
+            android:id="@+id/myHome_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenButton"
+            android:text="@string/myHome"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/underWatch_button" />
 
-    <Button
-        android:id="@+id/ready_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="6dp"
-        android:background="@color/colorGreenButton"
-        android:text="@string/ready"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friendHome_button" />
+        <Button
+            android:id="@+id/underWatch_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenButton"
+            android:text="@string/underWatch"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/friendHome_button"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorGreenButton"
-        android:text="@string/friendHome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.799"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <Button
+            android:id="@+id/ready_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenButton"
+            android:text="@string/ready"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/friendHome_button" />
+
+        <Button
+            android:id="@+id/friendHome_button"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGreenButton"
+            android:text="@string/friendHome"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView"

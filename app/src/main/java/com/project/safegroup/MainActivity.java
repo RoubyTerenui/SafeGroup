@@ -1,42 +1,31 @@
 package com.project.safegroup;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.project.safegroup.GroupDetails.GroupDetailActivity;
+import com.project.safegroup.GroupDetails.GroupDetailsExpandable.GroupDetailExpandableFragment;
 import com.project.safegroup.GroupDetails.GroupListActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.project.safegroup.NotificationRecap;
-import com.project.safegroup.ProblemQuad;
-import com.project.safegroup.R;
-import com.project.safegroup.SafeQuad;
-import com.project.safegroup.SectionStatePageAdapter;
-import com.project.safegroup.ThreeButtons;
+import com.project.safegroup.GroupSelection.GroupSelection;
+import com.project.safegroup.GroupSelection.GroupSelectionData;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import dataBase.model.User;
@@ -44,11 +33,12 @@ import dataBase.model.User;
 public class MainActivity extends AppCompatActivity {
     private ThreeButtons mainFragment;
     private ProblemQuad problemQuad;
-    private DangerQuad dangerQuad;
+    private GroupDetailExpandableFragment dangerQuad;
     private SafeQuad safeQuad;
     private GroupQuad groupQuad;
     private NotificationRecap notificationRecap;
     private GroupSelection groupSelection;
+    private OptionFragment optionFragment;
     //private SectionStatePageAdapter mSectionStatePageAdapter;
     private int localState;
     private int localStatePrecision;
@@ -76,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 case R.id.navigation_notifications:
+                    setFragment(7);
                     return true;
             }
             return false;
@@ -113,11 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
         mainFragment = (ThreeButtons) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
         problemQuad= new ProblemQuad();
-        dangerQuad = new DangerQuad();
+        dangerQuad = new GroupDetailExpandableFragment();
         safeQuad = new SafeQuad();
         groupQuad = new GroupQuad();
         notificationRecap = new NotificationRecap();
         groupSelection = new GroupSelection();
+        optionFragment = new OptionFragment();
         if (mainFragment == null) {
             mainFragment = new ThreeButtons();
             getSupportFragmentManager().beginTransaction()
@@ -160,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,notificationRecap).addToBackStack("begin").commit();
                 break;
+            case 7 :
+                getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,optionFragment).addToBackStack("begin").commit();
             default:
                 break;
         }
@@ -176,9 +171,13 @@ public class MainActivity extends AppCompatActivity {
         detailText.setText(detail);
     }
 
-
-    public void chooseGroup(){
-        //TODO -- Choisir les groupes à partir de la base de donnée
+    public void sendNotificationTo(ArrayList<String> groupIds){
+        //TODO - SendNotificationToGroupIds
+        // localState
+        // localStatePrecision
+        // localGroup
+        // groupDatas
+        setFragment(6);
     }
 
     // --- http Request for sign-out ---

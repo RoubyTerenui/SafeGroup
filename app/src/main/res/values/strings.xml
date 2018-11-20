@@ -22,6 +22,7 @@
     <string name="problem">Problem</string>
     <string name="safe">Safe</string>
     <string name="title_activity_three_button" translatable="false">ThreeButton</string>
+    <string name="unknown">Unknown</string>
 
     <string name="hurt">Hurt</string>
     <string name="freeze">Frozen</string>
@@ -48,11 +49,14 @@
     <string name="group_confirmer">Send</string>
     <string name="notification_message">Notification send !</string>
     <string name="notification_detail_message">You just notified : %1$s ( %2$s ) to groups " %3$s ".</string>
+    <string name="description_member"> %1$s ( %2$s ) notified the %3$s by %4$s.</string>
+    <string name="self_description_member"> %1$s ( %2$s ) notified the %3$s</string>
 
     <array name="state">
         <item>@string/danger</item>
         <item>@string/problem</item>
         <item>@string/safe</item>
+        <item>@string/unknown</item>
     </array>
 
     <array name="group">
@@ -86,4 +90,5 @@
     <string name="title_activity_gestion_group">GestionGroupActivity</string>
     <string name="title_group_list">Groups</string>
     <string name="title_group_detail">Group Detail</string>
+    <string name="deconnexion">Deconnexion</string>
 </resources>

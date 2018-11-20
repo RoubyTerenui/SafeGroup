@@ -3,6 +3,8 @@ package com.project.safegroup.GroupDetails.dummy;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 import dataBase.model.Group;
 import dataBase.model.User;
+import retrofit2.http.HEAD;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -36,6 +39,7 @@ public class DummyContent {
     public static final Map<String, Group> ITEM_MAP = new HashMap<String, Group>();
 
     static {
+
         final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
 
         System.out.println("ID de l'user : " + DBManager.getCurrentUserId());
