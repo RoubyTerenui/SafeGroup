@@ -16,10 +16,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.safegroup.GroupDetails.dummy.DBManager;
 import com.project.safegroup.R;
 import com.project.safegroup.GroupDetails.dummy.DummyContent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dataBase.model.Group;
+import dataBase.model.Member;
 import dataBase.model.User;
 
 /**
@@ -29,6 +34,8 @@ import dataBase.model.User;
  * on handsets.
  */
 public class GroupDetailFragment extends Fragment {
+    private List<User> users = new ArrayList<>();
+
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -68,20 +75,33 @@ public class GroupDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.group_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.group_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+            ((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator()/*.getNickname()*/);// TO DO l'administrateur est une ID_User now
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users");
 
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    //String value = (String) dataSnapshot.getValue();
+                    List<User> allUsersList = new ArrayList<>();
 
-                    System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUU");
-                    //System.out.println(value);
-                    // do your stuff here with value
+                    for (DataSnapshot children:dataSnapshot.getChildren()) {
+                        User user = children.getValue(User.class);
+                        if(mItem.getMembers().contains(user.getUid())){
+                            users.add(user);
+                        }
+                    }
+
+                    StringBuilder builder = new StringBuilder();
+                    builder.append("Membres : \n");
+                    for (User user : users) {
+                        builder.append(user.getNickname() + "\n");
+                    }
+                    ((TextView) rootView.findViewById(R.id.group_detail_typegroup)).setText(builder.toString());// TO DO l'administrateur est une ID_User now
+
 
                 }
 
@@ -91,8 +111,6 @@ public class GroupDetailFragment extends Fragment {
                 }
 
             });
-
-            ((TextView) rootView.findViewById(R.id.group_detail)).setText("Administrateur : " + mItem.getAdministrator()/*.getNickname()*/);// TO DO l'administrateur est une ID_User now
         }
 
         return rootView;

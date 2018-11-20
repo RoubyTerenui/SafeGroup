@@ -43,22 +43,23 @@ public class DummyContent {
         System.out.println("ID de l'user : " + DBManager.getCurrentUserId());
 
 
-        Group group = DBManager.getGroupById("group1");
 
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("group");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot children:dataSnapshot.getChildren()) {
+                    Group group=children.getValue(Group.class);
+                    addItem(group);
+                }
 
-
-        User user1 = new User( "louisbla", "1", "louisbla@gmail.com",null,mDatabaseReference);
-        User user2 = new User( "tere", "2", "terenuirouby@gmail.com",null,mDatabaseReference);
-        User user3 = new User( "Cply", "3", "jacqueCply@gmail.com",null,mDatabaseReference);
-        List<Integer> list1= new ArrayList<Integer>();
-        list1.add(3);
-        List<Integer> list2= new ArrayList<Integer>();
-        list2.add(1);
-        List<Integer> list3=new ArrayList<Integer>();
-        list3.add(8);
-        addItem(new Group("Les vrais", "g1", user1.getNickname(),list1,mDatabaseReference));
-        addItem(new Group("Les colocs", "g2", user2.getNickname(), list2,mDatabaseReference));
-        addItem(new Group("Polytech", "g3", user3.getNickname(), list3,mDatabaseReference));
+                // do your stuff here with value
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("PROBLEME DE CONNEXION");
+            }
+        });
 
 
     }
