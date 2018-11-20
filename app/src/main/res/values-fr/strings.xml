@@ -38,4 +38,6 @@
     <string name="hello_blank_fragment">Bonjour fragment blanc</string>
     <string name="permission_rationale">Permission d\'accès aux contacts nécesssaire pour l\'email</string>
     <string name="deconnexion">Deconnexion</string>
+    <string name="description_member"> %1$s ( %2$s ) notifié le %3$s par %4$s.</string>
+    <string name="self_description_member"> %1$s ( %2$s ) notifié le %3$s</string>
 </resources>

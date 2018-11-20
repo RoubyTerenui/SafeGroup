@@ -12,7 +12,6 @@ public class GroupSelectionData {
             this.selected=selected;
             this.favorite=favorite;
             this.Id=Id;
-
         }
 
         public String getName() {

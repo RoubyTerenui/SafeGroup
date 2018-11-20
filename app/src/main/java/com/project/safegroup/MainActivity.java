@@ -18,6 +18,7 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.project.safegroup.GroupDetails.GroupDetailsExpandable.GroupDetailExpandableFragment;
 import com.project.safegroup.GroupDetails.GroupListActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,7 +33,7 @@ import dataBase.model.User;
 public class MainActivity extends AppCompatActivity {
     private ThreeButtons mainFragment;
     private ProblemQuad problemQuad;
-    private DangerQuad dangerQuad;
+    private GroupDetailExpandableFragment dangerQuad;
     private SafeQuad safeQuad;
     private GroupQuad groupQuad;
     private NotificationRecap notificationRecap;
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainFragment = (ThreeButtons) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
         problemQuad= new ProblemQuad();
-        dangerQuad = new DangerQuad();
+        dangerQuad = new GroupDetailExpandableFragment();
         safeQuad = new SafeQuad();
         groupQuad = new GroupQuad();
         notificationRecap = new NotificationRecap();
