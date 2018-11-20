@@ -10,7 +10,6 @@ public class MemberData {
         this.name=name;
         this.Id=Id;
         this.state=state;
-
     }
 
     public String getName() {

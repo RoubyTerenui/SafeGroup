@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class GroupDetailExpandableFragment extends Fragment {
     private ExpandableListView groupList;
     private ArrayList<MemberData> groupDatas = new ArrayList<>();
     private ArrayList<String> groupDescriptions = new ArrayList<>();
+    private ExpandableMemberAdapter adapter;
 
     @Nullable
     @Override
@@ -45,14 +47,10 @@ public class GroupDetailExpandableFragment extends Fragment {
 
         ArrayList<String> names = new ArrayList<>();
         ArrayList<String> nameIds = new ArrayList<>();
-
         ArrayList<Integer> states = new ArrayList<>();
-
-
         ArrayList<Integer> stateDescriptions = new ArrayList<>();
         ArrayList<Date> dates = new ArrayList<>();
         ArrayList<String> editNames = new ArrayList<>();
-
         groupDatas =new ArrayList<>();
 
 
@@ -95,9 +93,27 @@ public class GroupDetailExpandableFragment extends Fragment {
             groupDescriptions.add(description);
         }
 
-        ExpandableMemberAdapter adapter = new ExpandableMemberAdapter(groupDatas,groupDescriptions,getContext());
-        // Assign adapter to ListView
+        adapter = new ExpandableMemberAdapter(groupDatas,groupDescriptions,getContext());
         groupList.setAdapter(adapter);
+
+        groupList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener(){
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                for(int i=0; i<adapter.getGroupCount(); i++) {
+                    if(i != groupPosition)
+                        groupList.collapseGroup(i);
+                }
+            }
+        });
+
+        groupList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Log.d("onGroupClick:", "worked");
+                parent.expandGroup(groupPosition);
+                return true;
+            }
+        });
     }
 
 
