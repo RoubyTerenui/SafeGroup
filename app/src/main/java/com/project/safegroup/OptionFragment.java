@@ -34,6 +34,7 @@ public class OptionFragment extends Fragment {
                 "Maybe an other option",
         };
 
+
         // Define a new Adapter
         // First parameter - Context
         // Second parameter - Layout for the row
