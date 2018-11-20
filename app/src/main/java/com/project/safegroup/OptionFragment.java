@@ -13,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.project.safegroup.R;
 
 
@@ -55,21 +58,32 @@ public class OptionFragment extends Fragment {
                                     int position, long id) {
                 switch (position) {
                     case 0:
-                        //TODO - Deconexion de l'utilisateur
+                        AuthUI.getInstance()
+                            .signOut(getContext())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    ((MainActivity)getActivity()).setFragment(0);//TO DO NE pas passer par la 1 ere page
+                                    ((MainActivity)getActivity()).checkLogin();
+
+                                }
+                            });
                         break;
                     case 1:
-                        // ????
+                        AuthUI.getInstance()
+                                .delete(getContext())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        ((MainActivity)getActivity()).setFragment(0);//TO DO NE pas passer par la 1 ere page
+                                        ((MainActivity)getActivity()).checkLogin();
+                                    }
+                                });
                         break;
                     default:
                         break;
 
                 }
 
-                int itemPosition    = position;
-                // Show Alert
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "Position :"+itemPosition , Toast.LENGTH_LONG)
-                        .show();
 
             }
 

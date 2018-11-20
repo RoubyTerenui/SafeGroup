@@ -40,6 +40,8 @@ public class User  {
         this.e_mail = e_mail;
         this.urlPicture = urlPicture;
         this.listGroupId = new ArrayList<String>();
+        this.listGroupId.add("group1");
+        this.listGroupId.add("group2");
         this.mDatabase = mDatabase ;
     }
 
