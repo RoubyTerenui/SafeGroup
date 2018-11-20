@@ -34,7 +34,7 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return descriptions.size();
+        return 1;
     }
 
     @Override
@@ -108,6 +108,6 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }
