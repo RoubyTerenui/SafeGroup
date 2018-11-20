@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.project.safegroup.GroupDetails.dummy.DBManager;
+//import com.project.safegroup.GroupDetails.dummy.DBManager;
 import com.project.safegroup.NewGroupActivity;
 import com.project.safegroup.R;
 

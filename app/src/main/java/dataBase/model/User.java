@@ -23,9 +23,7 @@ public class User  {
     private String e_mail;
     @Nullable
     private String urlPicture;
-    private List<Group>  groups;
-    private List<String> listGroupId ;
-    private DatabaseReference mDatabase;
+    private List<Map<String,Object>>  groups;
 
 
 
@@ -35,18 +33,16 @@ public class User  {
         this.nickname = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         this.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.e_mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        this.urlPicture = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString();
-        this.listGroupId = new ArrayList<String>();
+        this.groups= new ArrayList<Map<String,Object>>();
     }
 
 
-    public User(String nickname, String uid, String e_mail, @Nullable String urlPicture , DatabaseReference mDatabase) {
+    public User(String nickname, String uid, String e_mail, @Nullable String urlPicture ) {
         this.nickname = nickname;
         this.uid = uid;
         this.e_mail = e_mail;
         this.urlPicture = urlPicture;
-        this.listGroupId = new ArrayList<String>();
-        this.mDatabase = mDatabase ;
+        this.groups = new ArrayList<Map<String,Object>>();
     }
 
     // --- GETTERS ---
@@ -56,7 +52,7 @@ public class User  {
     public String getE_mail() {        return e_mail;    }
     @Nullable
     public String getUrlPicture() {        return urlPicture;    }
-    public List<String> getListGroupId() {        return listGroupId;    }
+    public List<Map<String,Object>> getGroups() {        return groups;    }
 
     // --- SETTERS ---
 
@@ -64,7 +60,7 @@ public class User  {
     public void setUid(String uid) {    this.uid= uid;  }
     public void setE_mail(String e_mail) {        this.e_mail = e_mail;    }
     public void setUrlPicture(@Nullable String urlPicture) {        this.urlPicture = urlPicture;    }
-    public void setListGroupId(List<String> listGroupId) {        this.listGroupId = listGroupId;    }
+    public void setGroups(List<Map<String,Object>> groups) {        this.groups = groups;    }
 
     // ---METHODS---
 
@@ -73,31 +69,37 @@ public class User  {
 
     // --- METHOD THAT PUSH A USER TO THE DATABASE ---
     // --- BY THE LAST USER PUSHED ----
+    // --- IF A USER ALREADY EXIST HE WILL BE REPLACED ---
+
     public void pushUser_toDataBase() {
+        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
         Map<String,Object > ITEM_MAP = new HashMap<String, Object>();
         ITEM_MAP.put("nickname",this.nickname);
         ITEM_MAP.put("e_mail",this.e_mail);
-        ITEM_MAP.put("listGroupId",this.listGroupId);
+        ITEM_MAP.put("groups",this.groups);
         if(this.urlPicture!=null) {
             ITEM_MAP.put("urlPicture", this.urlPicture);
         }
         mDatabase.child("users").child(this.uid).setValue(ITEM_MAP);
-    // --- IF A USER ALREADY EXIST HE WILL BE REPLACED ---
     }
 
 
     // --- METHOD THAT ADD A GROUP TO AN ALREADY EXISTING USER ---
     // --- DOESN'T OVERWRITE EXISTING GROUPS ---
-    public void pushnewGroupUser(String newGroup){
+    public void pushnewGroupUser(Group newGroup){
         /**
          * A map of the Item you want to add
          */
+        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
         Map<String,Object > ITEM_MAP = new HashMap<String, Object>();
         // --- GET A KEY FOR A NEW GROUP ---
-        String newPostKey = mDatabase.child(this.uid).child("listGroupId").push().getKey();
-
-        ITEM_MAP.put(newPostKey,newGroup);
-        mDatabase.child("users").child(this.uid).child("listGroupId").updateChildren(ITEM_MAP);
+        String newPostKey = mDatabase.child(this.uid).child("groups").push().getKey();
+        Map<String,Object> newGroupUser=new HashMap<String,Object>();
+        newGroupUser.put("favoris", false);
+        newGroupUser.put("name",newGroup.getName());
+        newGroupUser.put("group_id",newGroup.getGr_id());
+        ITEM_MAP.put(newPostKey,newGroupUser);
+        mDatabase.child("users").child(this.uid).child("groups").updateChildren(ITEM_MAP);
 
     }
 

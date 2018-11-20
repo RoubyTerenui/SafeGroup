@@ -42,16 +42,17 @@ public class DummyContent {
 
         final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
 
-        System.out.println("ID de l'user : " + DBManager.getCurrentUserId());
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("group");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot children:dataSnapshot.getChildren()) {
-                    Group group=children.getValue(Group.class);
-                    addItem(group);
-                }
+              //  DataSnapshot dataSnapshot1=dataSnapshot.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("groups");
+               // List<String> listGr_Id=new ArrayList<String>();
+                //for (DataSnapshot datasnapshot3: dataSnapshot.getChildren() ) {
+                  //  listGr_Id.add((String)datasnapshot3.child("group_id").getValue());
+                  //  System.out.println((String)datasnapshot3.child("group_id").getValue());
+                //}
 
                 // do your stuff here with value
             }

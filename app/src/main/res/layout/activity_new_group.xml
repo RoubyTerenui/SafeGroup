@@ -20,7 +20,7 @@
             tools:layout_editor_absoluteY="83dp" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editTextNewGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -30,7 +30,7 @@
             tools:layout_editor_absoluteY="135dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonNewGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ajouter"

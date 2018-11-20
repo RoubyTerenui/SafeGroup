@@ -31,6 +31,7 @@ import java.util.Arrays;
 import dataBase.model.User;
 
 public class MainActivity extends AppCompatActivity {
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private ThreeButtons mainFragment;
     private ProblemQuad problemQuad;
     private GroupDetailExpandableFragment dangerQuad;
@@ -86,17 +87,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void checkLogin(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         if (user != null) {
             // User is signed in
-            if (logged_User==null) {
-                logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null, mDatabaseReference);
-                logged_User.pushUser_toDataBase();
-            }
+
         } else {
             // No user is signed in.
             startSignInActivity();
+
 
         }
     }
@@ -232,6 +231,10 @@ public class MainActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) { // SUCCESS
                 showToast( "authentification success");
+                if (logged_User==null) {
+                    logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null);
+                    logged_User.pushUser_toDataBase();
+                }
             } else { // ERRORS
 
                 if (response == null) {
