@@ -30,6 +30,7 @@ public class Member {
 
     public Member(){
         this.member_Id=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.name=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         this.nameModifier=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         this.last_Update =new Date().toString();
         this.state=0;
