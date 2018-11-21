@@ -109,6 +109,7 @@ public class GroupSelection extends Fragment {
     }
 
     private boolean isSelection(ArrayList<GroupSelectionData> groupDatas){
+        //Return true if at least one group is selected
         for (GroupSelectionData data:groupDatas) {
             if(data.isSelected()==true){
                 return true;
@@ -118,6 +119,7 @@ public class GroupSelection extends Fragment {
     }
 
     private ArrayList<String> groupIdToSend(ArrayList<GroupSelectionData> groupDatas){
+        //Return the list of the id of the selected groups
         ArrayList<String> groupIdToSend = new ArrayList<>();
         for (GroupSelectionData data:groupDatas) {
             if(data.isSelected()==true){

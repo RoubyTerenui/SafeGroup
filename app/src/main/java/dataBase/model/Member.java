@@ -41,6 +41,7 @@ public class Member {
         this.state = member.getState();
         this.state_Precision = member.getState_Precision();
     }
+
     public Member(String member_Id,String nameId,String name, String last_Update, int state, int state_Precision) {
         this.nameModifier=nameId ;
         this.name=name;

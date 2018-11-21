@@ -34,7 +34,6 @@ import java.util.Arrays;
 import dataBase.model.User;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private ThreeButtons mainFragment;
     private ProblemQuad problemQuad;
     private DangerQuad dangerQuad;
@@ -90,16 +89,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void checkLogin(){
-
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // User is signed in
-
         } else {
             // No user is signed in.
             startSignInActivity();
-
-
         }
     }
     private void configureAndShowMainFragment(){
@@ -241,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) { // SUCCESS
                 showToast( "authentification success");
                 if (logged_User==null) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null);
                     logged_User.pushUser_toDataBase();
                 }
