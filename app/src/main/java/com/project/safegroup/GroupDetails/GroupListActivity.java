@@ -75,7 +75,7 @@ public class GroupListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        DummyContent.update();
+        DummyContent.update(recyclerView, this, mTwoPane);
         System.out.println("Update Dummy");
 
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
@@ -109,7 +109,7 @@ public class GroupListActivity extends AppCompatActivity {
             }
         };
 
-        SimpleItemRecyclerViewAdapter(GroupListActivity parent,
+        public SimpleItemRecyclerViewAdapter(GroupListActivity parent,
                                       List<Group> items,
                                       boolean twoPane) {
             mValues = items;
