@@ -83,7 +83,6 @@ public class GroupSelection extends Fragment {
     public void loadDatas(){
 
         //Reference to the database
-        final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("groups");
 
@@ -91,7 +90,7 @@ public class GroupSelection extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                groupDatas =new ArrayList<>();
+                groupDatas = new ArrayList<>();
                 for (DataSnapshot data :dataSnapshot.getChildren()) {
                     Boolean favori = data.child("favoris").getValue(Boolean.class);
                     String id = data.child("group_id").getValue(String.class);

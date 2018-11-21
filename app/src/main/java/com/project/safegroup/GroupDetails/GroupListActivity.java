@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 //import com.project.safegroup.GroupDetails.dummy.DBManager;
+import com.project.safegroup.GroupDetails.GroupDetailsExpandable.ExpandableMemberAdapter;
+import com.project.safegroup.GroupDetails.GroupDetailsExpandable.GroupDetailExpandableFragment;
+import com.project.safegroup.GroupDetails.dummy.GroupData;
 import com.project.safegroup.NewGroupActivity;
 import com.project.safegroup.R;
 
@@ -85,16 +88,16 @@ public class GroupListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final GroupListActivity mParentActivity;
-        private final List<Group> mValues;
+        private final List<GroupData> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Group item = (Group) view.getTag();
+                GroupData item = (GroupData) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(GroupDetailFragment.ARG_ITEM_ID, item.getGr_id());
-                    GroupDetailFragment fragment = new GroupDetailFragment();
+                    arguments.putString(GroupDetailExpandableFragment.ARG_ITEM_ID, item.getGroupID());
+                    GroupDetailExpandableFragment fragment = new GroupDetailExpandableFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.group_detail_container, fragment)
@@ -102,16 +105,14 @@ public class GroupListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, GroupDetailActivity.class);
-                    intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, item.getGr_id());
+                    intent.putExtra(GroupDetailExpandableFragment.ARG_ITEM_ID, item.getGroupID());
 
                     context.startActivity(intent);
                 }
             }
         };
 
-        public SimpleItemRecyclerViewAdapter(GroupListActivity parent,
-                                      List<Group> items,
-                                      boolean twoPane) {
+        public SimpleItemRecyclerViewAdapter(GroupListActivity parent, List<GroupData> items, boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;
@@ -126,8 +127,8 @@ public class GroupListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).getGr_id());
-            holder.mContentView.setText(mValues.get(position).getName());
+            holder.mIdView.setText(mValues.get(position).getGroupID());
+            holder.mContentView.setText(mValues.get(position).getGroupName());
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);

@@ -34,22 +34,16 @@ public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<Group> ITEMS = new ArrayList<Group>();
+    public static final List<GroupData> ITEMS = new ArrayList<>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, Group> ITEM_MAP = new HashMap<String, Group>();
+    public static final Map<String, GroupData> ITEM_MAP = new HashMap<>();
 
-    static {
-
-
-
-    }
-
-    private static void addItem(Group item) {
+    private static void addItem(GroupData item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.getGr_id(), item);
+        ITEM_MAP.put(item.getGroupID(), item);
     }
 
 
@@ -68,8 +62,6 @@ public class DummyContent {
         ITEMS.clear();
         ITEM_MAP.clear();
 
-        final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
-
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -82,22 +74,22 @@ public class DummyContent {
                     System.out.println(group_id);
 
                     DataSnapshot datatemp = dataSnapshot.child("group").child(group_id);
-                    Group group = new Group();
-                    group.setGr_id(group_id);
-                    group.setAdministrator(datatemp.child("administrator").getValue(String.class));
-                    group.setName(datatemp.child("name").getValue(String.class));
+                    GroupData groupData = new GroupData();
+                    groupData.setGroupID(group_id);
+                    groupData.setAdminName(datatemp.child("administrator").getValue(String.class));
+                    groupData.setGroupName(datatemp.child("name").getValue(String.class));
 
+                    /*
                     List<Member> members = new ArrayList<>();
                     for (DataSnapshot data:datatemp.child("members").getChildren()   ) {
                         members.add(data.getValue(Member.class));
                     }
                     group.setMembers(members);
-                    addItem(group);
+                    */
+                    addItem(groupData);
                 }
 
                 recyclerView.setAdapter(new GroupListActivity.SimpleItemRecyclerViewAdapter(groupListActivity, DummyContent.ITEMS, mTwoPane));
-
-                // do your stuff here with value
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
