@@ -18,6 +18,7 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.project.safegroup.GroupDetails.GroupDetailsExpandable.GroupDetailExpandableFragment;
 import com.project.safegroup.GroupDetails.GroupListActivity;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.project.safegroup.GroupSelection.GroupSelection;
 import com.project.safegroup.GroupSelection.GroupSelectionData;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -172,10 +175,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendNotificationTo(ArrayList<String> groupIds){
         //TODO - SendNotificationToGroupIds
-        // localState
-        // localStatePrecision
-        // localGroup
-        // groupDatas
+        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        for (String id:groupIds) {
+            Date date = new Date();
+            DatabaseReference userReference = mDatabase.child(id).child("members").child(user.getUid());
+            userReference.child("last_Update").setValue(date.toString());
+            userReference.child("state").setValue(localState);
+            userReference.child("state_Precision").setValue(localStatePrecision);
+            userReference.child("nameModifier").setValue(user.getDisplayName());
+        }
         setFragment(6);
     }
 
