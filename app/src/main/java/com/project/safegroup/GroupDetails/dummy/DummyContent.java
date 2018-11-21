@@ -1,6 +1,7 @@
 package com.project.safegroup.GroupDetails.dummy;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -10,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.safegroup.GroupDetails.GroupListActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +45,6 @@ public class DummyContent {
 
 
 
-
     }
 
     private static void addItem(Group item) {
@@ -51,7 +52,19 @@ public class DummyContent {
         ITEM_MAP.put(item.getGr_id(), item);
     }
 
-    public static void update(){
+
+
+    private static String makeDetails(int position) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Details about Item: ").append(position);
+
+        builder.append("\nMore details information here.");
+
+        return builder.toString();
+    }
+
+    public static void update(final RecyclerView recyclerView, final GroupListActivity groupListActivity, final boolean mTwoPane) {
+
         ITEMS.clear();
         ITEM_MAP.clear();
 
@@ -59,7 +72,7 @@ public class DummyContent {
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String currentID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -82,6 +95,8 @@ public class DummyContent {
                     addItem(group);
                 }
 
+                recyclerView.setAdapter(new GroupListActivity.SimpleItemRecyclerViewAdapter(groupListActivity, DummyContent.ITEMS, mTwoPane));
+
                 // do your stuff here with value
             }
             @Override
@@ -90,15 +105,4 @@ public class DummyContent {
             }
         });
     }
-
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-
-        builder.append("\nMore details information here.");
-
-        return builder.toString();
-    }
-
 }
