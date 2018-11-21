@@ -138,7 +138,6 @@ public class GroupDetailExpandableFragment extends Fragment {
                         String editorName =  members.child("nameModifier").getValue(String.class);
                         String editorDate =  members.child("last_Update").getValue(String.class);
                         Boolean isSelf = name.equals(editorName);
-
                         groupDatas.add(new MemberData(name,id,state));
                         groupDescriptions.add(new DescriptionData(state,statePrecision,editorDate,editorName,isSelf));
                     }
