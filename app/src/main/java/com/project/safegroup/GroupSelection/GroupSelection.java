@@ -9,10 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,21 +25,25 @@ import com.project.safegroup.R;
 import java.util.ArrayList;
 
 public class GroupSelection extends Fragment {
-    private static final String TAG = "com.louis.safegroup.GroupQuad";
-    private Button sendButton;
-    private static ListView groupList;
-    private static ArrayList<GroupSelectionData> groupDatas = new ArrayList<>();
+    private static final String TAG = "com.louis.safegroup.GroupSelection";
+    private Button sendButton; //Button to send the state of the user on the selected group
+    private static ListView groupList; //View of the groups available
+    private static ArrayList<GroupSelectionData> groupDatas = new ArrayList<>(); //List of the groups available
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        //Initialise the view and th link to the object in the view
         View view = inflater.inflate(R.layout.group_selection,container,false);
         sendButton = (Button) view.findViewById(R.id.sendButton);
         groupList = (ListView) view.findViewById(R.id.groupSelectionList);
+        sendButton.setClickable(false);
+        sendButton.setBackgroundColor(Color.DKGRAY);
 
+        //Search the groups of the users on the firebase server
         loadDatas();
 
+        //When the button is clicked, modify the state in all selected groups
         sendButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -50,38 +52,8 @@ public class GroupSelection extends Fragment {
                 ((MainActivity)getActivity()).sendNotificationTo(groupIdToSend(groupDatas));
             }
         });
-        return view;
-    }
 
-    public void loadDatas(){
-
-        sendButton.setClickable(false);
-        sendButton.setBackgroundColor(Color.DKGRAY);
-
-        //RECUPERATION DES DONNEES TEST
-        final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("groups");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                groupDatas =new ArrayList<>();
-                for (DataSnapshot data :dataSnapshot.getChildren()) {
-                    Boolean favori = data.child("favoris").getValue(Boolean.class);
-                    String id = data.child("group_id").getValue(String.class);
-                    String name = data.child("name").getValue(String.class);
-                    groupDatas.add(new GroupSelectionData(name,false,favori,id));
-                }
-                GroupSelectionDataAdapter adapter = new GroupSelectionDataAdapter(groupDatas,getContext());
-                groupList.setAdapter(adapter);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("PROBLEME DE CONNEXION");
-            }
-        });
-
-        // ListView Item Click Listener
+        // When the user click on a group, select or deselect the group and color it
         groupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -105,7 +77,35 @@ public class GroupSelection extends Fragment {
                 }
             }
         });
+        return view;
+    }
 
+    public void loadDatas(){
+
+        //Reference to the database
+        final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("groups");
+
+        //Add an event to load group data and load the group view
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                groupDatas =new ArrayList<>();
+                for (DataSnapshot data :dataSnapshot.getChildren()) {
+                    Boolean favori = data.child("favoris").getValue(Boolean.class);
+                    String id = data.child("group_id").getValue(String.class);
+                    String name = data.child("name").getValue(String.class);
+                    groupDatas.add(new GroupSelectionData(name,false,favori,id));
+                }
+                GroupSelectionDataAdapter adapter = new GroupSelectionDataAdapter(groupDatas,getContext());
+                groupList.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("PROBLEME DE CONNEXION");
+            }
+        });
     }
 
     private boolean isSelection(ArrayList<GroupSelectionData> groupDatas){
