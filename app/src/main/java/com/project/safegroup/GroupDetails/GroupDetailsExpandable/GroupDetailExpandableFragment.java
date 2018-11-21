@@ -1,12 +1,15 @@
 package com.project.safegroup.GroupDetails.GroupDetailsExpandable;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,6 +64,25 @@ public class GroupDetailExpandableFragment extends Fragment {
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mItem.getGroupName());
             }
+
+            FloatingActionButton fab = (FloatingActionButton) activity.findViewById(R.id.fab);
+            if(fab!= null) {
+                fab.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.setType("text/plain");
+                        i.putExtra(Intent.EXTRA_TEXT, mItem.getGroupID());
+                        startActivity(Intent.createChooser(i, "Partager avec..."));
+
+                        Snackbar.make(view, "Modifier un groupe", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+            }
+
         }
     }
     @Nullable
