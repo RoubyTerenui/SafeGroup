@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) { // SUCCESS
-                showToast( "authentification success");
+                showToast( "Authentification success");
                 if (logged_User==null) {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null);
@@ -243,9 +243,9 @@ public class MainActivity extends AppCompatActivity {
             } else { // ERRORS
 
                 if (response == null) {
-                    showToast( "autentification failed");
+                    showToast( "Authentification failed");
                 } else if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    showToast("no Internet");
+                    showToast("No Internet, please activate wifi");
                 } else if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
                     showToast("Unknown error");;
 
