@@ -102,7 +102,4 @@ public class User  {
         mDatabase.child("users").child(this.uid).child("groups").updateChildren(ITEM_MAP);
 
     }
-
-
-
 }

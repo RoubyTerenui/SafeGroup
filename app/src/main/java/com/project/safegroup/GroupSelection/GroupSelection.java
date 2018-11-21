@@ -14,6 +14,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.project.safegroup.MainActivity;
 import com.project.safegroup.R;
 
@@ -22,8 +29,8 @@ import java.util.ArrayList;
 public class GroupSelection extends Fragment {
     private static final String TAG = "com.louis.safegroup.GroupQuad";
     private Button sendButton;
-    private ListView groupList;
-    private ArrayList<GroupSelectionData> groupDatas = new ArrayList<>();
+    private static ListView groupList;
+    private static ArrayList<GroupSelectionData> groupDatas = new ArrayList<>();
 
     @Nullable
     @Override
@@ -50,35 +57,29 @@ public class GroupSelection extends Fragment {
 
         sendButton.setClickable(false);
         sendButton.setBackgroundColor(Color.DKGRAY);
-        ArrayList<String> groupNames = new ArrayList<>();
-        ArrayList<Boolean> isSelected = new ArrayList<>();
-        ArrayList<Boolean> isFavorite = new ArrayList<>();
-        ArrayList<String> groupIds = new ArrayList<>();
-        groupDatas =new ArrayList<>();
-
 
         //RECUPERATION DES DONNEES TEST
-        groupNames.add("group1");
-        groupNames.add("group2");
-        groupNames.add("group3");
-        groupIds.add("group1");
-        groupIds.add("group2");
-        groupIds.add("group3");
-        for (int i =0;i<groupNames.size();i++) {
-            isSelected.add(false);
-            isFavorite.add(false);
-        }
-        //FIN DE RECUPERATION
-
-        for (int i =0;i<groupNames.size();i++) {
-            groupDatas.add(new GroupSelectionData(groupNames.get(i),isSelected.get(i),isFavorite.get(i),groupIds.get(i)));
-        }
-
-
-        GroupSelectionDataAdapter adapter = new GroupSelectionDataAdapter(groupDatas,getContext());
-
-        // Assign adapter to ListView
-        groupList.setAdapter(adapter);
+        final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("groups");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                groupDatas =new ArrayList<>();
+                for (DataSnapshot data :dataSnapshot.getChildren()) {
+                    Boolean favori = data.child("favoris").getValue(Boolean.class);
+                    String id = data.child("group_id").getValue(String.class);
+                    String name = data.child("name").getValue(String.class);
+                    groupDatas.add(new GroupSelectionData(name,false,favori,id));
+                }
+                GroupSelectionDataAdapter adapter = new GroupSelectionDataAdapter(groupDatas,getContext());
+                groupList.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("PROBLEME DE CONNEXION");
+            }
+        });
 
         // ListView Item Click Listener
         groupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
