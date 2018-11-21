@@ -1,6 +1,10 @@
 package com.project.safegroup;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,7 +41,7 @@ public class OptionFragment extends Fragment {
         // Defined Array values to show in ListView
         String[] values = new String[] {getString(R.string.deconnexion) ,
                 "Futur Option",
-                "Maybe an other option",
+                "Rejoindre un groupe",
         };
 
 
@@ -80,6 +87,49 @@ public class OptionFragment extends Fragment {
                                     }
                                 });
                         break;
+                    case 2 :
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+
+                        //AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Rejoindre un groupe");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Entrer le lien du groupe");
+                        final EditText input = new EditText(getContext());
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.MATCH_PARENT);
+                        input.setLayoutParams(lp);
+                        alertDialog.setView(input);
+
+                        // Setting Positive "Yes" Button
+                        alertDialog.setPositiveButton("Confirmer",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int which) {
+                                        // Write your code here to execute after dialog
+                                        Toast.makeText(getContext(),"Vous avez rejoint le groupe", Toast.LENGTH_SHORT).show();
+
+                                        //Ici le code pour faire rejoindre un user à un groupe
+                                        
+                                    }
+                                });
+                        // Setting Negative "NO" Button
+                        alertDialog.setNegativeButton("Annuler",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        // closed
+
+                        // Showing Alert Message
+                        alertDialog.show();
+
+                        break;
+
                     default:
                         break;
 
