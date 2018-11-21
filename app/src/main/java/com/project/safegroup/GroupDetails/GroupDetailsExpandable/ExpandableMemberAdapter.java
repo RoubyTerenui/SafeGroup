@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
 
-    ArrayList<MemberData> members = new ArrayList<>();
-    ArrayList<String> descriptions = new ArrayList<>();
+    ArrayList<MemberData> members;
+    ArrayList<DescriptionData> descriptions;
     Context mContext;
 
-    public  ExpandableMemberAdapter(ArrayList<MemberData> data,ArrayList<String> descriptions, Context context) {
+    public  ExpandableMemberAdapter(ArrayList<MemberData> data,ArrayList<DescriptionData> descriptions, Context context) {
         this.members = data;
         this.descriptions=descriptions;
         this.mContext=context;
@@ -98,6 +98,9 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
         View expandedListItem = convertView;
         if(expandedListItem == null)
             expandedListItem = LayoutInflater.from(mContext).inflate(R.layout.group_detail_expandable_item_expanded,parent,false);
+
+
+
 
         String currentDescription = descriptions.get(groupPosition);
 
