@@ -180,7 +180,7 @@ public class OptionFragment extends Fragment {
     public void joinGroup(String group_Id){
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference ref=mDatabase.child("users").child("groups").child(group_Id);
+        DatabaseReference ref=mDatabase.child(group_Id);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
