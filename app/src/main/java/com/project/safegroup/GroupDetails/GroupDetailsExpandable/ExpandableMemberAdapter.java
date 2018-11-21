@@ -1,6 +1,7 @@
 package com.project.safegroup.GroupDetails.GroupDetailsExpandable;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
@@ -18,11 +19,11 @@ import java.util.ArrayList;
 
 public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
 
-    ArrayList<MemberData> members = new ArrayList<>();
-    ArrayList<String> descriptions = new ArrayList<>();
+    ArrayList<MemberData> members;
+    ArrayList<DescriptionData> descriptions;
     Context mContext;
 
-    public  ExpandableMemberAdapter(ArrayList<MemberData> data,ArrayList<String> descriptions, Context context) {
+    public  ExpandableMemberAdapter(ArrayList<MemberData> data,ArrayList<DescriptionData> descriptions, Context context) {
         this.members = data;
         this.descriptions=descriptions;
         this.mContext=context;
@@ -99,10 +100,27 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
         if(expandedListItem == null)
             expandedListItem = LayoutInflater.from(mContext).inflate(R.layout.group_detail_expandable_item_expanded,parent,false);
 
-        String currentDescription = descriptions.get(groupPosition);
+        Resources res = mContext.getResources();
+        String[] states = res.getStringArray(R.array.state);
+        String[] preciseStates = res.getStringArray(R.array.precise_state);
+        String description;
+        DescriptionData child = descriptions.get(groupPosition);
+        String editorDate = child.getEditorDate();
+        String editorName = child.getEditorName();
+        int state = child.getState();
+        int statePrecision = child.getStatePrecision();
+        boolean isSelf = child.getIsSelf();
 
-        TextView description = (TextView) expandedListItem.findViewById(R.id.memberDescription);
-        description.setText(currentDescription);
+        if(isSelf)
+        {
+            description = String.format(res.getString(R.string.self_description_member),states[state],preciseStates[statePrecision],editorDate);
+        }
+        else {
+            description = String.format(res.getString(R.string.description_member),states[state],preciseStates[statePrecision],editorDate,editorName);
+        }
+
+        TextView descriptionView = (TextView) expandedListItem.findViewById(R.id.memberDescription);
+        descriptionView.setText(description);
         return expandedListItem;
     }
 

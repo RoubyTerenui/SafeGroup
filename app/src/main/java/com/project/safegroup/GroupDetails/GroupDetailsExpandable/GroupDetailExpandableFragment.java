@@ -45,7 +45,7 @@ public class GroupDetailExpandableFragment extends Fragment {
     private static final String TAG = "com.louis.safegroup.GroupDetailExpandableFragment";
     private static ExpandableListView groupList;
     private static ArrayList<MemberData> groupDatas = new ArrayList<>();
-    private static ArrayList<String> groupDescriptions = new ArrayList<>();
+    private static ArrayList<DescriptionData> groupDescriptions = new ArrayList<>();
     public static final String ARG_ITEM_ID = "item_id";
     private GroupData mItem;
 
@@ -137,19 +137,9 @@ public class GroupDetailExpandableFragment extends Fragment {
                         int statePrecision = members.child("state_Precision").getValue(Integer.class);
                         String editorName =  members.child("nameModifier").getValue(String.class);
                         String editorDate =  members.child("last_Update").getValue(String.class);
+                        Boolean isSelf = name.equals(editorName);
                         groupDatas.add(new MemberData(name,id,state));
-                        Resources res = getResources();
-                        String[] states = res.getStringArray(R.array.state);
-                        String[] preciseState = res.getStringArray(R.array.precise_state);
-                        String description;
-                        if(name.equals(editorName))
-                        {
-                            description = String.format(res.getString(R.string.self_description_member),states[state],preciseState[statePrecision],editorDate);
-                        }
-                        else {
-                            description = String.format(res.getString(R.string.description_member),states[state],preciseState[statePrecision],editorDate,editorName);
-                        }
-                        groupDescriptions.add(description);
+                        groupDescriptions.add(new DescriptionData(state,statePrecision,editorDate,editorName,isSelf));
                     }
 
                     ExpandableMemberAdapter adapter = new ExpandableMemberAdapter(groupDatas,groupDescriptions,getContext());
