@@ -56,7 +56,7 @@ public class OptionFragment extends Fragment {
         String[] values = new String[] {getString(R.string.deconnexion) ,
                 "Supprimer Compte",
                 "Rejoindre un groupe",
-                "Partager"
+                "Other Options"
         };
 
 
@@ -144,11 +144,6 @@ public class OptionFragment extends Fragment {
 
                         // Showing Alert Message
                         alertDialog.show();
-
-                        break;
-                    case 3 :
-
-
 
                         break;
                     default:
