@@ -21,7 +21,7 @@ public class Member {
     private String member_Id;
     private String name;
     private String nameModifier;
-    private Date last_Update;
+    private String last_Update;
     private int state;
     @Nullable
     private int state_Precision;
@@ -31,7 +31,7 @@ public class Member {
     public Member(){
         this.member_Id=FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.nameModifier=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        this.last_Update =new Date();
+        this.last_Update =new Date().toString();
         this.state=0;
     }
     public Member(Member member){
@@ -41,7 +41,7 @@ public class Member {
         this.state = member.getState();
         this.state_Precision = member.getState_Precision();
     }
-    public Member(String member_Id,String nameId,String name, Date last_Update, int state, int state_Precision) {
+    public Member(String member_Id,String nameId,String name, String last_Update, int state, int state_Precision) {
         this.nameModifier=nameId ;
         this.name=name;
         this.member_Id=member_Id;
@@ -55,7 +55,7 @@ public class Member {
 
     public String getMember_Id() {        return member_Id;    }
     public String getNameModifier()  {        return nameModifier;    }
-    public Date getLast_Update() {        return last_Update;    }
+    public String getLast_Update() {        return last_Update;    }
     public int getState() {        return state;    }
     public int getState_Precision() {        return state_Precision;    }
 
@@ -65,7 +65,7 @@ public class Member {
 
     public void setMember_Id(String member_Id) {        this.member_Id = member_Id;    }
     public void setNameModifier(String nameModifier)  {        this.nameModifier=nameModifier;    }
-    public void setLast_Update(Date last_Update) {        this.last_Update = last_Update;    }
+    public void setLast_Update(String last_Update) {        this.last_Update = last_Update;    }
     public void setState(int state) {        this.state = state;    }
     public void setState_Precision(int state_Precision) {        this.state_Precision = state_Precision;    }
 

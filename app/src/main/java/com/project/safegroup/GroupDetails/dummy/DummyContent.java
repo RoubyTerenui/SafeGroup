@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import dataBase.model.Group;
+import dataBase.model.Member;
 import dataBase.model.User;
 import retrofit2.http.HEAD;
 
@@ -40,19 +41,46 @@ public class DummyContent {
 
     static {
 
+
+
+
+    }
+
+    private static void addItem(Group item) {
+        ITEMS.add(item);
+        ITEM_MAP.put(item.getGr_id(), item);
+    }
+
+    public static void update(){
+        ITEMS.clear();
+        ITEM_MAP.clear();
+
         final DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-              //  DataSnapshot dataSnapshot1=dataSnapshot.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("groups");
-               // List<String> listGr_Id=new ArrayList<String>();
-                //for (DataSnapshot datasnapshot3: dataSnapshot.getChildren() ) {
-                  //  listGr_Id.add((String)datasnapshot3.child("group_id").getValue());
-                  //  System.out.println((String)datasnapshot3.child("group_id").getValue());
-                //}
+                String currentID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                for (DataSnapshot children:dataSnapshot.child("users").child(currentID).child("groups").getChildren()) {
+
+                    String group_id = children.child("group_id").getValue().toString();
+                    System.out.println(group_id);
+
+                    DataSnapshot datatemp = dataSnapshot.child("group").child(group_id);
+                    Group group = new Group();
+                    group.setGr_id(group_id);
+                    group.setAdministrator(datatemp.child("administrator").getValue(String.class));
+                    group.setName(datatemp.child("name").getValue(String.class));
+
+                    List<Member> members = new ArrayList<>();
+                    for (DataSnapshot data:datatemp.child("members").getChildren()   ) {
+                        members.add(data.getValue(Member.class));
+                    }
+                    group.setMembers(members);
+                    addItem(group);
+                }
 
                 // do your stuff here with value
             }
@@ -61,13 +89,6 @@ public class DummyContent {
                 System.out.println("PROBLEME DE CONNEXION");
             }
         });
-
-
-    }
-
-    private static void addItem(Group item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.getGr_id(), item);
     }
 
 
