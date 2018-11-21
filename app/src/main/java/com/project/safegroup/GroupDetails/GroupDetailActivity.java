@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import com.project.safegroup.GroupDetails.GroupDetailsExpandable.GroupDetailExpandableFragment;
 import com.project.safegroup.R;
 
 /**
@@ -55,9 +56,9 @@ public class GroupDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(GroupDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(GroupDetailFragment.ARG_ITEM_ID));
-            GroupDetailFragment fragment = new GroupDetailFragment();
+            arguments.putString(GroupDetailExpandableFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(GroupDetailExpandableFragment.ARG_ITEM_ID));
+            GroupDetailExpandableFragment fragment = new GroupDetailExpandableFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.group_detail_container, fragment)
