@@ -20,4 +20,4 @@ Les fonctionnalités implémentées pour la version Alpha sont les suivantes :
 #Indications importantes
 -Il est impératif qu'une connexion internet soit opérationnelle sur l'appareil pour fonctionner.
 -L'authentification via un compte Google est affichée sur la page d'accueil mais pas encore fonctionnelle.
-
+-Les méthodes "Partager un groupe" et "Supprimer un groupe" sont fonctionnelles, mais pas encore liées à une vue.
