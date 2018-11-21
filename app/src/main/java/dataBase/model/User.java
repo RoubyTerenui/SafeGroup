@@ -101,5 +101,9 @@ public class User  {
         ITEM_MAP.put(newPostKey,newGroupUser);
         mDatabase.child("users").child(this.uid).child("groups").updateChildren(ITEM_MAP);
 
+
     }
+
+
+
 }

@@ -23,7 +23,21 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.project.safegroup.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import dataBase.model.Group;
+import dataBase.model.Member;
+import dataBase.model.User;
 
 
 public class OptionFragment extends Fragment {
@@ -40,8 +54,9 @@ public class OptionFragment extends Fragment {
 
         // Defined Array values to show in ListView
         String[] values = new String[] {getString(R.string.deconnexion) ,
-                "Futur Option",
+                "Supprimer Compte",
                 "Rejoindre un groupe",
+                "Partager"
         };
 
 
@@ -109,7 +124,9 @@ public class OptionFragment extends Fragment {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int which) {
                                         // Write your code here to execute after dialog
-                                        Toast.makeText(getContext(),"Vous avez rejoint le groupe", Toast.LENGTH_SHORT).show();
+                                        Boolean idValid=false;
+                                        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
+                                        joinGroup(input.getText().toString());
 
                                         //Ici le code pour faire rejoindre un user à un groupe
                                         
@@ -129,7 +146,11 @@ public class OptionFragment extends Fragment {
                         alertDialog.show();
 
                         break;
+                    case 3 :
 
+
+
+                        break;
                     default:
                         break;
 
@@ -141,5 +162,55 @@ public class OptionFragment extends Fragment {
         });
         return view;
     }
+    public void broadcast(String group_Id){
+
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, group_Id);
+        this.startActivity(Intent.createChooser(i, "Coller ce texte dans l'Edit Texte pour rejoindre le groupe "));
+
+    }
+    public void removeGroup(String group_Id){
+        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase.child(group_Id).child("members").child(user.getUid()).removeValue();
+        DatabaseReference ref=mDatabase.child("users").child("groups").child(group_Id);
+        ref.removeValue();
+    }
+    public void joinGroup(String group_Id){
+        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference ref=mDatabase.child("users").child("groups").child(group_Id);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    Group group = new Group();
+                    group.setGr_id(dataSnapshot.getKey());
+                    group.setName(dataSnapshot.child("name").getValue(String.class));
+                    User user = new User();
+                    user.pushnewGroupUser(group);
+                    Map<String, Object> newGroupUser = new HashMap<String, Object>();
+                    Member member = new Member();
+                    member.pushMember_toDataBase(dataSnapshot.getKey());
+                    Toast.makeText(getContext(), "Vous avez rejoint le groupe", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Toast.makeText(getContext(), "Ce groupe n'existe pas", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Group non existant");
+
+            }
+        });
+
+
+    }
+
 
 }
