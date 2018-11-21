@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private ThreeButtons mainFragment;
     private ProblemQuad problemQuad;
-    private GroupDetailExpandableFragment dangerQuad;
+    private DangerQuad dangerQuad;
     private SafeQuad safeQuad;
     private GroupQuad groupQuad;
     private NotificationRecap notificationRecap;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainFragment = (ThreeButtons) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
         problemQuad= new ProblemQuad();
-        dangerQuad = new GroupDetailExpandableFragment();
+        dangerQuad = new DangerQuad();
         safeQuad = new SafeQuad();
         groupQuad = new GroupQuad();
         notificationRecap = new NotificationRecap();
