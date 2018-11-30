@@ -78,14 +78,7 @@ public class DummyContent {
                     groupData.setGroupID(group_id);
                     groupData.setAdminName(datatemp.child("administrator").getValue(String.class));
                     groupData.setGroupName(datatemp.child("name").getValue(String.class));
-
-                    /*
-                    List<Member> members = new ArrayList<>();
-                    for (DataSnapshot data:datatemp.child("members").getChildren()   ) {
-                        members.add(data.getValue(Member.class));
-                    }
-                    group.setMembers(members);
-                    */
+                    
                     addItem(groupData);
                 }
 

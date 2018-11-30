@@ -91,4 +91,5 @@
     <string name="title_group_list" translatable="false">Groups</string>
     <string name="title_group_detail" translatable="false">Group Detail</string>
     <string name="deconnexion">Deconnexion</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
