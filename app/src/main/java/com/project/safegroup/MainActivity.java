@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     setFragment(0);
                     return true;
                 case R.id.navigation_dashboard:
-                    Intent intent = new Intent(getBaseContext(), GroupListActivity.class);
+                    Intent intent = new Intent(getBaseContext(), MapsActivity.class);
                     startActivity(intent);
                     return true;
                 case R.id.navigation_notifications:
