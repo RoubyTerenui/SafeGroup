@@ -23,6 +23,7 @@ public class User  {
     private String e_mail;
     @Nullable
     private String urlPicture;
+    private String wifi;
     private List<Map<String,Object>>  groups;
 
 
@@ -53,6 +54,7 @@ public class User  {
     @Nullable
     public String getUrlPicture() {        return urlPicture;    }
     public List<Map<String,Object>> getGroups() {        return groups;    }
+    public String getWifi(){return wifi;}
 
     // --- SETTERS ---
 
@@ -61,6 +63,7 @@ public class User  {
     public void setE_mail(String e_mail) {        this.e_mail = e_mail;    }
     public void setUrlPicture(@Nullable String urlPicture) {        this.urlPicture = urlPicture;    }
     public void setGroups(List<Map<String,Object>> groups) {        this.groups = groups;    }
+    public void setWifi(String bssid){ this.wifi = bssid;}
 
     // ---METHODS---
 
@@ -77,6 +80,7 @@ public class User  {
         ITEM_MAP.put("nickname",this.nickname);
         ITEM_MAP.put("e_mail",this.e_mail);
         ITEM_MAP.put("groups",this.groups);
+        ITEM_MAP.put("wifi", this.wifi);
         if(this.urlPicture!=null) {
             ITEM_MAP.put("urlPicture", this.urlPicture);
         }
