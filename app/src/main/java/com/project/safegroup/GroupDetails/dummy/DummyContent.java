@@ -11,7 +11,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.project.safegroup.GroupDetails.GroupListActivity;
+import com.project.safegroup.GroupDetails.GroupList;
+import com.project.safegroup.MainActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +58,7 @@ public class DummyContent {
         return builder.toString();
     }
 
-    public static void update(final RecyclerView recyclerView, final GroupListActivity groupListActivity, final boolean mTwoPane) {
+    public static void update(final RecyclerView recyclerView, final GroupList groupList, final boolean mTwoPane) {
 
         ITEMS.clear();
         ITEM_MAP.clear();
@@ -82,7 +83,7 @@ public class DummyContent {
                     addItem(groupData);
                 }
 
-                recyclerView.setAdapter(new GroupListActivity.SimpleItemRecyclerViewAdapter(groupListActivity, DummyContent.ITEMS, mTwoPane));
+                recyclerView.setAdapter(new GroupList.SimpleItemRecyclerViewAdapter((MainActivity)groupList.getActivity(), DummyContent.ITEMS, mTwoPane));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -9,13 +9,8 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="com.project.safegroup.GroupDetails.GroupListActivity">
+    tools:context="com.project.safegroup.GroupDetails.GroupList">
 
-    <!--
-    This layout is a two-pane layout for the Groups
-    master/detail flow.
-    
-    -->
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

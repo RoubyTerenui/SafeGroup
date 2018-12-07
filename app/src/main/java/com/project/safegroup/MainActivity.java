@@ -20,9 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.project.safegroup.GroupDetails.GroupDetailsExpandable.GroupDetailExpandableFragment;
-import com.project.safegroup.GroupDetails.GroupListActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.project.safegroup.GroupDetails.GroupList;
 import com.project.safegroup.GroupSelection.GroupSelection;
 import com.project.safegroup.GroupSelection.GroupSelectionData;
 
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private NotificationRecap notificationRecap;
     private GroupSelection groupSelection;
     private OptionFragment optionFragment;
+    private GroupList groupList;
     //private SectionStatePageAdapter mSectionStatePageAdapter;
     private int localState;
     private int localStatePrecision;
@@ -65,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     setFragment(0);
                     return true;
                 case R.id.navigation_dashboard:
-                    Intent intent = new Intent(getBaseContext(), MapsActivity.class);
-                    startActivity(intent);
+                    setFragment(8);
                     return true;
                 case R.id.navigation_notifications:
                     setFragment(7);
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         notificationRecap = new NotificationRecap();
         groupSelection = new GroupSelection();
         optionFragment = new OptionFragment();
+        groupList = new GroupList();
         if (mainFragment == null) {
             mainFragment = new ThreeButtons();
             getSupportFragmentManager().beginTransaction()
@@ -117,17 +118,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setState(int state){ localState = state; }
 
-    public void setStatePrecision(int statePresision){
-        localStatePrecision=statePresision;
+    public void setStatePrecision(int statePrecision){
+        localStatePrecision=statePrecision;
     }
 
     public void setGroup(int group){localGroup=group;}
-
-    public void setLocalStateColor(){
-        ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.container);
-        int[] stateColor = getResources().getIntArray(R.array.state_color);
-        rl.setBackgroundColor(stateColor[localState]);
-    }
 
     public void setFragment(int fragId){
         switch (fragId) {
@@ -152,6 +147,11 @@ public class MainActivity extends AppCompatActivity {
             case 7 :
                 getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,optionFragment).addToBackStack("begin").commit();
+                break;
+            case 8:
+                getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,groupList).addToBackStack("begin").commit();
+                break;
             default:
                 break;
         }
