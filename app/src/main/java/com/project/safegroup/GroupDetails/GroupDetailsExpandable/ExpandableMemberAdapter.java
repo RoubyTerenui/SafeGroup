@@ -15,7 +15,10 @@ import android.widget.TextView;
 import com.project.safegroup.GroupSelection.GroupSelectionData;
 import com.project.safegroup.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
 
@@ -105,20 +108,37 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
         String[] preciseStates = res.getStringArray(R.array.precise_state);
         String description;
         DescriptionData child = descriptions.get(groupPosition);
-        String editorDate = child.getEditorDate();
-        String editorName = child.getEditorName();
-        int state = child.getState();
-        int statePrecision = child.getStatePrecision();
-        boolean isSelf = child.getIsSelf();
-
-        if(isSelf)
-        {
-            description = String.format(res.getString(R.string.self_description_member),states[state],preciseStates[statePrecision],editorDate);
+        if(child.getOtherState()!=null) {
+            Date dateSelfState=null;
+            Date dateOtherState=null;
+            String SdateSelfState = child.getSelfState().getLast_Update();
+            String SdateOtherState = child.getOtherState().getLast_Update();
+            String name = child.getName();
+            SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
+            try {
+                dateSelfState = format.parse(SdateSelfState);
+                dateOtherState = format.parse(SdateOtherState);
+            } catch (java.text.ParseException error) {
+                System.out.println("error Date Conversion" + error);
+            }
+            if (dateOtherState.after(dateSelfState)) {
+                int state = child.getOtherState().getState();
+                int selfState = child.getSelfState().getState();
+                String nameModifier = child.getOtherState().getName();
+                description = String.format(res.getString(R.string.description_member), states[state], format.format(dateOtherState), nameModifier, name, states[selfState],format.format(dateSelfState));
+            } else {
+                int state = child.getState();
+                int statePrecision = child.getSelfState().getStateDescription();
+                description = String.format(res.getString(R.string.self_description_member), states[state], preciseStates[statePrecision], format.format(dateSelfState));
+            }
         }
-        else {
-            description = String.format(res.getString(R.string.description_member),states[state],preciseStates[statePrecision],editorDate,editorName);
-        }
+        else{
+            String SdateSelfState = child.getSelfState().getLast_Update();
+            int state = child.getState();
+            int statePrecision = child.getSelfState().getStateDescription();
+            description = String.format(res.getString(R.string.self_description_member), states[state], preciseStates[statePrecision], SdateSelfState);
 
+        }
         TextView descriptionView = (TextView) expandedListItem.findViewById(R.id.memberDescription);
         descriptionView.setText(description);
         return expandedListItem;

@@ -21,6 +21,8 @@ public class Member {
     private String member_Id;
     private String name;
     private Boolean asked;
+    private Boolean positionAvailable;
+    @Nullable
     private OtherState otherState;
     private SelfState selfState;
     private int state;
@@ -31,16 +33,28 @@ public class Member {
     public Member(){
         this.member_Id=FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.name=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        //this.last_Update =new Date().toString();
+        positionAvailable=false;
+        asked=false;
+        selfState=new SelfState(0 , 0) ;
+        otherState=null;
         this.state=0;
     }
     public Member(Member member){
+        this.name=member.getName();
         this.member_Id = member.getMember_Id();
+        this.positionAvailable=member.positionAvailable;
+        this.asked=member.asked;
+        selfState=new SelfState(0 , 0) ;
+        otherState=null;
         this.state = member.getState();
     }
 
-    public Member(String member_Id,String nameId,String name, int state, int state_Precision) {
+    public Member(String member_Id,String name, int state) {
         this.name=name;
+        selfState=new SelfState(0 , 0) ;
+        asked=false;
+        positionAvailable=false;
+        otherState=null;
         this.member_Id=member_Id;
         this.state = state;
     }
@@ -53,7 +67,7 @@ public class Member {
     public OtherState getOtherState() {        return otherState;    }
     public SelfState getSelfState() {        return selfState;    }
     public Boolean getAsked() {        return asked;    }
-
+    public Boolean getPositionAvailable() {        return positionAvailable;    }
 
     // --- SETTERS ---
     public void setMember_Id(String member_Id) {        this.member_Id = member_Id;    }
@@ -62,6 +76,7 @@ public class Member {
     public void setOtherState(OtherState otherState) {        this.otherState = otherState;    }
     public void setSelfState(SelfState selfState) {        this.selfState = selfState;    }
     public void setAsked(Boolean asked) {        this.asked = asked;    }
+    public void setPositionAvailable(Boolean positionAvailable) {        this.positionAvailable = positionAvailable;    }
 
     // ---METHODS---
 
@@ -76,10 +91,13 @@ public class Member {
         Map<String,Object > ITEM_MAP = new HashMap<String, Object>();
         ITEM_MAP.put("state",this.state);
         ITEM_MAP.put("asked",this.asked);
+        ITEM_MAP.put("positionAvailable",this.positionAvailable);
         ITEM_MAP.put("name", this.name);
         mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()).setValue(ITEM_MAP);
-        otherState.pushOtherState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
         selfState.pushSelfState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
+        if (otherState != null) {
+            otherState.pushOtherState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
+        }
 
     }
 

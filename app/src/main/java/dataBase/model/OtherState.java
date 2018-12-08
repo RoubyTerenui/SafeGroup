@@ -3,6 +3,8 @@ package dataBase.model;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +17,16 @@ public class OtherState {
     private String last_Update;
 
     // --- CONSTRUCTOR ---
+    public OtherState() {
+        this.name=null;
+        this.state = 0;
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
+        this.last_Update=format.format(new Date());;
+    }
     public OtherState(String name, int state) {
         this.name=name;
         this.state = state;
-        this.last_Update =new Date().toString();
+        this.last_Update =DateFormat.getDateTimeInstance().format(new Date());;
     }
 
     // --- GETTERS ---

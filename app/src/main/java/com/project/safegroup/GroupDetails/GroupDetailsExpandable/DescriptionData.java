@@ -1,33 +1,39 @@
 package com.project.safegroup.GroupDetails.GroupDetailsExpandable;
 
+import dataBase.model.OtherState;
+import dataBase.model.SelfState;
+
 public class DescriptionData {
 
-    String editorDate;
-    String editorName;
-    Boolean isSelf;
+    // --- SETTERS ---
+
+    String name;
+    //Boolean isSelf;
     int state;
-    int statePrecision;
+    SelfState selfState;
+    OtherState otherState;
 
-    public DescriptionData(int state,int statePrecision, String editorDate, String editorName, Boolean isSelf){
-        this.editorDate=editorDate;
-        this.statePrecision=statePrecision;
+    // --- CONSTRUCTOR ---
+
+    public DescriptionData(int state, SelfState selfState, OtherState otherState, String name/*, Boolean isSelf*/){
+        this.otherState=otherState;
+        this.selfState=selfState;
         this.state=state;
-        this.editorName=editorName;
-        this.isSelf=isSelf;
+        this.name=name;
+        //this.isSelf=isSelf;
     }
 
-    public String getEditorDate()
-    {
-        return editorDate;
-    }
-    public String getEditorName(){
-        return editorName;
+
+    // --- GETTERS ---
+
+    public String getName(){
+        return name;
     }
     public int getState(){
         return state;
     }
-    public int getStatePrecision(){
-        return statePrecision;
-    }
-    public Boolean getIsSelf(){return isSelf;}
+    //public Boolean getSelf() {        return isSelf;    }
+    public SelfState getSelfState() {        return selfState;    }
+    public OtherState getOtherState() {        return otherState;    }
+    //public Boolean getIsSelf(){return isSelf;}
 }

@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +20,17 @@ public class SelfState {
 
     // --- CONSTRUCTOR ---
 
+    public SelfState(){
+        this.state = 0;
+        this.stateDescription = 0;
+        this.last_Update =DateFormat.getDateTimeInstance().format(new Date());
+    }
+
     public SelfState(int state, @Nullable int stateDescription) {
         this.state = state;
         this.stateDescription = stateDescription;
-        this.last_Update =new Date().toString();
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
+        this.last_Update =format.format(new Date());;
     }
 
     // --- GETTERS ---
