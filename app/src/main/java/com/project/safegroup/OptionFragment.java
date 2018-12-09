@@ -55,7 +55,6 @@ public class OptionFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_option,container,false);
-
         // Get ListView object from xml
         listView = (ListView) view.findViewById(R.id.listOptions);
 
@@ -100,15 +99,43 @@ public class OptionFragment extends Fragment {
                             });
                         break;
                     case 1:
-                        AuthUI.getInstance()
-                                .delete(getContext())
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        ((MainActivity)getActivity()).setFragment(0);//TO DO NE pas passer par la 1 ere page
-                                        ((MainActivity)getActivity()).checkLogin();
+
+                        DatabaseReference  databaseReference=FirebaseDatabase.getInstance().getReference();
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                DataSnapshot ref=dataSnapshot.child("users").child(uid);
+                                for (DataSnapshot refgroup:ref.child("groups").getChildren()) {
+                                    String group =  (String)refgroup.child("group_id").getValue();
+                                    dataSnapshot.child("group").child(group).child("members").child(uid).getRef().removeValue();
+                                    if (dataSnapshot.child(group).child("members").getChildrenCount()==0){
+                                        dataSnapshot.child("group").child(group).getRef().removeValue();
                                     }
-                                });
+                                }
+                                ref.getRef().removeValue();
+
+                                AuthUI.getInstance()
+                                        .delete(getContext())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                //((MainActivity)getActivity()).setUserNull();
+                                                ((MainActivity)getActivity()).setFragment(0);//TO DO NE pas passer par la 1 ere page
+                                                ((MainActivity)getActivity()).checkLogin();
+                                            }
+                                        });
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError error){
+                                System.out.println("Tag Error");
+
+                            }
+                        });
+
+
+
+
                         break;
                     case 2 :
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
