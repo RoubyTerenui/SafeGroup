@@ -132,8 +132,9 @@ public class GroupDetailExpandableFragment extends Fragment {
                         groupDescriptions= new ArrayList<>();
                     for (DataSnapshot members:dataSnapshot.child("members").getChildren()) {
                         String name = members.child("name").getValue(String.class);
-                        String id = members.getKey();
                         int state = members.child("state").getValue(Integer.class);
+
+                        String id = members.getKey();
                         int statePrecision = members.child("state_Precision").getValue(Integer.class);
                         String editorName =  members.child("nameModifier").getValue(String.class);
                         String editorDate =  members.child("last_Update").getValue(String.class);
@@ -142,7 +143,7 @@ public class GroupDetailExpandableFragment extends Fragment {
                         groupDescriptions.add(new DescriptionData(state,statePrecision,editorDate,editorName,isSelf));
                     }
 
-                    ExpandableMemberAdapter adapter = new ExpandableMemberAdapter(groupDatas,groupDescriptions,getContext());
+                    ExpandableMemberAdapter adapter = new ExpandableMemberAdapter(groupDatas,groupDescriptions,mItem.getGroupID(),getContext());
                     groupList.setAdapter(adapter);
                 }
 

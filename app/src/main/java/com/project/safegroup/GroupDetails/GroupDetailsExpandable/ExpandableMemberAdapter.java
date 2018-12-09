@@ -1,5 +1,7 @@
 package com.project.safegroup.GroupDetails.GroupDetailsExpandable;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -9,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.project.safegroup.GroupDetails.GroupDetailActivity;
 import com.project.safegroup.GroupSelection.GroupSelectionData;
 import com.project.safegroup.R;
 
@@ -21,12 +25,14 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
 
     ArrayList<MemberData> members;
     ArrayList<DescriptionData> descriptions;
+    String groupId;
     Context mContext;
 
-    public  ExpandableMemberAdapter(ArrayList<MemberData> data,ArrayList<DescriptionData> descriptions, Context context) {
+    public  ExpandableMemberAdapter(ArrayList<MemberData> data,ArrayList<DescriptionData> descriptions,String groupId, Context context) {
         this.members = data;
         this.descriptions=descriptions;
         this.mContext=context;
+        this.groupId = groupId;
     }
     @Override
     public int getGroupCount() {
@@ -95,32 +101,65 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
         View expandedListItem = convertView;
-        if(expandedListItem == null)
-            expandedListItem = LayoutInflater.from(mContext).inflate(R.layout.group_detail_expandable_item_expanded,parent,false);
-
+        if(expandedListItem == null) {
+            expandedListItem = LayoutInflater.from(mContext).inflate(R.layout.group_detail_expandable_item_expanded, parent, false);
+        }
         Resources res = mContext.getResources();
         String[] states = res.getStringArray(R.array.state);
         String[] preciseStates = res.getStringArray(R.array.precise_state);
-        String description;
+        String description = "";
         DescriptionData child = descriptions.get(groupPosition);
-        String editorDate = child.getEditorDate();
-        String editorName = child.getEditorName();
-        int state = child.getState();
-        int statePrecision = child.getStatePrecision();
-        boolean isSelf = child.getIsSelf();
 
-        if(isSelf)
-        {
-            description = String.format(res.getString(R.string.self_description_member),states[state],preciseStates[statePrecision],editorDate);
+        final boolean isAsked = child.isAsked();
+        boolean isSelfDescribed = child.isSelfDescribed();
+        boolean isOtherDescribed = child.isOtherDescribed();
+
+        if(isSelfDescribed) {
+            int selfStatePrecision = child.getSelfStatePrecision();
+            int selfState = child.getSelfState();
+            String selfDate = child.getSelfDate();
+            description = String.format(res.getString(R.string.self_description_member),states[selfState],preciseStates[selfStatePrecision],selfDate);
         }
-        else {
-            description = String.format(res.getString(R.string.description_member),states[state],preciseStates[statePrecision],editorDate,editorName);
+
+        if(isOtherDescribed)
+        {
+            String otherName = child.getOtherName();
+            int otherState = child.getOtherState();
+            String otherDate = child.getOtherDate();
+            description += String.format(res.getString(R.string.description_member),states[otherState],otherDate,otherName);
+        }
+
+        if(!isSelfDescribed && !isOtherDescribed){
+            description = res.getString(R.string.no_description);
         }
 
         TextView descriptionView = (TextView) expandedListItem.findViewById(R.id.memberDescription);
         descriptionView.setText(description);
+
+        Button askButton = (Button) expandedListItem.findViewById(R.id.askButton);
+        Button changeButton = (Button) expandedListItem.findViewById(R.id.changeButton);
+
+        if(isAsked){
+            changeButton.setBackgroundColor(mContext.getResources().getColor(R.color.common_google_signin_btn_text_dark_pressed));
+        }
+
+        //DESIGN DE LA SELECTION DE L'ETAT DES MEMBRES
+        final StateDialog cdd=new StateDialog((Activity) mContext,members.get(groupPosition).getName(),groupId);
+        askButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cdd.show();
+            }
+        });
+
+        changeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //handle click
+            }
+        });
         return expandedListItem;
     }
 

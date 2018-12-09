@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendNotificationTo(ArrayList<String> groupIds){
-        //TODO - SendNotificationToGroupIds
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         for (String id:groupIds) {
