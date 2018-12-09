@@ -19,6 +19,8 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.project.safegroup.GroupDetails.GroupDetailsExpandable.GroupDetailExpandableFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private int localStatePrecision;
     private int localGroup;
     // ---User connected to the app---
-    private User logged_User;
+   // private User logged_User;
     // ---Reference to access to the DataBase---
     private DatabaseReference mDatabaseReference;
 
@@ -207,7 +209,9 @@ public class MainActivity extends AppCompatActivity {
                 RC_SIGN_IN);
 
     }
-
+  /*  public void setUserNull(){
+        this.logged_User=null;
+    }*/
 
 
     @Override
@@ -216,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         checkLogin();
         // --- Handle SignIn Activity response on activity result ---
         this.handleResponseAfterSignIn(requestCode, resultCode, data);
+
     }
 
     //  - --Show Snack Bar with a message---
@@ -234,11 +239,28 @@ public class MainActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) { // SUCCESS
                 showToast( "Authentification success");
-                if (logged_User==null) {
+                final DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference();
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Object value=dataSnapshot.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue();
+                        if(value==null) {
+                            User logged_User;
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null);
+                            logged_User.pushUser_toDataBase();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError error){
+                        System.out.println("Tag Error");
+
+                    }
+                });
+                /*if (logged_User==null) {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     logged_User = new User(user.getDisplayName(), user.getUid(), user.getEmail(), null);
-                    logged_User.pushUser_toDataBase();
-                }
+                    logged_User.pushUser_toDataBase();*/
             } else { // ERRORS
 
                 if (response == null) {

@@ -20,57 +20,63 @@ public class Member {
 
     private String member_Id;
     private String name;
-    private String nameModifier;
-    private String last_Update;
-    private int state;
+    private Boolean asked;
+    private Boolean positionAvailable;
     @Nullable
-    private int state_Precision;
+    private OtherState otherState;
+    private SelfState selfState;
+    private int state;
+
 
     // --- CONSTRUCTORS ---
 
     public Member(){
         this.member_Id=FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.name=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        this.nameModifier=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        this.last_Update =new Date().toString();
+        positionAvailable=false;
+        asked=false;
+        selfState=new SelfState(0 , 0) ;
+        otherState=null;
         this.state=0;
     }
     public Member(Member member){
+        this.name=member.getName();
         this.member_Id = member.getMember_Id();
-        this.nameModifier=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        this.last_Update = member.getLast_Update();
+        this.positionAvailable=member.positionAvailable;
+        this.asked=member.asked;
+        selfState=new SelfState(0 , 0) ;
+        otherState=null;
         this.state = member.getState();
-        this.state_Precision = member.getState_Precision();
     }
 
-    public Member(String member_Id,String nameId,String name, String last_Update, int state, int state_Precision) {
-        this.nameModifier=nameId ;
+    public Member(String member_Id,String name, int state) {
         this.name=name;
+        selfState=new SelfState(0 , 0) ;
+        asked=false;
+        positionAvailable=false;
+        otherState=null;
         this.member_Id=member_Id;
-        this.last_Update = last_Update;
         this.state = state;
-        this.state_Precision = state_Precision;
     }
 
 
     // --- GETTERS ---
-
     public String getMember_Id() {        return member_Id;    }
-    public String getNameModifier()  {        return nameModifier;    }
-    public String getLast_Update() {        return last_Update;    }
     public int getState() {        return state;    }
-    public int getState_Precision() {        return state_Precision;    }
-
-
+    public String getName() {        return name;    }
+    public OtherState getOtherState() {        return otherState;    }
+    public SelfState getSelfState() {        return selfState;    }
+    public Boolean getAsked() {        return asked;    }
+    public Boolean getPositionAvailable() {        return positionAvailable;    }
 
     // --- SETTERS ---
-
     public void setMember_Id(String member_Id) {        this.member_Id = member_Id;    }
-    public void setNameModifier(String nameModifier)  {        this.nameModifier=nameModifier;    }
-    public void setLast_Update(String last_Update) {        this.last_Update = last_Update;    }
     public void setState(int state) {        this.state = state;    }
-    public void setState_Precision(int state_Precision) {        this.state_Precision = state_Precision;    }
-
+    public void setName(String name) {        this.name = name;    }
+    public void setOtherState(OtherState otherState) {        this.otherState = otherState;    }
+    public void setSelfState(SelfState selfState) {        this.selfState = selfState;    }
+    public void setAsked(Boolean asked) {        this.asked = asked;    }
+    public void setPositionAvailable(Boolean positionAvailable) {        this.positionAvailable = positionAvailable;    }
 
     // ---METHODS---
 
@@ -83,17 +89,31 @@ public class Member {
     public void pushMember_toDataBase(String group_id) {
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
         Map<String,Object > ITEM_MAP = new HashMap<String, Object>();
-        ITEM_MAP.put("nameModifier",this.nameModifier);
         ITEM_MAP.put("state",this.state);
-        ITEM_MAP.put("state_Precision",this.state_Precision);
+        ITEM_MAP.put("asked",this.asked);
+        ITEM_MAP.put("positionAvailable",this.positionAvailable);
         ITEM_MAP.put("name", this.name);
-        ITEM_MAP.put("last_Update",this.last_Update);
-
         mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()).setValue(ITEM_MAP);
+        selfState.pushSelfState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
+        if (otherState != null) {
+            otherState.pushOtherState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
+        }
 
     }
 
-
+    // --- METHOD THAT CHANGE THE STATE OF A MEMBER ---
+    public void changeState_Member(String group_id,String member_Id,int state,@Nullable int stateDescription){
+        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("group").child(group_id).child("members");
+        if (FirebaseAuth.getInstance().getCurrentUser().getUid()==member_Id){//Si l'utilisateur actuel à le meme id propre etat
+            SelfState newselfState=new SelfState(state,stateDescription);
+            newselfState.pushSelfState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
+        }
+        else{
+            OtherState newselfState=new OtherState(FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),state);
+            otherState.pushOtherState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
+        }
+    }
 }
 
 
