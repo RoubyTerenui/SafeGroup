@@ -185,50 +185,8 @@ public class OptionFragment extends Fragment {
 
                         break;
                     case 3:
-                        WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                        String ssid = wifiInfo.getSSID();
-                        int temp = wifiInfo.getNetworkId();
-                        final String networkid = Integer.toString(temp);
-                        //final String bssid = wifiInfo.getBSSID();
-                        Log.d("wifi", "networkid = " + networkid);
-                        Log.d("wifi", "SSID = " + wifiInfo.getSSID());
-
-                        if(networkid == null){
-                            Toast.makeText(getContext(), "Veuillez vous connecter à un réseau wifi", Toast.LENGTH_SHORT);
-                            Log.d("WIFI", "Appareil non connecté au wifi");
-                        }else {
-
-                            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                            dialog.setTitle("Ajouter ce réseau WIFI");
-                            dialog.setMessage("Voulez-vous ajouter le réseau \'" + ssid + "\' comme wifi de référence ? \n" +
-                                    "Attention, lorsque vous serez à proximité, vous serez identifié comme étant \"proche d'un lieu de sureté.\"");
-
-                            // Setting Positive "Yes" Button
-                            dialog.setPositiveButton("Confirmer",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // Write your code here to execute after dialog
-                                            Log.d("WIFI", "Ajout du wifi comme maison");
-
-                                            addWifiToSafePlace(networkid);
-
-                                            //Ici le code pour faire rejoindre un user à un groupe
-
-                                        }
-                                    });
-
-                            // Setting Negative "NO" Button
-                            dialog.setNegativeButton("Annuler",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Log.d("WIFI", "J'ai pas touchéo");
-                                            dialog.cancel();
-                                        }
-                                    });
-
-                            dialog.show();
-                        }
+                        Intent intent = new Intent(getContext(), WifiActivity.class);
+                        startActivity(intent);
                         break;
                     default:
                         break;
@@ -241,26 +199,7 @@ public class OptionFragment extends Fragment {
     }
 
 
-    public void addWifiToSafePlace(final String bssid){
-        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("users");
 
-        final DatabaseReference ref=mDatabase.child(FirebaseAuth.getInstance().getUid());
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.hasChildren()){
-                    ref.child("wifi").setValue(bssid);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
 
     public void joinGroup(String group_Id){
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
