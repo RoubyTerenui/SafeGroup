@@ -60,4 +60,14 @@
     <string name="group_doesnt_exist">Ce groupe n\'existe pas</string>
     <string name="join_group_confirm">Vous avez rejoint le groupe !</string>
     <string name="set_wifi">Paramétrer le wifi de votre domicile</string>
+    <string name="configured_wifi">"Wifi configuré :  "</string>
+    <string name="none">Aucun</string>
+    <string name="add_new_wifi">Configurer un nouveau wifi</string>
+    <string name="delete">Supprimer</string>
+    <string name="please_connect_wifi">Veuillez vous connecter à un réseau wifi</string>
+    <string name="add_this_wifi">Ajouter ce réseau WIFI</string>
+    <string name="cancel">Annuler</string>
+    <string name="confirm_add_wifi">Voulez-vous ajouter le réseau \'%1$s\' comme wifi de référence ? \nAttention, lorsque vous serez à proximité, vous serez identifié comme étant \"proche d\'un lieu de sureté.\"</string>
+    <string name="delete_wifi">Supprimer le réseau wifi domicile</string>
+    <string name="confirm_delete_wifi">Vouslez-vous supprimer le wifi de référence ?</string>
 </resources>

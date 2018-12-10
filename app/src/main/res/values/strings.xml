@@ -113,4 +113,13 @@
     <string name="notification_detail_error">Oups! An error happen during the connexion to the database. \\nCheck your internet connexion and try again !</string>
     <string name="already_asked">Asked</string>
     <string name="set_wifi">Set up your home wifi</string>
+    <string name="configured_wifi">"Configured wifi :  "</string>
+    <string name="none">None</string>
+    <string name="add_new_wifi">Configure a new wifi</string>
+    <string name="add_this_wifi">Add this wifi network</string>
+    <string name="delete">Delete</string>
+    <string name="please_connect_wifi">Please connect to a wifi network</string>
+    <string name="confirm_add_wifi">Do you want to add the wifi network \'%1$s\' as your home wifi network ? \nPlease note that when you will be connected to this network, you will be identified as being \"in a safe place.\"</string>
+    <string name="delete_wifi">Delete home wifi network</string>
+    <string name="confirm_delete_wifi">Are you sure you want to delete your home wifi network ?</string>
 </resources>
