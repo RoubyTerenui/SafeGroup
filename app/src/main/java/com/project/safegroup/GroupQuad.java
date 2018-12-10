@@ -34,8 +34,8 @@ public class GroupQuad extends Fragment {
 
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setGroup(0);
-                ((MainActivity)getActivity()).setFragment(6);
+                ((MainActivity)getActivity()).sendGeneralNotificationTo(false,false);
+
             }
         });
 
@@ -43,16 +43,14 @@ public class GroupQuad extends Fragment {
 
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setGroup(1);
-                ((MainActivity)getActivity()).setFragment(6);
+                ((MainActivity)getActivity()).sendGeneralNotificationTo(true,false);
             }
         });
 
         partyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setGroup(2);
-                ((MainActivity)getActivity()).setFragment(6);
+                ((MainActivity)getActivity()).sendGeneralNotificationTo(false,true);
             }
         });
 

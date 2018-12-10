@@ -51,4 +51,5 @@
     <string name="changeState">Changer l\'état</string>
     <string name="no_description">Pas d\'état récent disponible</string>
     <string name="tileSetState">Selectionner l\'état correspondant</string>
+    <string name="notification_detail_error">Oups! La connexion à la base de donnée a échouée./n Vérifié votre connexion internet et réessayé !</string>
 </resources>

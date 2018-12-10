@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.project.safegroup.GroupDetails.GroupList;
 import com.project.safegroup.GroupSelection.GroupSelection;
 import com.project.safegroup.GroupSelection.GroupSelectionData;
+import com.project.safegroup.GroupSelection.GroupSelectionDataAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -167,9 +169,48 @@ public class MainActivity extends AppCompatActivity {
         String[] state = res.getStringArray(R.array.state);
         String[] preciseState = res.getStringArray(R.array.precise_state);
         String[] group = res.getStringArray(R.array.group);
+        Log.d("group","id-" +localGroup + " /result" + group[localGroup]);
         String detail = String.format(res.getString(R.string.notification_detail_message),state[localState], preciseState[localStatePrecision],group[localGroup]);
         TextView detailText = (TextView) findViewById(R.id.detail_notification);
         detailText.setText(detail);
+    }
+
+    public void setNotificationError(){
+        Resources res = getResources();
+        String detail = res.getString(R.string.notification_detail_error);
+        TextView detailText = (TextView) findViewById(R.id.detail_notification);
+        detailText.setText(detail);
+    }
+
+    public void sendGeneralNotificationTo(final boolean favorite,final boolean party){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("groups");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> groupIds=  new ArrayList<>();
+                for (DataSnapshot data :dataSnapshot.getChildren()) {
+                    Log.d("favorite"," " + favorite +"/" +((boolean)data.child("favorite").getValue()));
+                    if(favorite && !((boolean)data.child("favorite").getValue())){
+
+                        break;
+                    }
+                    Log.d("party"," " + party +"/" +((boolean)data.child("party").getValue()));
+                    if(party && !((boolean)data.child("party").getValue())){
+                        break;
+                    }
+                    groupIds.add((String)data.child("group_id").getValue());
+                }
+                setGroup((favorite)?1:(party)?2:0);
+                sendNotificationTo(groupIds);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("PROBLEME DE CONNEXION");
+                setNotificationError();
+            }
+        });
     }
 
     public void sendNotificationTo(ArrayList<String> groupIds){
