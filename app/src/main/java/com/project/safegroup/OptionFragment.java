@@ -235,19 +235,6 @@ public class OptionFragment extends Fragment {
         return view;
     }
 
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("text/plain");
-        i.putExtra(Intent.EXTRA_TEXT, group_Id);
-        this.startActivity(Intent.createChooser(i, "Coller ce texte dans l'Edit Texte pour rejoindre le groupe "));
-
-    }
-    public void removeGroup(String group_Id){
-        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        mDatabase.child(group_Id).child("members").child(user.getUid()).removeValue();
-        DatabaseReference ref=mDatabase.child("users").child("groups").child(group_Id);
-        ref.removeValue();
-    }
 
     public void addWifiToSafePlace(final String bssid){
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("users");
