@@ -25,7 +25,7 @@
     <string name="myHome">A la maison</string>
     <string name="friendHome">Chez un ami</string>
     <string name="underWatch">Sous surveillance</string>
-    <string name="ready">" Pret"</string>
+    <string name="ready">Pret</string>
     <string name="all">Tous</string>
     <string name="favorite">Favoris</string>
     <string name="party">Fête</string>
@@ -43,4 +43,12 @@
     <string name="unknown">Inconnu</string>
     <string name="destroy_account">Detruisez votre compte</string>
     <string name="disconnect_message">Se déconnecter</string>
+    <string name="delete_account">Supprimer mon compte</string>
+    <string name="join_group">Rejoindre un groupe</string>
+    <string name="enter_group_link">Entrer le lien du groupe</string>
+    <string name="other_options">Autres options</string>
+    <string name="cancel">Annuler</string>
+    <string name="join">Rejoindre</string>
+    <string name="group_doesnt_exist">Ce groupe n\'existe pas</string>
+    <string name="join_group_confirm">Vous avez rejoint le groupe !</string>
 </resources>

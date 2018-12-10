@@ -92,4 +92,12 @@
     <string name="title_group_detail" translatable="false">Group Detail</string>
     <string name="deconnexion">Deconnexion</string>
     <string name="title_activity_maps">Map</string>
+    <string name="delete_account">Delete my account</string>
+    <string name="join_group">Join an existing group</string>
+    <string name="other_options">Other options</string>
+    <string name="enter_group_link">Type the group link</string>
+    <string name="cancel">Cancel</string>
+    <string name="join">Join</string>
+    <string name="group_doesnt_exist">This group doesn\'t exist</string>
+    <string name="join_group_confirm">You have joined the group !</string>
 </resources>

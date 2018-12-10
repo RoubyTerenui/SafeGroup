@@ -54,9 +54,9 @@ public class OptionFragment extends Fragment {
 
         // Defined Array values to show in ListView
         String[] values = new String[] {getString(R.string.deconnexion) ,
-                "Supprimer Compte",
-                "Rejoindre un groupe",
-                "Other Options"
+                getString(R.string.delete_account),
+                getString(R.string.join_group),
+                getString(R.string.other_options)
         };
 
 
@@ -105,13 +105,12 @@ public class OptionFragment extends Fragment {
                     case 2 :
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
 
-                        //AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
 
                         // Setting Dialog Title
-                        alertDialog.setTitle("Rejoindre un groupe");
+                        alertDialog.setTitle(getString(R.string.join_group));
 
                         // Setting Dialog Message
-                        alertDialog.setMessage("Entrer le lien du groupe");
+                        alertDialog.setMessage(getString(R.string.join_group));
                         final EditText input = new EditText(getContext());
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -120,7 +119,7 @@ public class OptionFragment extends Fragment {
                         alertDialog.setView(input);
 
                         // Setting Positive "Yes" Button
-                        alertDialog.setPositiveButton("Confirmer",
+                        alertDialog.setPositiveButton(getString(R.string.join),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int which) {
                                         // Write your code here to execute after dialog
@@ -133,7 +132,7 @@ public class OptionFragment extends Fragment {
                                     }
                                 });
                         // Setting Negative "NO" Button
-                        alertDialog.setNegativeButton("Annuler",
+                        alertDialog.setNegativeButton(getString(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.cancel();
@@ -157,21 +156,7 @@ public class OptionFragment extends Fragment {
         });
         return view;
     }
-    public void broadcast(String group_Id){
 
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("text/plain");
-        i.putExtra(Intent.EXTRA_TEXT, group_Id);
-        this.startActivity(Intent.createChooser(i, "Coller ce texte dans l'Edit Texte pour rejoindre le groupe "));
-
-    }
-    public void removeGroup(String group_Id){
-        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        mDatabase.child(group_Id).child("members").child(user.getUid()).removeValue();
-        DatabaseReference ref=mDatabase.child("users").child("groups").child(group_Id);
-        ref.removeValue();
-    }
     public void joinGroup(String group_Id){
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -188,14 +173,12 @@ public class OptionFragment extends Fragment {
                     Map<String, Object> newGroupUser = new HashMap<String, Object>();
                     Member member = new Member();
                     member.pushMember_toDataBase(dataSnapshot.getKey());
-                    Toast.makeText(getContext(), "Vous avez rejoint le groupe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.join_group_confirm), Toast.LENGTH_SHORT).show();
 
                 }
                 else{
-                    Toast.makeText(getContext(), "Ce groupe n'existe pas", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.group_doesnt_exist), Toast.LENGTH_SHORT).show();
                 }
-
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
