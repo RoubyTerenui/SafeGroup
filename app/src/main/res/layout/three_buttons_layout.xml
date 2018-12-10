@@ -1,44 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container2"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:id="@+id/containerMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/danger_button"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/red_round_button"
-        android:text="@string/danger" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/danger_button">
 
         <Button
-            android:id="@+id/safe_button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/green_round_button"
-            android:text="@string/safe"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:id="@+id/danger_button"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/red_round_button"
+            android:text="@string/danger"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/problem_button"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/orange_round_button"
-            android:text="@string/problem"
-            app:layout_constraintStart_toStartOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/danger_button">
 
+            <Button
+                android:id="@+id/safe_button"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/green_round_button"
+                android:text="@string/safe"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/problem_button"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/orange_round_button"
+                android:text="@string/problem"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
