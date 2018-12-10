@@ -15,6 +15,8 @@ import com.project.safegroup.R;
 
 import java.util.Date;
 
+import dataBase.model.OtherState;
+
 public class StateDialog extends Dialog{
 
     public Activity activity;
@@ -92,8 +94,6 @@ public class StateDialog extends Dialog{
             DatabaseReference userReference = mDatabase.child(idGroup).child("members").child(name);
             userReference.child("last_Update").setValue(date.toString());
             userReference.child("state").setValue(selected);
-            userReference.child("otherState").child("date").setValue(date.toString());
-            userReference.child("otherState").child("state").setValue(selected);
-            userReference.child("otherState").child("name").setValue(user.getDisplayName());
+            new OtherState(user.getDisplayName(),selected).pushOtherState_toDataBase(userReference);
     }
 }

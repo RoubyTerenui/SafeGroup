@@ -24,8 +24,10 @@ public class Member {
     private Boolean positionAvailable;
     @Nullable
     private OtherState otherState;
+    @Nullable
     private SelfState selfState;
     private int state;
+    private String lastUpdate;
 
 
     // --- CONSTRUCTORS ---
@@ -35,23 +37,25 @@ public class Member {
         this.name=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         positionAvailable=false;
         asked=false;
-        selfState=new SelfState(0 , 0) ;
+        selfState=null ;
         otherState=null;
-        this.state=0;
+        this.state=4;
+        this.lastUpdate="";
     }
+
     public Member(Member member){
         this.name=member.getName();
         this.member_Id = member.getMember_Id();
         this.positionAvailable=member.positionAvailable;
         this.asked=member.asked;
-        selfState=new SelfState(0 , 0) ;
+        selfState=null ;
         otherState=null;
         this.state = member.getState();
     }
 
     public Member(String member_Id,String name, int state) {
         this.name=name;
-        selfState=new SelfState(0 , 0) ;
+        selfState=null;
         asked=false;
         positionAvailable=false;
         otherState=null;
@@ -93,12 +97,14 @@ public class Member {
         ITEM_MAP.put("asked",this.asked);
         ITEM_MAP.put("positionAvailable",this.positionAvailable);
         ITEM_MAP.put("name", this.name);
+        ITEM_MAP.put("last_Update",this.lastUpdate);
         mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()).setValue(ITEM_MAP);
-        selfState.pushSelfState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
+        if (selfState != null) {
+            selfState.pushSelfState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
+        }
         if (otherState != null) {
             otherState.pushOtherState_toDataBase(mDatabase.child("group").child(group_id).child("members").child(this.getMember_Id()));
         }
-
     }
 
     // --- METHOD THAT CHANGE THE STATE OF A MEMBER ---

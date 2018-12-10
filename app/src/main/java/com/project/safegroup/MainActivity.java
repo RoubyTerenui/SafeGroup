@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import dataBase.model.SelfState;
 import dataBase.model.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -176,10 +178,18 @@ public class MainActivity extends AppCompatActivity {
         for (String id:groupIds) {
             Date date = new Date();
             DatabaseReference userReference = mDatabase.child(id).child("members").child(user.getUid());
+
             userReference.child("last_Update").setValue(date.toString());
             userReference.child("state").setValue(localState);
-            userReference.child("state_Precision").setValue(localStatePrecision);
-            userReference.child("nameModifier").setValue(user.getDisplayName());
+            userReference.child("asked").setValue(false);
+            SelfState selfState = new SelfState(localState, localStatePrecision);
+            //userReference.child("selfState").child("state").setValue(localState);
+            //userReference.child("selfState").child("state").setValue(localStatePrecision);
+            selfState.pushSelfState_toDataBase(userReference);
+
+            if(localState==0){
+                //recuperer position GPS
+            }
         }
         setFragment(6);
     }

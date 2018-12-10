@@ -133,15 +133,19 @@ public class GroupDetailExpandableFragment extends Fragment {
                         groupDatas =new ArrayList<>();
                         groupDescriptions= new ArrayList<>();
                     for (DataSnapshot members:dataSnapshot.child("members").getChildren()) {
-                        String name = members.child("name").getValue(String.class);
-                        int state = members.child("state").getValue(Integer.class);
-
+                        int state = ((Long)members.child("state").getValue()).intValue();
+                        String name =((String) members.child("name").getValue());
                         String id = members.getKey();
-                        int state = members.child("state").getValue(Integer.class);
-                        SelfState selfState = new SelfState();
-                        selfState.setLast_Update((String)members.child("selfState").child("date").getValue());
-                        selfState.setState(((Long)members.child("selfState").child("state").getValue()).intValue());
-                        selfState.setStateDescription(((Long)members.child("selfState").child("stateDescription").getValue()).intValue());
+                        String date= ((String)members.child("last_Update").getValue());
+                        boolean asked = ((boolean)members.child("asked").getValue());
+
+                        SelfState selfState = null;
+                        if(members.child("selfState").getValue()!=null) {
+                            selfState = new SelfState();
+                            selfState.setLast_Update((String) members.child("selfState").child("date").getValue());
+                            selfState.setState(((Long) members.child("selfState").child("state").getValue()).intValue());
+                            selfState.setStateDescription(((Long) members.child("selfState").child("stateDescription").getValue()).intValue());
+                        }
                         OtherState otherState = null;
                         if (members.child("otherState").getValue()!=null) {
                             otherState=new OtherState();
@@ -150,7 +154,7 @@ public class GroupDetailExpandableFragment extends Fragment {
                             otherState.setName((String) members.child("otherState").child("name").getValue());
                         }
                         groupDatas.add(new MemberData(name, id, state));
-                        groupDescriptions.add(new DescriptionData(state, selfState, otherState, name));
+                        groupDescriptions.add(new DescriptionData(state, selfState, otherState, name,date,asked));
                     }
 
                     ExpandableMemberAdapter adapter = new ExpandableMemberAdapter(groupDatas,groupDescriptions,mItem.getGroupID(),getContext());

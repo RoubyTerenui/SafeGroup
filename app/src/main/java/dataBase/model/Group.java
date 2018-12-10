@@ -28,7 +28,7 @@ public class Group {
         this.name = group.getName();
         this.administrator = group.getAdministrator();
         this.members=new ArrayList<Member>();
-        this.members.add(new Member(administrator,FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),0));
+        this.members.add(new Member(administrator,FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),4));
     }
 
 
@@ -37,7 +37,7 @@ public class Group {
         this.name = name;
         this.administrator = administrator;
         this.members=new ArrayList<Member>();
-        this.members.add(new Member(administrator,FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),0));
+        this.members.add(new Member(administrator,FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),4));
     }
 
 

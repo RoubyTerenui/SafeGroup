@@ -23,7 +23,8 @@ public class SelfState {
     public SelfState(){
         this.state = 0;
         this.stateDescription = 0;
-        this.last_Update =DateFormat.getDateTimeInstance().format(new Date());
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
+        this.last_Update =format.format(new Date());;
     }
 
     public SelfState(int state, @Nullable int stateDescription) {

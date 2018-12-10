@@ -26,7 +26,8 @@ public class OtherState {
     public OtherState(String name, int state) {
         this.name=name;
         this.state = state;
-        this.last_Update =DateFormat.getDateTimeInstance().format(new Date());;
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
+        this.last_Update =format.format(new Date());;
     }
 
     // --- GETTERS ---
@@ -64,7 +65,7 @@ public class OtherState {
     public void pushOtherState_toDataBase(DatabaseReference mDatabase) {
         Map<String,Object > ITEM_MAP = new HashMap<String, Object>();
         ITEM_MAP.put("state",this.state);
-        ITEM_MAP.put("name",this.state);
+        ITEM_MAP.put("name",this.name);
         ITEM_MAP.put("date",this.last_Update);
         mDatabase.child("otherState").setValue(ITEM_MAP);
     }
