@@ -41,15 +41,16 @@ public class DummyContent {
     }
 
     public static void create(ListView listView, GroupList groupList, Context context) {
-        ITEMS.clear();
-        ITEM_MAP.clear();
+
         mContext = context;
         mListView = listView;
         final String currentID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(currentID).child("groups");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ITEMS.clear();
+                ITEM_MAP.clear();
                 Log.d(currentID,"trying");
                 for (DataSnapshot children:dataSnapshot.getChildren()) {
                     Log.d(currentID,((String)children.child("name").getValue()));

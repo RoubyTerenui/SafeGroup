@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.bottomappbar.BottomAppBar;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenu;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -326,6 +329,22 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.navigation);
+        if(getSupportFragmentManager().findFragmentById(R.id.frame_layout_main).getClass()==OptionFragment.class){
+            bottomNavigationView.setSelectedItemId(R.id.navigation_notifications);
+        }
+        else if(getSupportFragmentManager().findFragmentById(R.id.frame_layout_main).getClass()==GroupList.class){
+            bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
+        }
+        else{
+            bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        }
+
 
     }
 

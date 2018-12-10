@@ -12,6 +12,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -92,10 +93,13 @@ public class OptionFragment extends Fragment {
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     ((MainActivity)getActivity()).setFragment(0);//TO DO NE pas passer par la 1 ere page
+                                    BottomNavigationView bottomNavigationView=(BottomNavigationView)((MainActivity)getActivity()).findViewById(R.id.navigation);
+                                    bottomNavigationView.setSelectedItemId(R.id.navigation_home);
                                     ((MainActivity)getActivity()).checkLogin();
 
                                 }
                             });
+
                         break;
                     case 1:
 
@@ -121,6 +125,8 @@ public class OptionFragment extends Fragment {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 //((MainActivity)getActivity()).setUserNull();
                                                 ((MainActivity)getActivity()).setFragment(0);//TO DO NE pas passer par la 1 ere page
+                                                BottomNavigationView bottomNavigationView=(BottomNavigationView)((MainActivity)getActivity()).findViewById(R.id.navigation);
+                                                 bottomNavigationView.setSelectedItemId(R.id.navigation_home);
                                                 ((MainActivity)getActivity()).checkLogin();
                                             }
                                         });
@@ -131,8 +137,6 @@ public class OptionFragment extends Fragment {
 
                             }
                         });
-
-
 
 
                         break;

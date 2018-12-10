@@ -1,5 +1,6 @@
 package com.project.safegroup;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,8 +32,14 @@ public class NewGroupActivity extends AppCompatActivity {
                 group.pushGroup_toDataBase();
                 User userDummy=new User();
                 userDummy.pushnewGroupUser(group);
+                finish();
             }
         });
     }
-
+    @Override
+    public void finish(){
+        Intent data = new Intent();
+        setResult(RESULT_OK, data);
+        super.finish();
+    }
 }

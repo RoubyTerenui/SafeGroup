@@ -43,6 +43,7 @@ public class GroupList extends Fragment {
     private boolean mTwoPane;
     private static ListView groupList;
     private static Context mContext;
+    private static final int NEWGROUP_LAUNCH = 123;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class GroupList extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), NewGroupActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,NEWGROUP_LAUNCH);
                 Snackbar.make(view, "Ajouter un nouveau groupe", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -92,4 +93,5 @@ public class GroupList extends Fragment {
         groupList.setAdapter(new GroupDataAdapter(groupdatatest,mContext));*/
         return view;
     }
+
 }
