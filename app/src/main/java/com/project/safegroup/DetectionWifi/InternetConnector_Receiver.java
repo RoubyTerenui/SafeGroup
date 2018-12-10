@@ -16,11 +16,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.project.safegroup.GroupSelection.GroupSelectionData;
-import com.project.safegroup.GroupSelection.GroupSelectionDataAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 
 public class InternetConnector_Receiver extends BroadcastReceiver {
 	public InternetConnector_Receiver() {
@@ -58,18 +56,36 @@ public class InternetConnector_Receiver extends BroadcastReceiver {
     private void notifyGroupsHome(final String wifiId) {
         //Reference to the database
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("users");
+        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
 
-        DatabaseReference ref=mDatabase.child(FirebaseAuth.getInstance().getUid()).child("wifi");
+        DatabaseReference ref=mDatabase.getRef();
 
         //Add an event to load group data and load the group view
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String wifi = dataSnapshot.getValue(String.class);
+                String wifi = dataSnapshot.child("users").child(FirebaseAuth.getInstance().getUid()).child("wifi").getValue(String.class);
                 if(wifi.equals(wifiId)){
 					Log.d("WIFI", "Il s'agit du wifi home de l'utilisateur, changement de l'etat à 'safe' (a implementer)");
-				}
+
+					//recupération des groups de l'utilisateur
+					ArrayList<String> groups = new ArrayList<>();
+					Iterable<DataSnapshot> it = dataSnapshot.child("users").child(FirebaseAuth.getInstance().getUid()).child("groups").getChildren();
+					for(DataSnapshot data : it){
+						Log.d("Group", data.child("group_id").getValue(String.class));
+						groups.add(data.child("group_id").getValue(String.class));
+					}
+
+					//Pour chaque groupe
+					for(String group : groups){
+						long state = dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("state").getValue(Long.class);
+						if(state == 2){
+							//Changer l'etat pour 'dans un lieu sur'
+							dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("state").getRef().setValue(1);
+							dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("last_Update").getRef().setValue(new Date().toString());
+						}
+					}
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

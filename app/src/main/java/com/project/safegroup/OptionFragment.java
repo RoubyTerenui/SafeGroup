@@ -185,12 +185,13 @@ public class OptionFragment extends Fragment {
                         WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                         String ssid = wifiInfo.getSSID();
-                        int networkid = wifiInfo.getNetworkId();
-                        final String bssid = Integer.toString(networkid);
+                        int temp = wifiInfo.getNetworkId();
+                        final String networkid = Integer.toString(temp);
                         //final String bssid = wifiInfo.getBSSID();
-                        Log.d("wifi", "BSSID = " + bssid);
+                        Log.d("wifi", "networkid = " + networkid);
+                        Log.d("wifi", "SSID = " + wifiInfo.getSSID());
 
-                        if(bssid == null || bssid.equals("00:00:00:00:00:00")){
+                        if(networkid == null){
                             Toast.makeText(getContext(), "Veuillez vous connecter à un réseau wifi", Toast.LENGTH_SHORT);
                             Log.d("WIFI", "Appareil non connecté au wifi");
                         }else {
@@ -207,7 +208,7 @@ public class OptionFragment extends Fragment {
                                             // Write your code here to execute after dialog
                                             Log.d("WIFI", "Ajout du wifi comme maison");
 
-                                            addWifiToSafePlace(bssid);
+                                            addWifiToSafePlace(networkid);
 
                                             //Ici le code pour faire rejoindre un user à un groupe
 
@@ -254,14 +255,12 @@ public class OptionFragment extends Fragment {
     public void addWifiToSafePlace(final String bssid){
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("users");
 
-        DatabaseReference ref=mDatabase.child(FirebaseAuth.getInstance().getUid());
-        ref.addValueEventListener(new ValueEventListener() {
+        final DatabaseReference ref=mDatabase.child(FirebaseAuth.getInstance().getUid());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
-                    User user = dataSnapshot.getValue(User.class);
-                    user.setWifi(bssid);
-                    user.pushUser_toDataBase();
+                    ref.child("wifi").setValue(bssid);
                 }
             }
 
