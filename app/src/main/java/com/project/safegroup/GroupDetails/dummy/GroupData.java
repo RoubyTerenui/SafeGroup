@@ -3,28 +3,30 @@ package com.project.safegroup.GroupDetails.dummy;
 public class GroupData {
     // --- FIELDS ---
 
-    private String adminName;
     private String groupName;
     private String groupID;
+    private boolean favorite;
+    private boolean party;
     // --- CONSTRUCTORS ---
     public GroupData(){
 
     }
-    public GroupData(String adminName, String groupName,String groupID) {
+    public GroupData(String groupName,String groupID,boolean favorite,boolean party) {
         this.groupName=groupName;
-        this.adminName=adminName;
         this.groupID=groupID;
+        this.favorite = favorite;
+        this.party = party;
     }
 
 
 
     // --- GETTERS ---
-    public String getAdminName() {        return adminName;    }
     public String getGroupName() {        return groupName;    }
-    public String getGroupID()     {return groupID;             }
+    public String getGroupID()     {return groupID;     }
+    public boolean isFavorite(){return favorite;}
+    public boolean isParty(){return party;}
 
     // --- SETTERS ---
-    public void setAdminName(String administrator) {        this.adminName= administrator;    }
     public void setGroupName(String name) {        this.groupName = name;    }
     public void setGroupID(String id){this.groupID=id;}
 }

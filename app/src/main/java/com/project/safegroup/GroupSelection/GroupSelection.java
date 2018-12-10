@@ -1,5 +1,6 @@
 package com.project.safegroup.GroupSelection;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ public class GroupSelection extends Fragment {
     private Button sendButton; //Button to send the state of the user on the selected group
     private static ListView groupList; //View of the groups available
     private static ArrayList<GroupSelectionData> groupDatas = new ArrayList<>(); //List of the groups available
+    private static Context mContext;
 
     @Nullable
     @Override
@@ -39,7 +41,7 @@ public class GroupSelection extends Fragment {
         groupList = (ListView) view.findViewById(R.id.groupSelectionList);
         sendButton.setClickable(false);
         sendButton.setBackgroundColor(Color.DKGRAY);
-
+        mContext = getContext();
         //Search the groups of the users on the firebase server
         loadDatas();
 
@@ -92,12 +94,12 @@ public class GroupSelection extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 groupDatas = new ArrayList<>();
                 for (DataSnapshot data :dataSnapshot.getChildren()) {
-                    Boolean favori = data.child("favoris").getValue(Boolean.class);
+                    Boolean favori = data.child("favorite").getValue(Boolean.class);
                     String id = data.child("group_id").getValue(String.class);
                     String name = data.child("name").getValue(String.class);
                     groupDatas.add(new GroupSelectionData(name,false,favori,id));
                 }
-                GroupSelectionDataAdapter adapter = new GroupSelectionDataAdapter(groupDatas,getContext());
+                GroupSelectionDataAdapter adapter = new GroupSelectionDataAdapter(groupDatas,mContext);
                 groupList.setAdapter(adapter);
             }
             @Override

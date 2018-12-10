@@ -1,32 +1,51 @@
 package com.project.safegroup.GroupDetails.GroupDetailsExpandable;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Debug;
 import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.project.safegroup.GroupDetails.GroupDetailActivity;
 import com.project.safegroup.GroupSelection.GroupSelectionData;
 import com.project.safegroup.R;
 
+import java.io.Console;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import dataBase.model.OtherState;
+import dataBase.model.SelfState;
 
 public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
 
     ArrayList<MemberData> members;
     ArrayList<DescriptionData> descriptions;
+    String groupId;
     Context mContext;
 
-    public  ExpandableMemberAdapter(ArrayList<MemberData> data,ArrayList<DescriptionData> descriptions, Context context) {
+    public  ExpandableMemberAdapter(ArrayList<MemberData> data,ArrayList<DescriptionData> descriptions,String groupId, Context context) {
         this.members = data;
         this.descriptions=descriptions;
         this.mContext=context;
+        this.groupId = groupId;
     }
     @Override
     public int getGroupCount() {
@@ -86,7 +105,10 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
                 state.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreenButton));
                 break;
             case 3:
-                state.setBackgroundColor(Color.LTGRAY);
+                state.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreenDarkButton));
+                break;
+            case 4:
+                state.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreyButton));
                 break;
             default:
                 break;
@@ -95,32 +117,103 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
         View expandedListItem = convertView;
-        if(expandedListItem == null)
-            expandedListItem = LayoutInflater.from(mContext).inflate(R.layout.group_detail_expandable_item_expanded,parent,false);
+        if(expandedListItem == null) {
+            expandedListItem = LayoutInflater.from(mContext).inflate(R.layout.group_detail_expandable_item_expanded, parent, false);
+        }
+        String description="";
+        DescriptionData child = descriptions.get(groupPosition);
 
         Resources res = mContext.getResources();
-        String[] states = res.getStringArray(R.array.state);
-        String[] preciseStates = res.getStringArray(R.array.precise_state);
-        String description;
-        DescriptionData child = descriptions.get(groupPosition);
-        String editorDate = child.getEditorDate();
-        String editorName = child.getEditorName();
-        int state = child.getState();
-        int statePrecision = child.getStatePrecision();
-        boolean isSelf = child.getIsSelf();
-
-        if(isSelf)
-        {
-            description = String.format(res.getString(R.string.self_description_member),states[state],preciseStates[statePrecision],editorDate);
+        if(child.getOtherState()==null && child.getSelfState()==null){
+            description = res.getString(R.string.no_description);
         }
-        else {
-            description = String.format(res.getString(R.string.description_member),states[state],preciseStates[statePrecision],editorDate,editorName);
-        }
+        else{
+            String[] states = res.getStringArray(R.array.state);
+            String[] preciseStates = res.getStringArray(R.array.precise_state);
+            String selfDescription = "";
+            String otherDescription = "";
 
+            //Determine est la date la plus récente
+            boolean isSelfMoreRecent = true;
+            SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
+            if(child.getOtherState()!=null && child.getSelfState()!=null) {
+                Date dateSelfState=null;
+                Date dateOtherState=null;
+                String SdateSelfState = child.getSelfState().getLast_Update();
+                String SdateOtherState = child.getOtherState().getLast_Update();
+                try {
+                    dateSelfState = format.parse(SdateSelfState);
+                    Log.d("self",dateSelfState.toString());
+                    dateOtherState = format.parse(SdateOtherState);
+                    Log.d("other",dateOtherState.toString());
+                } catch (java.text.ParseException error) {
+                    System.out.println("error Date Conversion" + error);
+                }
+                if (dateOtherState.after(dateSelfState)) {
+                    isSelfMoreRecent=false;
+
+                }
+            }
+
+            if(child.getSelfState()!=null){
+                SelfState _selfState= child.getSelfState();
+                int selfStatePrecision = _selfState.getStateDescription();
+                int selfState = _selfState.getState();
+                String selfDate = _selfState.getLast_Update();
+                selfDescription = String.format(res.getString(R.string.self_description_member), states[selfState], preciseStates[selfStatePrecision], selfDate);
+            }
+            if(child.getOtherState()!=null) {
+                OtherState _otherState =child.getOtherState();
+                String otherName = _otherState.getName();
+                int otherState = _otherState.getState();
+                String otherDate = _otherState.getLast_Update();
+                otherDescription += String.format(res.getString(R.string.description_member), states[otherState], otherDate, otherName);
+            }
+            description=(isSelfMoreRecent)?selfDescription+otherDescription:otherDescription+selfDescription;
+        }
         TextView descriptionView = (TextView) expandedListItem.findViewById(R.id.memberDescription);
         descriptionView.setText(description);
+        final boolean isAsked = child.isAsked();
+        Button askButton = (Button) expandedListItem.findViewById(R.id.askButton);
+        Button changeButton = (Button) expandedListItem.findViewById(R.id.changeButton);
+        final String indexMember = members.get(groupPosition).getId();
+        if(!members.get(groupPosition).getName().equals(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()))
+        {
+            askButton.setEnabled(true);
+            askButton.setClickable(true);
+            changeButton.setEnabled(true);
+            changeButton.setClickable(true);
+            if(isAsked){
+                askButton.setEnabled(false);
+                askButton.setClickable(false);
+            }
+            else{
+                askButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        FirebaseDatabase.getInstance().getReference().child("group").child(groupId).child("members").child(indexMember).child("asked").setValue(true);
+                        //TODO- then send notification
+                        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                    }
+                });
+            }
+            final StateDialog cdd=new StateDialog((Activity) mContext,members.get(groupPosition).getId(),groupId);
+            changeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cdd.show();
+                }
+            });
+        } else {
+            askButton.setEnabled(false);
+            askButton.setClickable(false);
+            changeButton.setEnabled(false);
+            changeButton.setClickable(false);
+
+        }
         return expandedListItem;
     }
 

@@ -9,25 +9,25 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="com.project.safegroup.GroupDetails.GroupListActivity">
+    tools:context="com.project.safegroup.GroupDetails.GroupList">
 
-    <!--
-    This layout is a two-pane layout for the Groups
-    master/detail flow.
-    
-    -->
-
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/group_list"
-        android:name="com.project.safegroup.GroupDetails.GroupListFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:context="com.project.safegroup.GroupDetails.GroupListActivity"
-        tools:listitem="@layout/group_list_content" />
+        >
+
+        <ListView
+            android:id="@+id/group_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/group_detail_container"

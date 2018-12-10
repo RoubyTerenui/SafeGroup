@@ -39,6 +39,8 @@ import java.util.Date;
 import java.util.List;
 
 import dataBase.model.Group;
+import dataBase.model.OtherState;
+import dataBase.model.SelfState;
 import dataBase.model.User;
 
 public class GroupDetailExpandableFragment extends Fragment {
@@ -60,10 +62,10 @@ public class GroupDetailExpandableFragment extends Fragment {
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+            /*CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mItem.getGroupName());
-            }
+            }*/
 
             FloatingActionButton fab = (FloatingActionButton) activity.findViewById(R.id.fab);
             if(fab!= null) {
@@ -92,7 +94,7 @@ public class GroupDetailExpandableFragment extends Fragment {
         groupList = (ExpandableListView) view.findViewById(R.id.expandableListGroup);
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) view.findViewById(R.id.groupName)).setText("Administrateur : " + mItem.getAdminName());
+            ((TextView) view.findViewById(R.id.groupName)).setText("Administrateur : NOT IMPLEMENTED");
             loadDatas();
         }
 
@@ -131,18 +133,31 @@ public class GroupDetailExpandableFragment extends Fragment {
                         groupDatas =new ArrayList<>();
                         groupDescriptions= new ArrayList<>();
                     for (DataSnapshot members:dataSnapshot.child("members").getChildren()) {
-                        String name = members.child("name").getValue(String.class);
+                        int state = ((Long)members.child("state").getValue()).intValue();
+                        String name =((String) members.child("name").getValue());
                         String id = members.getKey();
-                        int state = members.child("state").getValue(Integer.class);
-                        int statePrecision = members.child("state_Precision").getValue(Integer.class);
-                        String editorName =  members.child("nameModifier").getValue(String.class);
-                        String editorDate =  members.child("last_Update").getValue(String.class);
-                        Boolean isSelf = name.equals(editorName);
-                        groupDatas.add(new MemberData(name,id,state));
-                        groupDescriptions.add(new DescriptionData(state,statePrecision,editorDate,editorName,isSelf));
+                        String date= ((String)members.child("last_Update").getValue());
+                        boolean asked = ((boolean)members.child("asked").getValue());
+
+                        SelfState selfState = null;
+                        if(members.child("selfState").getValue()!=null) {
+                            selfState = new SelfState();
+                            selfState.setLast_Update((String) members.child("selfState").child("date").getValue());
+                            selfState.setState(((Long) members.child("selfState").child("state").getValue()).intValue());
+                            selfState.setStateDescription(((Long) members.child("selfState").child("stateDescription").getValue()).intValue());
+                        }
+                        OtherState otherState = null;
+                        if (members.child("otherState").getValue()!=null) {
+                            otherState=new OtherState();
+                            otherState.setLast_Update((String) members.child("otherState").child("date").getValue());
+                            otherState.setState(((Long) members.child("otherState").child("state").getValue()).intValue());
+                            otherState.setName((String) members.child("otherState").child("name").getValue());
+                        }
+                        groupDatas.add(new MemberData(name, id, state));
+                        groupDescriptions.add(new DescriptionData(state, selfState, otherState, name,date,asked));
                     }
 
-                    ExpandableMemberAdapter adapter = new ExpandableMemberAdapter(groupDatas,groupDescriptions,getContext());
+                    ExpandableMemberAdapter adapter = new ExpandableMemberAdapter(groupDatas,groupDescriptions,mItem.getGroupID(),getContext());
                     groupList.setAdapter(adapter);
                 }
 

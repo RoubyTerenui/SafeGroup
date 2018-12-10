@@ -38,9 +38,18 @@
     <string name="hello_blank_fragment">Bonjour fragment blanc</string>
     <string name="permission_rationale">Permission d\'accès aux contacts nécesssaire pour l\'email</string>
     <string name="deconnexion">Déconnexion</string>
-    <string name="description_member"> %1$s ( %2$s ) notifié le %3$s par %4$s.</string>
-    <string name="self_description_member"> %1$s ( %2$s ) notifié le %3$s</string>
+    <string name="description_member"> %1$s notifié par %3$s le %2$s.\n</string>
+    <string name="self_description_member"> %1$s ( %2$s ) notifié le %3$s.\n</string>
     <string name="unknown">Inconnu</string>
     <string name="destroy_account">Detruisez votre compte</string>
     <string name="disconnect_message">Se déconnecter</string>
+    <string name="title_activity_maps">Carte</string>
+    <string name="nearHome">Près d\'un zone sûr</string>
+    <string name="confirm">Confirmer</string>
+    <string name="cancel">Annuler</string>
+    <string name="askState">Demander l\'état</string>
+    <string name="changeState">Changer l\'état</string>
+    <string name="no_description">Pas d\'état récent disponible</string>
+    <string name="tileSetState">Selectionner l\'état correspondant</string>
+    <string name="notification_detail_error">Oups! La connexion à la base de donnée a échouée./n Vérifié votre connexion internet et réessayé !</string>
 </resources>

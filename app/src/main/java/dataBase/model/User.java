@@ -95,7 +95,8 @@ public class User  {
         // --- GET A KEY FOR A NEW GROUP ---
         String newPostKey = mDatabase.child(this.uid).child("groups").push().getKey();
         Map<String,Object> newGroupUser=new HashMap<String,Object>();
-        newGroupUser.put("favoris", false);
+        newGroupUser.put("favorite", false);
+        newGroupUser.put("party", false);
         newGroupUser.put("name",newGroup.getName());
         newGroupUser.put("group_id",newGroup.getGr_id());
         ITEM_MAP.put(newPostKey,newGroupUser);

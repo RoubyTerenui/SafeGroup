@@ -153,4 +153,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
         dialog.show();
     }
+
+    @Override
+    public void  onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        requestLocation();
+        switch (requestCode) {
+
+            case PERMISSION_ALL: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    requestLocation();
+
+                } else {
+                    requestPermissions(PERMISSIONS, PERMISSION_ALL);
+                }
+            }
+        }
+        return ;
+    }
 }
