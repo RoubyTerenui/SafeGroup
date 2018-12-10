@@ -97,7 +97,7 @@
     <string name="title_activity_gestion_group" translatable="false">GestionGroupActivity</string>
     <string name="title_group_list" translatable="false">Groups</string>
     <string name="title_group_detail" translatable="false">Group Detail</string>
-    <string name="deconnexion">Deconnexion</string>
+    <string name="deconnexion">Logout</string>
     <string name="title_activity_maps">Map</string>
     <string name="delete_account">Delete my account</string>
     <string name="join_group">Join an existing group</string>
