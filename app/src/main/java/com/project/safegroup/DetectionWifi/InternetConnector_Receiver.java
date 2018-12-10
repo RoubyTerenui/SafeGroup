@@ -64,8 +64,10 @@ public class InternetConnector_Receiver extends BroadcastReceiver {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+            	Log.d("parametre wifiId", wifiId);
                 String wifi = dataSnapshot.child("users").child(FirebaseAuth.getInstance().getUid()).child("wifi").getValue(String.class);
-                if(wifi.equals(wifiId)){
+
+                if(wifiId.equals(wifi)){
 					Log.d("WIFI", "Il s'agit du wifi home de l'utilisateur, changement de l'etat à 'safe' (a implementer)");
 
 					//recupération des groups de l'utilisateur
