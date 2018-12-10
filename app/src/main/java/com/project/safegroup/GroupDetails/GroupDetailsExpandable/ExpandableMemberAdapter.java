@@ -188,6 +188,7 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
             if(isAsked){
                 askButton.setEnabled(false);
                 askButton.setClickable(false);
+                askButton.setText(res.getString(R.string.already_asked));
             }
             else{
                 askButton.setOnClickListener(new View.OnClickListener() {
