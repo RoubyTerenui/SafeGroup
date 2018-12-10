@@ -25,7 +25,7 @@
     <string name="myHome">A la maison</string>
     <string name="friendHome">Chez un ami</string>
     <string name="underWatch">Sous surveillance</string>
-    <string name="ready">" Pret"</string>
+    <string name="ready">Pret</string>
     <string name="all">Tous</string>
     <string name="favorite">Favoris</string>
     <string name="party">Fête</string>
@@ -46,11 +46,17 @@
     <string name="title_activity_maps">Carte</string>
     <string name="nearHome">Près d\'un zone sûr</string>
     <string name="confirm">Confirmer</string>
-    <string name="cancel">Annuler</string>
     <string name="askState">Demander l\'état</string>
     <string name="changeState">Changer l\'état</string>
     <string name="no_description">Pas d\'état récent disponible</string>
     <string name="tileSetState">Selectionner l\'état correspondant</string>
     <string name="notification_detail_error">Oups! La connexion à la base de donnée a échouée./n Vérifié votre connexion internet et réessayé !</string>
     <string name="already_asked">Demandé</string>
+    <string name="delete_account">Supprimer mon compte</string>
+    <string name="join_group">Rejoindre un groupe</string>
+    <string name="enter_group_link">Entrer le lien du groupe</string>
+    <string name="other_options">Autres options</string>
+    <string name="join">Rejoindre</string>
+    <string name="group_doesnt_exist">Ce groupe n\'existe pas</string>
+    <string name="join_group_confirm">Vous avez rejoint le groupe !</string>
 </resources>
