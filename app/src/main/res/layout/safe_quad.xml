@@ -18,52 +18,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="290dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <Button
-            android:id="@+id/myHome_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorGreenButton"
-            android:text="@string/myHome"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/underWatch_button" />
-
-        <Button
-            android:id="@+id/underWatch_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorGreenButton"
-            android:text="@string/underWatch"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/ready_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorGreenButton"
-            android:text="@string/ready"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/friendHome_button" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <Button
-            android:id="@+id/friendHome_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorGreenButton"
-            android:text="@string/friendHome"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/myHome_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenButton"
+                android:text="@string/myHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/underWatch_button" />
+
+            <Button
+                android:id="@+id/underWatch_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenButton"
+                android:text="@string/underWatch"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/ready_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenButton"
+                android:text="@string/ready"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/friendHome_button" />
+
+            <Button
+                android:id="@+id/friendHome_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenButton"
+                android:text="@string/friendHome"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView"

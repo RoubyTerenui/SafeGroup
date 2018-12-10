@@ -18,52 +18,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="290dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <Button
-            android:id="@+id/hurt_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorRedButton"
-            android:text="@string/hurt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/freeze_button" />
-
-        <Button
-            android:id="@+id/freeze_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorRedButton"
-            android:text="@string/freeze"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/lost_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorRedButton"
-            android:text="@string/lost"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/agressed_button" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <Button
-            android:id="@+id/agressed_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorRedButton"
-            android:text="@string/aggressed"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/hurt_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRedButton"
+                android:text="@string/hurt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/freeze_button" />
+
+            <Button
+                android:id="@+id/freeze_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRedButton"
+                android:text="@string/freeze"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/lost_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRedButton"
+                android:text="@string/lost"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/agressed_button" />
+
+            <Button
+                android:id="@+id/agressed_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRedButton"
+                android:text="@string/aggressed"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
 
     <TextView

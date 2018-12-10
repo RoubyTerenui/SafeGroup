@@ -18,52 +18,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="290dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <Button
-            android:id="@+id/sad_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorOrangeButton"
-            android:text="@string/sad"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/angry_button" />
-
-        <Button
-            android:id="@+id/angry_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorOrangeButton"
-            android:text="@string/angry"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/needOut_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorOrangeButton"
-            android:text="@string/needOut"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/needLove_button" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <Button
-            android:id="@+id/needLove_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorOrangeButton"
-            android:text="@string/needLove"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/sad_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorOrangeButton"
+                android:text="@string/sad"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/angry_button" />
+
+            <Button
+                android:id="@+id/angry_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorOrangeButton"
+                android:text="@string/angry"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/needOut_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorOrangeButton"
+                android:text="@string/needOut"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/needLove_button" />
+
+            <Button
+                android:id="@+id/needLove_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorOrangeButton"
+                android:text="@string/needLove"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView"
