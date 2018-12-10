@@ -62,6 +62,7 @@ public class OptionFragment extends Fragment {
         String[] values = new String[] {getString(R.string.deconnexion) ,
                 getString(R.string.delete_account),
                 getString(R.string.join_group),
+                getString(R.string.set_wifi),
                 getString(R.string.other_options)
         };
 

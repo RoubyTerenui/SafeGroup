@@ -59,4 +59,5 @@
     <string name="join">Rejoindre</string>
     <string name="group_doesnt_exist">Ce groupe n\'existe pas</string>
     <string name="join_group_confirm">Vous avez rejoint le groupe !</string>
+    <string name="set_wifi">Paramétrer le wifi de votre domicile</string>
 </resources>
