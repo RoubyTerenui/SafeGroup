@@ -94,7 +94,7 @@ public class GroupSelection extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 groupDatas = new ArrayList<>();
                 for (DataSnapshot data :dataSnapshot.getChildren()) {
-                    Boolean favori = data.child("favoris").getValue(Boolean.class);
+                    Boolean favori = data.child("favorite").getValue(Boolean.class);
                     String id = data.child("group_id").getValue(String.class);
                     String name = data.child("name").getValue(String.class);
                     groupDatas.add(new GroupSelectionData(name,false,favori,id));

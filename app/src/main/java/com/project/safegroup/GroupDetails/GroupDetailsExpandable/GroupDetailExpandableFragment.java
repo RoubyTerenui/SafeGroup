@@ -94,7 +94,7 @@ public class GroupDetailExpandableFragment extends Fragment {
         groupList = (ExpandableListView) view.findViewById(R.id.expandableListGroup);
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) view.findViewById(R.id.groupName)).setText("Administrateur : " + mItem.getAdminName());
+            ((TextView) view.findViewById(R.id.groupName)).setText("Administrateur : NOT IMPLEMENTED");
             loadDatas();
         }
 
