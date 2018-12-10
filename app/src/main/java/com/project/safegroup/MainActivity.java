@@ -11,6 +11,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenu;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -43,7 +44,7 @@ import dataBase.model.SelfState;
 import dataBase.model.User;
 
 public class MainActivity extends AppCompatActivity {
-    private ThreeButtons mainFragment;
+    private Fragment mainFragment;
     private ProblemQuad problemQuad;
     private DangerQuad dangerQuad;
     private SafeQuad safeQuad;
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void configureAndShowMainFragment(){
 
-        mainFragment = (ThreeButtons) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
+        mainFragment =  getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
         problemQuad= new ProblemQuad();
         dangerQuad = new DangerQuad();
         safeQuad = new SafeQuad();

@@ -2,10 +2,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container2"
+    android:id="@+id/containerMain"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true">
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
     <TextView
@@ -24,51 +35,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="290dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <Button
-            android:id="@+id/party_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorBlueButton"
-            android:text="@string/party"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/all_button" />
-
-        <Button
-            android:id="@+id/favorite_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorBlueButton"
-            android:text="@string/favorite"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/selectPrecisely_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorBlueButton"
-            android:text="@string/selectPrecisely"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/favorite_button" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <Button
-            android:id="@+id/all_button"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorBlueButton"
-            android:text="@string/all"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/party_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorBlueButton"
+                android:text="@string/party"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/all_button" />
 
+            <Button
+                android:id="@+id/favorite_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorBlueButton"
+                android:text="@string/favorite"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/selectPrecisely_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorBlueButton"
+                android:text="@string/selectPrecisely"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorite_button" />
+
+            <Button
+                android:id="@+id/all_button"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorBlueButton"
+                android:text="@string/all"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
