@@ -24,14 +24,14 @@ public class SelfState {
         this.state = 0;
         this.stateDescription = 0;
         SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
-        this.last_Update =format.format(new Date());;
+        this.last_Update =format.format(new Date());
     }
 
     public SelfState(int state, @Nullable int stateDescription) {
         this.state = state;
         this.stateDescription = stateDescription;
         SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
-        this.last_Update =format.format(new Date());;
+        this.last_Update =format.format(new Date());
     }
 
     // --- GETTERS ---

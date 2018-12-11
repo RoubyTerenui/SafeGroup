@@ -59,4 +59,7 @@
     <string name="join">Rejoindre</string>
     <string name="group_doesnt_exist">Ce groupe n\'existe pas</string>
     <string name="join_group_confirm">Vous avez rejoint le groupe !</string>
+    <string name="localisation_description">De %1$s le %2$s</string>
+    <string name="localisation_distance">A %1$sm de vous</string>
+    <string name="localise_user">Localiser</string>
 </resources>

@@ -112,4 +112,7 @@
     <string name="no_description">No recent state available</string>
     <string name="notification_detail_error">Oups! An error happen during the connexion to the database. \\nCheck your internet connexion and try again !</string>
     <string name="already_asked">Asked</string>
+    <string name="localisation_description">From %1$s the %2$s</string>
+    <string name="localisation_distance">At %1$sm from you</string>
+    <string name="localise_user">Localise</string>
 </resources>

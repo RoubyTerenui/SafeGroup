@@ -3,6 +3,7 @@ package com.project.safegroup.GroupDetails.GroupDetailsExpandable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Debug;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.safegroup.GroupDetails.GroupDetailActivity;
 import com.project.safegroup.GroupSelection.GroupSelectionData;
+import com.project.safegroup.MainActivity;
+import com.project.safegroup.MapsActivity;
 import com.project.safegroup.R;
 
 import java.io.Console;
@@ -89,10 +92,8 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.group_detail_expandable_item,parent,false);
 
         MemberData currentData = members.get(groupPosition);
-
         TextView name = (TextView) listItem.findViewById(R.id.memberName);
         Button state = (Button) listItem.findViewById(R.id.buttonState);
-
         name.setText(currentData.getName());
         switch(currentData.getState()){
             case 0:
@@ -148,15 +149,13 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
                     Log.d("self",dateSelfState.toString());
                     dateOtherState = format.parse(SdateOtherState);
                     Log.d("other",dateOtherState.toString());
+                    if (dateOtherState.after(dateSelfState)) {
+                        isSelfMoreRecent=false;
+                    }
                 } catch (java.text.ParseException error) {
                     System.out.println("error Date Conversion" + error);
                 }
-                if (dateOtherState.after(dateSelfState)) {
-                    isSelfMoreRecent=false;
-
-                }
             }
-
             if(child.getSelfState()!=null){
                 SelfState _selfState= child.getSelfState();
                 int selfStatePrecision = _selfState.getStateDescription();
@@ -178,26 +177,41 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
         final boolean isAsked = child.isAsked();
         Button askButton = (Button) expandedListItem.findViewById(R.id.askButton);
         Button changeButton = (Button) expandedListItem.findViewById(R.id.changeButton);
+        Button localiseButton = (Button) expandedListItem.findViewById(R.id.localiseButton);
         final String indexMember = members.get(groupPosition).getId();
+        askButton.setText(res.getString(R.string.askState));
+        localiseButton.setEnabled(false);
+        localiseButton.setClickable(false);
+        askButton.setEnabled(false);
+        askButton.setClickable(false);
+        changeButton.setEnabled(false);
+        changeButton.setClickable(false);
+        askButton.setText(res.getString(R.string.already_asked));
         if(!members.get(groupPosition).getName().equals(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()))
         {
-            askButton.setEnabled(true);
-            askButton.setClickable(true);
             changeButton.setEnabled(true);
             changeButton.setClickable(true);
-            if(isAsked){
-                askButton.setEnabled(false);
-                askButton.setClickable(false);
-                askButton.setText(res.getString(R.string.already_asked));
-            }
-            else{
+            if(!isAsked){
+                askButton.setEnabled(true);
+                askButton.setClickable(true);
+                askButton.setText(res.getString(R.string.askState));
                 askButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         FirebaseDatabase.getInstance().getReference().child("group").child(groupId).child("members").child(indexMember).child("asked").setValue(true);
-                        //TODO- then send notification
-                        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                    }
+                });
+            }
+            if(child.getSelfState()!=null&&child.getSelfState().getState()==0){
+                localiseButton.setEnabled(true);
+                localiseButton.setClickable(true);
+                localiseButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(mContext, MapsActivity.class);
+                        i.putExtra("USER_ID", indexMember);
+                        i.putExtra("GROUP_ID", groupId);
+                        mContext.startActivity(i);
                     }
                 });
             }
@@ -208,12 +222,6 @@ public class ExpandableMemberAdapter extends BaseExpandableListAdapter {
                     cdd.show();
                 }
             });
-        } else {
-            askButton.setEnabled(false);
-            askButton.setClickable(false);
-            changeButton.setEnabled(false);
-            changeButton.setClickable(false);
-
         }
         return expandedListItem;
     }
