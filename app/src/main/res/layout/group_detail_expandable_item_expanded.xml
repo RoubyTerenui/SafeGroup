@@ -36,4 +36,14 @@
         app:layout_constraintStart_toEndOf="@+id/askButton"
         app:layout_constraintTop_toBottomOf="@+id/memberDescription" />
 
+    <Button
+        android:id="@+id/localiseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/localise_user"
+        app:layout_constraintStart_toEndOf="@+id/changeButton"
+        app:layout_constraintTop_toBottomOf="@+id/memberDescription" />
+
 </android.support.constraint.ConstraintLayout>

@@ -3,9 +3,11 @@ package com.project.safegroup.GroupSelection;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,8 @@ public class GroupSelection extends Fragment {
     private static ListView groupList; //View of the groups available
     private static ArrayList<GroupSelectionData> groupDatas = new ArrayList<>(); //List of the groups available
     private static Context mContext;
+    private DatabaseReference userGroupRef;
+    private ValueEventListener grouplistener;
 
     @Nullable
     @Override
@@ -86,10 +90,8 @@ public class GroupSelection extends Fragment {
 
         //Reference to the database
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("groups");
-
-        //Add an event to load group data and load the group view
-        ref.addValueEventListener(new ValueEventListener() {
+        userGroupRef = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("groups");
+        grouplistener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 groupDatas = new ArrayList<>();
@@ -106,7 +108,8 @@ public class GroupSelection extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("PROBLEME DE CONNEXION");
             }
-        });
+        };
+        userGroupRef.addValueEventListener(grouplistener);
     }
 
     private boolean isSelection(ArrayList<GroupSelectionData> groupDatas){
@@ -130,5 +133,10 @@ public class GroupSelection extends Fragment {
         return groupIdToSend;
     }
 
-
+    @Override
+    public void onDestroy() {
+        Log.d("removed","USERGROUP");
+        userGroupRef.removeEventListener(grouplistener);
+        super.onDestroy();
+    }
 }

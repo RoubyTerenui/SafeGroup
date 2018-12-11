@@ -46,10 +46,12 @@ import dataBase.model.User;
 public class GroupDetailExpandableFragment extends Fragment {
     private static final String TAG = "com.louis.safegroup.GroupDetailExpandableFragment";
     private static ExpandableListView groupList;
-    private static ArrayList<MemberData> groupDatas = new ArrayList<>();
-    private static ArrayList<DescriptionData> groupDescriptions = new ArrayList<>();
+    private ArrayList<MemberData> groupDatas = new ArrayList<>();
+    private ArrayList<DescriptionData> groupDescriptions = new ArrayList<>();
     public static final String ARG_ITEM_ID = "item_id";
     private GroupData mItem;
+    private ValueEventListener groupListener;
+    private DatabaseReference groupRef;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,12 +128,12 @@ public class GroupDetailExpandableFragment extends Fragment {
     }
 
     public void loadDatas(){
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("group").child(mItem.getGroupID());
-            ref.addValueEventListener(new ValueEventListener() {
+            groupRef = FirebaseDatabase.getInstance().getReference().child("group").child(mItem.getGroupID());
+            groupListener = new ValueEventListener(){
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot){
-                        groupDatas =new ArrayList<>();
-                        groupDescriptions= new ArrayList<>();
+                    groupDatas =new ArrayList<>();
+                    groupDescriptions= new ArrayList<>();
                     for (DataSnapshot members:dataSnapshot.child("members").getChildren()) {
                         int state = ((Long)members.child("state").getValue()).intValue();
                         String name =((String) members.child("name").getValue());
@@ -164,6 +166,14 @@ public class GroupDetailExpandableFragment extends Fragment {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
-            });
+            };
+            groupRef.addValueEventListener(groupListener);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d("removed","GROUP");
+        groupRef.removeEventListener(groupListener);
+        super.onDestroy();
     }
 }

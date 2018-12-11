@@ -70,4 +70,7 @@
     <string name="confirm_add_wifi">Voulez-vous ajouter le réseau \'%1$s\' comme wifi de référence ? \nAttention, lorsque vous serez à proximité, vous serez identifié comme étant \"proche d\'un lieu de sureté.\"</string>
     <string name="delete_wifi">Supprimer le réseau wifi domicile</string>
     <string name="confirm_delete_wifi">Vouslez-vous supprimer le wifi de référence ?</string>
+    <string name="localisation_description">De %1$s le %2$s</string>
+    <string name="localisation_distance">A %1$s de vous</string>
+    <string name="localise_user">Localiser</string>
 </resources>

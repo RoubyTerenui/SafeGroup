@@ -1,7 +1,13 @@
 package com.project.safegroup;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +17,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenu;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +46,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import dataBase.model.SelfState;
 import dataBase.model.User;
@@ -58,9 +67,11 @@ public class MainActivity extends AppCompatActivity {
     private int localStatePrecision;
     private int localGroup;
     // ---User connected to the app---
-   // private User logged_User;
+    // private User logged_User;
     // ---Reference to access to the DataBase---
     private DatabaseReference mDatabaseReference;
+    private LocationListener locationListener;
+    private LocationManager locationManager;
 
 
     //  ---Identifier for Sign-In/Sign-Out and DeleteUser---
@@ -89,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mDatabaseReference= FirebaseDatabase.getInstance().getReference();
+        this.mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         checkLogin();
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -98,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void checkLogin(){
+    public void checkLogin() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // User is signed in
@@ -107,10 +118,11 @@ public class MainActivity extends AppCompatActivity {
             startSignInActivity();
         }
     }
-    private void configureAndShowMainFragment(){
 
-        mainFragment =  getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
-        problemQuad= new ProblemQuad();
+    private void configureAndShowMainFragment() {
+
+        mainFragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
+        problemQuad = new ProblemQuad();
         dangerQuad = new DangerQuad();
         safeQuad = new SafeQuad();
         groupQuad = new GroupQuad();
@@ -126,41 +138,49 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setState(int state){ localState = state; }
-
-    public void setStatePrecision(int statePrecision){
-        localStatePrecision=statePrecision;
+    public void setState(int state) {
+        localState = state;
     }
 
-    public void setGroup(int group){localGroup=group;}
+    public void setStatePrecision(int statePrecision) {
+        localStatePrecision = statePrecision;
+    }
 
-    public void setFragment(int fragId){
+    public void setGroup(int group) {
+        localGroup = group;
+    }
+
+    public void setFragment(int fragId) {
         switch (fragId) {
             case 0:
-                    getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 break;
-            case 1:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,dangerQuad).addToBackStack("begin").commit();
+            case 1:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main, dangerQuad).addToBackStack("begin").commit();
                 break;
-            case 2:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,problemQuad).addToBackStack("begin").commit();
+            case 2:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main, problemQuad).addToBackStack("begin").commit();
                 break;
-            case 3:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,safeQuad).addToBackStack("begin").commit();
+            case 3:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main, safeQuad).addToBackStack("begin").commit();
                 break;
-            case 4:  getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,groupQuad).addToBackStack(null).commit();
+            case 4:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main, groupQuad).addToBackStack(null).commit();
                 break;
             case 5:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,groupSelection).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main, groupSelection).addToBackStack(null).commit();
                 break;
             case 6:
                 getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,notificationRecap).addToBackStack("begin").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main, notificationRecap).addToBackStack("begin").commit();
                 break;
-            case 7 :
+            case 7:
                 getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,optionFragment).addToBackStack("begin").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main, optionFragment).addToBackStack("begin").commit();
                 break;
             case 8:
                 getSupportFragmentManager().popBackStack("begin", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main,groupList).addToBackStack("begin").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout_main, groupList).addToBackStack("begin").commit();
                 break;
             default:
                 break;
@@ -168,47 +188,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setNotificationDetail(){
+    public void setNotificationDetail() {
         Resources res = getResources();
         String[] state = res.getStringArray(R.array.state);
         String[] preciseState = res.getStringArray(R.array.precise_state);
         String[] group = res.getStringArray(R.array.group);
-        Log.d("group","id-" +localGroup + " /result" + group[localGroup]);
-        String detail = String.format(res.getString(R.string.notification_detail_message),state[localState], preciseState[localStatePrecision],group[localGroup]);
+        String detail = String.format(res.getString(R.string.notification_detail_message), state[localState], preciseState[localStatePrecision], group[localGroup]);
         TextView detailText = (TextView) findViewById(R.id.detail_notification);
         detailText.setText(detail);
     }
 
-    public void setNotificationError(){
+    public void setNotificationError() {
         Resources res = getResources();
         String detail = res.getString(R.string.notification_detail_error);
         TextView detailText = (TextView) findViewById(R.id.detail_notification);
         detailText.setText(detail);
     }
 
-    public void sendGeneralNotificationTo(final boolean favorite,final boolean party){
+    public void sendGeneralNotificationTo(final boolean favorite, final boolean party) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("groups");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<String> groupIds=  new ArrayList<>();
-                for (DataSnapshot data :dataSnapshot.getChildren()) {
-                    Log.d("favorite"," " + favorite +"/" +((boolean)data.child("favorite").getValue()));
-                    if(favorite && !((boolean)data.child("favorite").getValue())){
+                ArrayList<String> groupIds = new ArrayList<>();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (favorite && !((boolean) data.child("favorite").getValue())) {
 
                         break;
                     }
-                    Log.d("party"," " + party +"/" +((boolean)data.child("party").getValue()));
-                    if(party && !((boolean)data.child("party").getValue())){
+                    if (party && !((boolean) data.child("party").getValue())) {
                         break;
                     }
-                    groupIds.add((String)data.child("group_id").getValue());
+                    groupIds.add((String) data.child("group_id").getValue());
                 }
-                setGroup((favorite)?1:(party)?2:0);
+                setGroup((favorite) ? 1 : (party) ? 2 : 0);
                 sendNotificationTo(groupIds);
-
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("PROBLEME DE CONNEXION");
@@ -217,26 +234,75 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void sendNotificationTo(ArrayList<String> groupIds){
-        DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
+    public void sendNotificationTo(ArrayList<String> groupIds) {
+        sendPosition();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("group");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        for (String id:groupIds) {
-            Date date = new Date();
+        for (String id : groupIds) {
             DatabaseReference userReference = mDatabase.child(id).child("members").child(user.getUid());
-
-            userReference.child("last_Update").setValue(date.toString());
+            SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
+            userReference.child("last_Update").setValue(format.format(new Date()));
             userReference.child("state").setValue(localState);
             userReference.child("asked").setValue(false);
             SelfState selfState = new SelfState(localState, localStatePrecision);
-            //userReference.child("selfState").child("state").setValue(localState);
-            //userReference.child("selfState").child("state").setValue(localStatePrecision);
             selfState.pushSelfState_toDataBase(userReference);
-
-            if(localState==0){
-                //recuperer position GPS
-            }
         }
         setFragment(6);
+    }
+
+    private void sendPosition() {
+        if (localState == 0) {
+            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Map<String, Object> ITEM_MAP = new HashMap();
+                    ITEM_MAP.put("long", location.getLongitude());
+                    ITEM_MAP.put("lat", location.getLatitude());
+                    FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("position").setValue(ITEM_MAP);
+                    locationManager.removeUpdates(locationListener);
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+
+                }
+            };
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET}, 10);
+                    return;
+                } else {
+                    locationManager.requestLocationUpdates("gps", 100, 0, locationListener);
+                }
+            } else {
+                locationManager.requestLocationUpdates("gps", 100, 0, locationListener);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 10:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    locationManager.requestLocationUpdates("gps", 100, 0, locationListener);
+                    return;
+                }
+        }
     }
 
     // --- Launch Sign-In Activity ---
