@@ -205,8 +205,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 positionAvailable = true;
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hisCoordinates, 14.0f));
                 if (myMarker != null) {
-                    double distanceEnKm = Math.acos(Math.sin(myCoordinates.latitude) * Math.sin(hisCoordinates.latitude) + Math.cos(myCoordinates.latitude) * Math.cos(hisCoordinates.latitude) * Math.cos(hisCoordinates.longitude - myCoordinates.longitude)) * 6371;
-                    distanceText.setText(String.format(getResources().getString(R.string.localisation_distance), "" + (distanceEnKm * 1000)));
+                    double distanceEnKm = Math.acos(Math.sin(myCoordinates.latitude) * Math.sin(hisCoordinates.latitude) + Math.cos(myCoordinates.latitude) * Math.cos(hisCoordinates.latitude) * Math.cos(hisCoordinates.longitude - myCoordinates.longitude)) * 6371.0;
+                    distanceText.setText(String.format(getResources().getString(R.string.localisation_distance), (Math.round((distanceEnKm<1)?distanceEnKm*1000:distanceEnKm)+((distanceEnKm<1)?"m":"km"))));
                 }
             }
 

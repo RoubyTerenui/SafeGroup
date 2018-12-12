@@ -96,14 +96,12 @@ public class User  {
          */
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
         Map<String,Object > ITEM_MAP = new HashMap<String, Object>();
-        // --- GET A KEY FOR A NEW GROUP ---
-        String newPostKey = mDatabase.child(this.uid).child("groups").push().getKey();
         Map<String,Object> newGroupUser=new HashMap<String,Object>();
         newGroupUser.put("favorite", false);
         newGroupUser.put("party", false);
         newGroupUser.put("name",newGroup.getName());
         newGroupUser.put("group_id",newGroup.getGr_id());
-        ITEM_MAP.put(newPostKey,newGroupUser);
+        ITEM_MAP.put(newGroup.getGr_id(),newGroupUser);
         mDatabase.child("users").child(this.uid).child("groups").updateChildren(ITEM_MAP);
 
 

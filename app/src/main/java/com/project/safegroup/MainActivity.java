@@ -214,11 +214,10 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> groupIds = new ArrayList<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     if (favorite && !((boolean) data.child("favorite").getValue())) {
-
-                        break;
+                        continue;
                     }
                     if (party && !((boolean) data.child("party").getValue())) {
-                        break;
+                        continue;
                     }
                     groupIds.add((String) data.child("group_id").getValue());
                 }

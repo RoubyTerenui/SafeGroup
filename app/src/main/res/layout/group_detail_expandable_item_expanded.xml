@@ -11,12 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Description"
+        android:text="@string/no_description"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:id="@+id/askButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,6 +29,8 @@
         app:layout_constraintTop_toBottomOf="@+id/memberDescription" />
 
     <Button
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:id="@+id/changeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,6 +41,8 @@
         app:layout_constraintTop_toBottomOf="@+id/memberDescription" />
 
     <Button
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:id="@+id/localiseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

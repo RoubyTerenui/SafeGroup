@@ -106,7 +106,6 @@ public class GroupSelection extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("PROBLEME DE CONNEXION");
             }
         };
         userGroupRef.addValueEventListener(grouplistener);
@@ -135,7 +134,6 @@ public class GroupSelection extends Fragment {
 
     @Override
     public void onDestroy() {
-        Log.d("removed","USERGROUP");
         userGroupRef.removeEventListener(grouplistener);
         super.onDestroy();
     }

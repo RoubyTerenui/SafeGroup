@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -44,6 +45,8 @@ public class GroupList extends Fragment {
     private static ListView groupList;
     private static Context mContext;
     private static final int NEWGROUP_LAUNCH = 123;
+    private Button favBut;
+    private Button parBut;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,10 +90,6 @@ public class GroupList extends Fragment {
             }
         });
         DummyContent.create(groupList, this, mContext);
-        /*
-        ArrayList<GroupData> groupdatatest = new ArrayList<>();
-        groupdatatest.add(new GroupData("group","group",false,false));
-        groupList.setAdapter(new GroupDataAdapter(groupdatatest,mContext));*/
         return view;
     }
 

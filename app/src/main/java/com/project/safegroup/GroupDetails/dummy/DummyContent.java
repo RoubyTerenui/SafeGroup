@@ -51,9 +51,7 @@ public class DummyContent {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ITEMS.clear();
                 ITEM_MAP.clear();
-                Log.d(currentID,"trying");
                 for (DataSnapshot children:dataSnapshot.getChildren()) {
-                    Log.d(currentID,((String)children.child("name").getValue()));
                     GroupData groupData = new GroupData(((String)children.child("name").getValue()),((String)children.child("group_id").getValue()),((boolean)children.child("favorite").getValue()),((boolean)children.child("party").getValue()));
                     addItem(groupData);
                     Log.d("dummylenght"," " + DummyContent.ITEMS.size());

@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.safegroup.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import dataBase.model.OtherState;
@@ -90,9 +91,9 @@ public class StateDialog extends Dialog{
     private void sendMessage(int selected){
         DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference().child("group");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            Date date = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
             DatabaseReference userReference = mDatabase.child(idGroup).child("members").child(name);
-            userReference.child("last_Update").setValue(date.toString());
+            userReference.child("last_Update").setValue(format.format(new Date()));
             userReference.child("state").setValue(selected);
             new OtherState(user.getDisplayName(),selected).pushOtherState_toDataBase(userReference);
     }
