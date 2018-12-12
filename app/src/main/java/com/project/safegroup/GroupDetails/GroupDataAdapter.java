@@ -57,7 +57,6 @@ public class GroupDataAdapter extends ArrayAdapter<GroupData> {
         else {
             favoriteButton.setBackground(res.getDrawable(R.drawable.favori_off));
         }
-        ConstraintLayout layout = (ConstraintLayout) listItem.findViewById(R.id.layout);
         if(currentData.isParty()){
             partyButton.setBackground(res.getDrawable(R.drawable.fete_valide));
         }

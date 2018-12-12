@@ -1,6 +1,7 @@
 package com.project.safegroup.GroupSelection;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Movie;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,22 +34,6 @@ public class GroupSelectionDataAdapter  extends ArrayAdapter<GroupSelectionData>
         this.mContext=context;
     }
 
-    /*@Override
-    public void onClick(View v) {
-
-        int position=(Integer) v.getTag();
-        Object object= getItem(position);
-        DataModel dataModel=(DataModel)object;
-
-        switch (v.getId())
-        {
-            case R.id.item_info:
-                Snackbar.make(v, "Release date " +dataModel.getFeature(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                break;
-        }
-    }*/
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -59,17 +45,26 @@ public class GroupSelectionDataAdapter  extends ArrayAdapter<GroupSelectionData>
 
         TextView name = (TextView) listItem.findViewById(R.id.groupName);
         name.setText(currentData.getName());
-
+        Button favoriteButton = (Button) listItem.findViewById(R.id.star);
+        Button partyButton = (Button) listItem.findViewById(R.id.party);
+        Resources res = mContext.getResources();
         if(currentData.isFavorite()) {
-            ImageView star = (ImageView) listItem.findViewById(R.id.star);
-          //  star.setImageResource( parent.getResources().getDrawable(parent.getResources().getIdentifier("favorite_icon", "drawable", getContext().getPackageName())));
+            favoriteButton.setBackground(res.getDrawable(R.drawable.favori_valide));
         }
-        ConstraintLayout layout = (ConstraintLayout) listItem.findViewById(R.id.layout);
-        if(currentData.isSelected()){
-            layout.setBackgroundColor(Color.BLUE);
+        else {
+            favoriteButton.setBackground(res.getDrawable(R.drawable.favori_off));
+        }
+        if(currentData.isParty()){
+            partyButton.setBackground(res.getDrawable(R.drawable.fete_valide));
         }
         else{
-            layout.setBackgroundColor(Color.WHITE);
+            partyButton.setBackground(res.getDrawable(R.drawable.fete_off));;
+        }
+        if(currentData.isSelected()){
+            listItem.setBackgroundColor(mContext.getResources().getColor(R.color.colorBlueButton));
+        }
+        else{
+            listItem.setBackgroundColor(mContext.getResources().getColor(R.color.light_grey_color));
         }
         return listItem;
     }

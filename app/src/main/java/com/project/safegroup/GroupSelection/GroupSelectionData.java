@@ -2,16 +2,18 @@ package com.project.safegroup.GroupSelection;
 
 public class GroupSelectionData {
 
-        String name; //name of the group
-        Boolean selected; //if the user is actually selecting the group
-        Boolean favorite; //will be implemented
-        String Id; //id of the group for the server
+        private String name; //name of the group
+        private boolean selected; //if the user is actually selecting the group
+        private boolean favorite; //will be implemented
+        private String Id; //id of the group for the server
+        private boolean party;
 
-        public GroupSelectionData(String name, Boolean selected, Boolean favorite,String Id ) {
+        public GroupSelectionData(String name, boolean selected, boolean favorite,String id,boolean party ) {
             this.name=name;
             this.selected=selected;
             this.favorite=favorite;
-            this.Id=Id;
+            this.party=party;
+            this.Id=id;
         }
 
         public String getName() {
@@ -21,13 +23,16 @@ public class GroupSelectionData {
         return Id;
     }
 
-        public Boolean isSelected() {
+        public boolean isSelected() {
             return selected;
         }
 
-        public Boolean isFavorite() {
+        public boolean isFavorite() {
             return favorite;
         }
+        public boolean isParty() {
+        return party;
+    }
         public Boolean select(){
             this.selected=!(this.selected);
             return this.selected;

@@ -67,18 +67,20 @@ public class GroupSelection extends Fragment {
                                     int position, long id) {
                 if(groupDatas.get(position).select())
                 {
-                    view.setBackgroundColor(getResources().getColor(R.color.colorBlueButton));
+                   view.setBackgroundColor(getResources().getColor(R.color.colorBlueButton));
                 }
                 else
                 {
-                    view.setBackgroundColor(Color.WHITE);
+                    view.setBackgroundColor(getResources().getColor(R.color.light_grey_color));
                 }
                 if(isSelection(groupDatas)){
                     sendButton.setClickable(true);
+                    sendButton.setEnabled(true);
                     sendButton.setBackgroundColor(Color.LTGRAY);
                 }
                 else{
                     sendButton.setClickable(false);
+                    sendButton.setEnabled(false);
                     sendButton.setBackgroundColor(Color.DKGRAY);
                 }
             }
@@ -96,10 +98,11 @@ public class GroupSelection extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 groupDatas = new ArrayList<>();
                 for (DataSnapshot data :dataSnapshot.getChildren()) {
-                    Boolean favori = data.child("favorite").getValue(Boolean.class);
+                    boolean favorite = data.child("favorite").getValue(Boolean.class);
                     String id = data.child("group_id").getValue(String.class);
                     String name = data.child("name").getValue(String.class);
-                    groupDatas.add(new GroupSelectionData(name,false,favori,id));
+                    boolean party = data.child("party").getValue(Boolean.class);
+                    groupDatas.add(new GroupSelectionData(name,false,favorite,id,party));
                 }
                 GroupSelectionDataAdapter adapter = new GroupSelectionDataAdapter(groupDatas,mContext);
                 groupList.setAdapter(adapter);
@@ -108,7 +111,7 @@ public class GroupSelection extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         };
-        userGroupRef.addValueEventListener(grouplistener);
+        userGroupRef.addListenerForSingleValueEvent(grouplistener);
     }
 
     private boolean isSelection(ArrayList<GroupSelectionData> groupDatas){
@@ -130,11 +133,5 @@ public class GroupSelection extends Fragment {
             }
         }
         return groupIdToSend;
-    }
-
-    @Override
-    public void onDestroy() {
-        userGroupRef.removeEventListener(grouplistener);
-        super.onDestroy();
     }
 }
