@@ -48,7 +48,8 @@ public class WifiActivity extends AppCompatActivity {
                 Log.d("wifi", "SSID = " + wifiInfo.getSSID());
 
 
-                if (networkid == null) {
+                Log.d("wifiManager.g" ,Integer.toString(wifiManager.getWifiState()));
+                if (wifiManager.getWifiState() != WifiManager.WIFI_STATE_ENABLED) {
                     Toast.makeText(getBaseContext(), getString(R.string.please_connect_wifi), Toast.LENGTH_SHORT);
                 } else {
 

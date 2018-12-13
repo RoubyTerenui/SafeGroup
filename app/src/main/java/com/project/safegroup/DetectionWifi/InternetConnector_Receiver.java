@@ -22,6 +22,7 @@ import java.util.Date;
 
 public class InternetConnector_Receiver extends BroadcastReceiver {
 	public InternetConnector_Receiver() {
+		Log.d("internetConnextor", "Constructeur vide");
 	}
 
 	@Override
@@ -64,31 +65,37 @@ public class InternetConnector_Receiver extends BroadcastReceiver {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-            	Log.d("parametre wifiId", wifiId);
                 String wifi = dataSnapshot.child("users").child(FirebaseAuth.getInstance().getUid()).child("wifi").getValue(String.class);
 
                 if(wifiId.equals(wifi)){
-					Log.d("WIFI", "Il s'agit du wifi home de l'utilisateur, changement de l'etat à 'safe' (a implementer)");
 
 					//recupération des groups de l'utilisateur
 					ArrayList<String> groups = new ArrayList<>();
 					Iterable<DataSnapshot> it = dataSnapshot.child("users").child(FirebaseAuth.getInstance().getUid()).child("groups").getChildren();
 					for(DataSnapshot data : it){
-						Log.d("Group", data.child("group_id").getValue(String.class));
 						groups.add(data.child("group_id").getValue(String.class));
 					}
 
 					//Pour chaque groupe
 					for(String group : groups){
 						long state = dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("state").getValue(Long.class);
-						if(state == 2){
+						if(state == 0){
+							Log.d("State", "L'etat a été changé pour l'utilisateur dans ce groupe car son état était \"en danger\"");
+
 							//Changer l'etat pour 'dans un lieu sur'
-							dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("state").getRef().setValue(1);
+							dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("selfState").child("state").getRef().setValue(2);
+							dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("selfState").child("stateDescription").getRef().setValue(8);
+							dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("selfState").child("date").getRef().setValue(new Date().toString());
+
+							dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("state").getRef().setValue(2);
 							dataSnapshot.child("group").child(group).child("members").child(FirebaseAuth.getInstance().getUid()).child("last_Update").getRef().setValue(new Date().toString());
+
 						}
 					}
                 }
             }
+
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("PROBLEME DE CONNEXION");
