@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.project.safegroup.GroupDetails.GroupDetailsExpandable.GroupDetailExpandableFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -91,10 +92,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.mDatabaseReference= FirebaseDatabase.getInstance().getReference();
         checkLogin();
+        mDatabaseReference.child("clean").setValue(true);
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         this.configureAndShowMainFragment();
+
     }
 
 
@@ -223,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
         for (String id:groupIds) {
             Date date = new Date();
             DatabaseReference userReference = mDatabase.child(id).child("members").child(user.getUid());
-
-            userReference.child("last_Update").setValue(date.toString());
+            SimpleDateFormat format = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss");
+            userReference.child("last_Update").setValue(format.format(date));
             userReference.child("state").setValue(localState);
             userReference.child("asked").setValue(false);
             SelfState selfState = new SelfState(localState, localStatePrecision);

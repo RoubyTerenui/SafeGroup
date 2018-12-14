@@ -63,8 +63,7 @@ public class OptionFragment extends Fragment {
         String[] values = new String[] {getString(R.string.deconnexion) ,
                 getString(R.string.delete_account),
                 getString(R.string.join_group),
-                getString(R.string.set_wifi),
-                getString(R.string.other_options)
+                getString(R.string.set_wifi)
         };
 
 
@@ -208,7 +207,7 @@ public class OptionFragment extends Fragment {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
+                if (dataSnapshot.child("name").getValue()!=null) {
                     Group group = new Group();
                     group.setGr_id(dataSnapshot.getKey());
                     group.setName(dataSnapshot.child("name").getValue(String.class));
