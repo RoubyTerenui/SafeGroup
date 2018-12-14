@@ -103,10 +103,5 @@ public class User  {
         newGroupUser.put("group_id",newGroup.getGr_id());
         ITEM_MAP.put(newGroup.getGr_id(),newGroupUser);
         mDatabase.child("users").child(this.uid).child("groups").updateChildren(ITEM_MAP);
-
-
     }
-
-
-
 }
