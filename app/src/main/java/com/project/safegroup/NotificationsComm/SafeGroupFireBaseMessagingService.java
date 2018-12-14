@@ -44,7 +44,7 @@ public class SafeGroupFireBaseMessagingService extends FirebaseMessagingService 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if(remoteMessage.getData().size()>0) {
-            Map<String , String >payload = remoteMessage.getData();
+            Map<String , String > payload = remoteMessage.getData();
             if(payload.get("username")!=null) {
                 System.out.println("messssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
                 System.out.println("name" + payload.get("username"));
@@ -52,9 +52,19 @@ public class SafeGroupFireBaseMessagingService extends FirebaseMessagingService 
                 showNotification(payload);
             }
             else{
-                System.out.println("askkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-                System.out.println("name" + payload.get("groupName"));
-                showNotificationBis(payload);
+                if(payload.get("groupName")!=null){
+                    System.out.println("askkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+                    System.out.println("name" + payload.get("groupName"));
+                    showNotificationBis(payload);
+                }
+                else{
+                    if(payload.get("unknown")!=null){
+                        System.out.println("Updaaaaaaaaaaaaaattttttttteeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                        System.out.println("name" + payload.get("state"));
+                        showNotificationV3(payload);
+                    }
+                }
+
             }
         }
     }
@@ -68,8 +78,8 @@ public class SafeGroupFireBaseMessagingService extends FirebaseMessagingService 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)
-                .setContentTitle("Notification from "+ payload.get("username"))
-                .setContentText(" State is " + payload.get("newState"))
+                .setContentTitle(getResources().getString(R.string.titlenotificationState,payload.get("username")))
+                .setContentText(getResources().getString(R.string.notificationDangerState,payload.get("username")))
                 .setSound(defaultSoundUri)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -96,8 +106,37 @@ public class SafeGroupFireBaseMessagingService extends FirebaseMessagingService 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)
-                .setContentTitle("Notification from "+ payload.get("groupName"))
-                .setContentText("What is your State")
+                .setContentTitle(getResources().getString(R.string.titlenotificationState, payload.get("groupName")))
+                .setContentText(getResources().getString(R.string.notificationAskedState, payload.get("groupName")))
+                .setSound(defaultSoundUri)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager manager = (NotificationManager) getSystemService(getBaseContext().NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "YOUR_CHANNEL_ID";
+            NotificationChannel channel = new NotificationChannel(channelId,
+                    "SafeGroupChannel",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(channel);
+            builder.setChannelId(channelId);
+        }
+        manager.notify(0,builder.build());
+
+    }
+
+    private void showNotificationV3(Map<String,String > payload) {
+
+        Intent i = new Intent(this,MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,i, PendingIntent.FLAG_UPDATE_CURRENT);
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setAutoCancel(true)
+                .setContentTitle(getResources().getString(R.string.titlenotificationState,"SafeGroup"))
+                .setContentText(getResources().getString(R.string.notificationUnresolvedState))
                 .setSound(defaultSoundUri)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -126,13 +165,13 @@ public class SafeGroupFireBaseMessagingService extends FirebaseMessagingService 
                 // i.e. store it on SharedPreferences or DB
                 // or directly send it to server
                 DatabaseReference ref= FirebaseDatabase.getInstance().getReference();
-                String refreshToken = instanceIdResult.getToken();
+                final String refreshToken = instanceIdResult.getToken();
                 ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("token").setValue(refreshToken);;
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot){
                         for (DataSnapshot childy:dataSnapshot.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("groups").getChildren()) {
-                            dataSnapshot.child("groups").child((String)childy.child("group_id").getValue()).child("members").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            dataSnapshot.child("groups").child((String)childy.child("group_id").getValue()).child("members").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("token").getRef().setValue(refreshToken);
                         }
 
                     }

@@ -125,4 +125,8 @@
     <string name="confirm_add_wifi">Do you want to add the wifi network \'%1$s\' as your home wifi network ? \nPlease note that when you will be connected to this network, you will be identified as being \"in a safe place.\"</string>
     <string name="delete_wifi">Delete home wifi network</string>
     <string name="confirm_delete_wifi">Are you sure you want to delete your home wifi network ?</string>
+    <string name="titlenotificationState">"Notification from  %1$s"</string>
+    <string name="notificationDangerState">%1$s is in danger</string>
+    <string name="notificationUnresolvedState">Your state have been updated to unknown</string>
+    <string name="notificationAskedState">A member of %1$s asked what your state was</string>
 </resources>
